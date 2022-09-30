@@ -14,7 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    echo "test commit";
-    echo "test new branch";
     return view('welcome');
 });
