@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="icon" href="{{ URL::asset('favicon.ico') }}">
+
+    @vite(['resources/js/test.js'])
 </head>
 
 <body>
@@ -15,6 +17,5 @@
 
 </body>
 
-<script type="text/javascript" src="{!! HTML::script('js/test.js') !!}"></script>
 
 </html>
