@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
+use App\Models\RegistrationData;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +20,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
+
+Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');
+
+Route::post('/register-user', [AuthenticationController::class, 'register'])->name('register.member');
