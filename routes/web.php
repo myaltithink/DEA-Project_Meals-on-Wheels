@@ -27,11 +27,13 @@ Route::get('/register', function () {
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
-Route::get('/dashboard', function () {
+Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
+
+Route::get('/dashboard', ['middleware' => 'auth', function () {
     return view('dashboard');
-});
+}]);
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 

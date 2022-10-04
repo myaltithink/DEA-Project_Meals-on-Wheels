@@ -1,36 +1,33 @@
 <div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
-<ul id="m-navigation-links" class="page-load d-md-none">
-    <div id="m-close-nav">
-        <i id="close-navigation" class="fa fa-close fa-2x" onclick="handleNavigation('close')"></i>
-    </div>
-    <li><a href="" class="d-block nav-item-link">Home</a></li>
-    <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
-    <li><a href="" class="d-block nav-item-link">Donation</a></li>
-    <li><a href="/login" class="d-block nav-item-link">Login</a></li>
-    <li><a href="/register" class="d-block nav-item-link">Register</a></li>
-</ul>
+
 <header class="d-flex justify-content-between">
     <div class="logo">
         <img src="{{ Vite::asset('resources/images/logo.png') }}" class="rounded m-2 " alt="logo" height="50"
             width="50">
     </div>
-    <div class="d-flex align-items-center">
-        <i id="open-navigation" class=" d-md-none fa fa-bars fa-2x m-3" onclick="handleNavigation('open')"></i>
 
-        <ul id="navigation-links" class="d-none d-md-flex">
-            <li><a href="" class="d-block nav-item-link">Home</a></li>
-            <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
-            <li><a href="" class="d-block nav-item-link">Donation</a></li>
+    <i id="open-navigation" class="d-md-none fa fa-bars fa-2x m-3" onclick="handleNavigation('open')"></i>
+    <ul id="navigation-links" class="page-load d-md-flex">
+        <div id="m-close-nav" class="d-md-none">
+            <i id="close-navigation" class="fa fa-close fa-2x" onclick="handleNavigation('close')"></i>
+        </div>
+        <li><a href="" class="d-block nav-item-link">Home</a></li>
+        <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
+        <li><a href="" class="d-block nav-item-link">Donation</a></li>
+
+        @if (Auth::hasUser())
+            <li><a href="/logout" class="d-block nav-item-link">Logout</a></li>
+        @else
             <li><a href="/login" class="d-block nav-item-link">Login</a></li>
             <li><a href="/register" class="d-block nav-item-link">Register</a></li>
-        </ul>
-    </div>
+        @endif
+    </ul>
 </header>
 
 <script>
     window.addEventListener("resize", () => {
         if (window.innerWidth > 767) {
-            const navigation = document.getElementById("m-navigation-links");
+            const navigation = document.getElementById("navigation-links");
             const bg = document.getElementById("nav-bg");
 
             bg.classList.remove('d-block')
@@ -41,7 +38,7 @@
     })
 
     function handleNavigation(action) {
-        const navigation = document.getElementById("m-navigation-links");
+        const navigation = document.getElementById("navigation-links");
         const bg = document.getElementById("nav-bg");
         switch (action) {
             case "open":
