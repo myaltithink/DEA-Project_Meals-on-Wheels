@@ -26,27 +26,27 @@ Route::get('/', function () {
 // });
 
 //better if closure is assigned to controllers even the get method
-Route::group(['prefix'=>'/register', 'middleware'=>['guest']], function(){
-    Route::get('/',function(){
+Route::group(['prefix' => '/register', 'middleware' => ['guest']], function () {
+    Route::get('/', function () {
         return view('registration.member');
     });
-    Route::get('member',function(){
+    Route::get('member', function () {
         return view('registration.member');
     });
-    Route::get('volunteer',function(){
+    Route::get('volunteer', function () {
         return view('registration.volunteer');
     });
-    Route::get('partner',function(){
+    Route::get('partner', function () {
         return view('registration.partner');
     });
-    Route::get('caregiver',function(){
+    Route::get('caregiver', function () {
         return view('registration.caregiver');
     });
 });
 
 Route::get('/login', function () {
     return view('login');
-})->middleware(['guest']);
+})->middleware(['guest'])->name('login');
 
 Route::get('/home', function () {
     return view('dashboard');
@@ -57,5 +57,3 @@ Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_t
 Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user')->middleware(['guest']);
 
 Route::post('/register-user', [AuthenticationController::class, 'register'])->name('register.member')->middleware(['guest']);
-
-
