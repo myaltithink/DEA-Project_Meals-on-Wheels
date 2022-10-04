@@ -29,6 +29,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
 Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');

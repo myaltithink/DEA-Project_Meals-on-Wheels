@@ -37,7 +37,7 @@ class AuthenticationController extends Controller
                 Log::info('user role ' . print_r($role['role_name'], true));
             }
 
-            return redirect('/');
+            return redirect('/dashboard');
         }
 
         return redirect('/login');
