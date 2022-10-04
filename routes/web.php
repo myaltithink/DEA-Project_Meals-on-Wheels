@@ -52,6 +52,12 @@ Route::get('/home', function () {
     return view('dashboard');
 })->middleware(['auth']);
 
+Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
+
+Route::get('/dashboard', ['middleware' => 'auth', function () {
+    return view('dashboard');
+}]);
+
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
 Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user')->middleware(['guest']);

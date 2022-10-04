@@ -43,6 +43,13 @@ class AuthenticationController extends Controller
         return redirect('/login');
     }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        return redirect('/');
+    }
+
     public function create_auth_test_data()
     {
         $member_test_data = array(
