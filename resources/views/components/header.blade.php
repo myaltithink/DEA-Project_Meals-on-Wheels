@@ -11,7 +11,7 @@
         <div id="m-close-nav" class="d-md-none">
             <i id="close-navigation" class="fa fa-close fa-2x" onclick="handleNavigation('close')"></i>
         </div>
-        <li><a href="" class="d-block nav-item-link">Home</a></li>
+        <li><a href="/" class="d-block nav-item-link">Home</a></li>
         <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
         <li><a href="" class="d-block nav-item-link">Donation</a></li>
 
