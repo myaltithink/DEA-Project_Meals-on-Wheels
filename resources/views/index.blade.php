@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="icon" href="{{ URL::asset('favicon.ico') }}">
-    @vite(['resources/css/app.css', 'node_modules/bootstrap/dist/css/bootstrap.min.css', 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'])
-</head>
-
-<body>
-    @include('components.header')
-
+@section('content')
     <img src="{{ Vite::asset('resources/images/hero-banner.webp') }}" alt="hero banner" />
-
-</body>
-
-
-</html>
+@endsection
