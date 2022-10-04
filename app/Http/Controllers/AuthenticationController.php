@@ -9,6 +9,7 @@ use App\Models\Profile;
 use App\Models\RegistrationData;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\user_roles;
 use App\Models\VolunteerDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,11 @@ class AuthenticationController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            Log::info('authentication obj ' . print_r(Auth::user()));
+            $user = Auth::user();
+
+            foreach ($user->roles as $role) {
+                Log::info('user role ' . print_r($role['role_name'], true));
+            }
 
             return redirect('/');
         }

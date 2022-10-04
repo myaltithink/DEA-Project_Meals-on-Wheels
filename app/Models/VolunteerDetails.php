@@ -9,6 +9,7 @@ class VolunteerDetails extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'volunteer_id';
     protected $fillable = [
         'volunteer_name',
         'volunteer_role',

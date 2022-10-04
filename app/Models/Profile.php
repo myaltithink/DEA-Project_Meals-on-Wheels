@@ -11,6 +11,7 @@ class Profile extends Model
 
     protected $table = 'individual_profile';
 
+    protected $primaryKey = 'profile_id';
 
     protected $fillable = [
         'first_name',

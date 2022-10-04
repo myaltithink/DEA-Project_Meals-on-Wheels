@@ -9,6 +9,7 @@ class PartnerDetails extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'partner_id';
     protected $fillable = [
         'partner_name',
         'partner_registered_by',

@@ -9,6 +9,7 @@ class MemberDetails extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'member_id';
     protected $fillable = [
         'proof_of_eligebility',
         'needs',

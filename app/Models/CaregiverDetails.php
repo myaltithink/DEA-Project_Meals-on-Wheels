@@ -9,6 +9,7 @@ class CaregiverDetails extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'caregiver_id';
     protected $fillable = [
         'assigned_member_name',
         'assigned_member_email'
