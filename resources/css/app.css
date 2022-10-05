@@ -72,7 +72,6 @@ header {
 }
 .pointer::after{
     content: "";
-    z-index: -1;
     width: 0;
 	height: 0;
     position: absolute;
@@ -88,14 +87,18 @@ header {
     display: none;
     position: absolute;
     left: 50%;
+    top: 100%;
     border: 1px solid #555;
     border-radius:0.33rem;
-    top: 100%;
     color: black;
     transform: translateX(-50%);
     width: 10rem;
     opacity: 1;
     transition: all 300ms ease-out;
+}
+
+h3{
+    border: solid 1px black;
 }
 
 .popup.fade{
@@ -126,13 +129,9 @@ header {
     left: 0;
     bottom: 0;
     right: 0;
+    z-index: 1;
     background-color: black;
     opacity: 0.5;
-}
-
-#popup-bg{
-    background-color: rgb(161, 161, 161);
-    z-index: -1;
 }
 
 #m-close-nav{
@@ -142,10 +141,75 @@ header {
     padding-left: 20px;
 }
 
+/*****FOOTER CSS*****/
+
+
+
+footer {
+    padding: 40px 0;
+    color: #4b4c4d;
+    background-color: rgb(82 82 82 / 3%);
+}
+
+footer ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+footer ul a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+footer ul a:hover {
+    opacity: 1;
+}
+
+footer .social {
+    text-align: center;
+    padding-bottom: 25px;
+    height: fit-content;
+}
+
+footer .social a {
+    font-size: 2.5rem;
+    text-decoration: none;
+    height: 4rem;
+    width: 4rem;
+    text-align: center;
+    color: inherit;
+    border-radius: 50px;
+    margin: 0px 10px;
+    transition-duration: 150ms
+}
+
+footer .social a:hover {
+    font-size: 3rem;
+}
+
+footer .copyright {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+
+
+
+/*********************/
+
 @media screen and (max-width: 767px) {
     .nav-item-link {
         width: 100%;
         font-size: 20px;
+        display: block;
     }
 
     #navigation-links {
@@ -157,5 +221,42 @@ header {
         margin: 0;
         height: 100vh;
         width: 40vw;
+    }
+
+    #navigation-links li {
+        display: block;
+        height: fit-content;
+    }
+
+    .popup{
+        left: -103px;
+        top: -10%;
+        width: 13rem;
+    }
+
+    #management-popup{
+        top: -20% !important;
+    }
+
+    .pointer::before{
+        top: 10%;
+        left: 107%;
+        transform: translateX(-50%);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 20px solid #555;
+    }
+
+    .pointer::after{
+        top: 10%;
+        left: 105%;
+        transform: translateX(-50%);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 20px solid rgb(255, 254, 254);
+    }
+
+    .fa-caret-down {
+        transform: rotate(90deg);
     }
 }

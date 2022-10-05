@@ -1,5 +1,5 @@
 <header class="d-flex justify-content-between">
-    <a href="{{ route('home') }}" class="logo">
+    <a @auth href="{{ route('dashboard') }}" @endauth @guest href="{{ route('home') }}" @endguest class="logo">
         <img src="{{ Vite::asset('resources/images/logo.png') }}" class="rounded m-2 " alt="logo" height="50"
             width="50">
     </a>
@@ -23,7 +23,11 @@
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
                 <input type="checkbox" name="support" id="support" class="nav-button-toggle">
                 <label for="support" class="nav-toggler nav-item-link">
-                    Support
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Support</p>
+                    </div>
                     <div class="popup pointer">
                         <div class="card border p-0 m-0 border-0 bg-transparent">
                             <div class="card-body p-0 m-0">
@@ -46,8 +50,12 @@
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
                 <input type="checkbox" name="management" id="management" class="nav-button-toggle">
                 <label for="management" class="nav-toggler nav-item-link">
-                    Management
-                    <div class="popup pointer">
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Management</p>
+                    </div>
+                    <div id="management-popup" class="popup pointer">
                         <div class="card border border-0 p-0 m-0 bg-transparent">
                             <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
@@ -70,7 +78,11 @@
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
                 <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
                 <label for="meals" class="nav-toggler nav-item-link">
-                    Meals
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Meals</p>
+                    </div>
                     <div class="popup pointer">
                         <div class="card border border-0 p-0 m-0 bg-transparent">
                             <div class="card-body p-0 m-0">
@@ -107,6 +119,7 @@
             navigation.classList.remove("show-m-nav")
             navigation.classList.remove("close-m-nav")
         }
+        closeAllPopUp()
     })
 
     function handleNavigation(action) {
