@@ -28,9 +28,15 @@
                         <div class = "card border p-0 m-0 border-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
-                                    <li class="list-group-item list-group-item-action">Contact Us</li>
-                                    <li class="list-group-item list-group-item-action">Donation</li>
-                                    <li class="list-group-item list-group-item-action">About Us</li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="" class="d-block nav-item-link">Contact Us</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="" class="d-block nav-item-link">Donation</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="" class="d-block nav-item-link">About Us</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -45,9 +51,15 @@
                         <div class = "card border border-0 p-0 m-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
-                                    <li class="list-group-item list-group-item-action">Eligibility Assessment</li>
-                                    <li class="list-group-item list-group-item-action">Food Safety</li>
-                                    <li class="list-group-item list-group-item-action">General Management</li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href = "" class="nav-item-link">Eligibility Assessment</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href = "" class="nav-item-link">Food Safety</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href = "" class="nav-item-link">General Management</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -64,14 +76,13 @@
                             <div class ="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "">Meals List</a>
+                                        <a href = "" class="nav-item-link">Meals List</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        Meals Proposal
-                                        <a href = "">Meals Proposal</a>
+                                        <a href = "" class="nav-item-link">Meals Proposal</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="">Orders</a>
+                                        <a href="" class="nav-item-link">Orders</a>
                                     </li>
                                 </ul>
                             </div>
