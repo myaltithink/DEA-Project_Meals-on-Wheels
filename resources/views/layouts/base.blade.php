@@ -25,8 +25,13 @@
 </head>
 
 <body>
+
+    @auth
+    @endauth
+
     @include('components.header')
     @yield('content')
+    @include('components.footer')
 </body>
 
 

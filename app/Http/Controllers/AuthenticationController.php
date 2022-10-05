@@ -139,6 +139,31 @@ class AuthenticationController extends Controller
             'status' => 'Waiting For Approval'
         );
 
+        $rider_test_data = array(
+            //profile info
+            'first_name' => 'Rider',
+            'last_name' => 'Name',
+            'age' => '19',
+            'birthday' => '2003-06-03',
+            'gender' => 'male',
+            'contact_number' => '123-123-123',
+            'address' => '6969 street 420',
+            'valid_id' => 'test id',
+
+            //volunteer data
+            'volunteer_name' => 'Rider Name',
+            'volunteer_role' => 'Rider',
+            'organization_name' => 'Some Org',
+            'organization_address' => '1234 org address',
+
+            //account info
+            'email' => 'rider@gmail.com',
+            'password' => bcrypt('wasdwasd'),
+            'longtitude' => '6.2345',
+            'latitude' => '8.2146',
+            'status' => 'Waiting For Approval'
+        );
+
         //member registration
         $member_account = new User();
         $member_account->fill($member_test_data)->save();
@@ -166,7 +191,10 @@ class AuthenticationController extends Controller
         //volunteer registration
         $volunteer_account = new User();
         $volunteer_account->fill($volunteer_test_data)->save();
-        $volunteer_account->roles()->attach(Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id']);
+        $volunteer_account->roles()->attach([
+            Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id'],
+            Role::where('role_name', 'ROLE_VOLUNTEER_COOK')->get()[0]['id']
+        ]);
         $volunteer_data = new VolunteerDetails();
         $volunteer_data->fill($volunteer_test_data);
         $volunteer_profile = new Profile();
@@ -174,6 +202,23 @@ class AuthenticationController extends Controller
         $volunteer_account
             ->volunteer_details()->save($volunteer_data)
             ->profile()->save($volunteer_profile);
+
+        //rider registration
+        $rider_account = new User();
+        $rider_account->fill($rider_test_data)->save();
+        $rider_account->roles()->attach([
+            Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id'],
+            Role::where('role_name', 'ROLE_VOLUNTEER_RIDER')->get()[0]['id']
+        ]);
+        $rider_data = new VolunteerDetails();
+        $rider_data->fill($rider_test_data);
+        $rider_profile = new Profile();
+        $rider_profile->fill($rider_test_data);
+        $rider_account
+            ->volunteer_details()->save($rider_data)
+            ->profile()->save($rider_profile);
+
+
 
         //partner registration
         $partner_account = new User();
