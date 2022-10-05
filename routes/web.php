@@ -67,15 +67,15 @@ Route::group(
         'middleware' =>
         [
             'auth',
-            'authorizerole:role_volunteer_cook,role_volunteer'
+            'authorizerole:ROLE_VOLUNTEER_COOK,ROLE_VOLUNTEER'
         ]
     ],
-    function(){
+    function () {
         Route::get('/proposal-list', [MealProposalController::class, 'index'])
             ->name('my-proposal-list');
-        Route::get('/create-proposal',[MealProposalController::class, 'create'])
+        Route::get('/create-proposal', [MealProposalController::class, 'create'])
             ->name('add-meal-proposal');
-        Route::get('/edit-proposal',[MealProposalController::class, 'edit'])
+        Route::get('/edit-proposal', [MealProposalController::class, 'edit'])
             ->name('edit-meal-proposal');
     }
 );
