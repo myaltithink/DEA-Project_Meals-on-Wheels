@@ -54,7 +54,7 @@
                     </div>
                 </label>
             </li>
-            <li class="d-block"><a href="/profile" class="nav-item-link">Profile</a></li>
+            <li class="d-block"><a href="{{route('dashboard')}}" class="nav-item-link">Profile</a></li>
             <li class="d-block">
                 <input type = "checkbox" name = "meals" id = "meals" class = "nav-button-toggle" onchange="togglePopup(this)">
                 <label for = "meals" class="nav-toggler nav-item-link">
@@ -63,17 +63,22 @@
                         <div class = "card border border-0 p-0 m-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
-                                    <li class="list-group-item list-group-item-action">Meals</li>
-                                    <li class="list-group-item list-group-item-action">Meals Proposal</li>
-                                    <li class="list-group-item list-group-item-action">Orders</li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href = "">Meals List</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        Meals Proposal
+                                        <a href = "">Meals Proposal</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="">Orders</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </label>
             </li>
-            {{--<li><a href="/Management" class="d-block nav-item-link">Management</a></li>--}}
-            {{-- <li class="d-block"><a href="/meal" class="nav-item-link">Meal</a></li> --}}
             <li class="d-block"><a href="/logout" class="nav-item-link">Logout</a></li>
         @endauth
     </ul>
