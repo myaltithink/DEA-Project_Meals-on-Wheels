@@ -12,10 +12,10 @@
         </a>
     </div>
     <ul class="list-inline">
-        <li class="list-inline-item"><a href="#">Home</a></li>
-        <li class="list-inline-item"><a href="#">Contact Us</a></li>
-        <li class="list-inline-item"><a href="#">About Us</a></li>
-        <li class="list-inline-item"><a href="#">Terms And Condition</a></li>
+        <li class="list-inline-item me-4 ms-4"><a href="#">Home</a></li>
+        <li class="list-inline-item me-4 ms-4"><a href="#">Contact Us</a></li>
+        <li class="list-inline-item me-4 ms-4"><a href="#">About Us</a></li>
+        <li class="list-inline-item me-4 ms-4"><a href="#">Terms And Condition</a></li>
     </ul>
     <p class="copyright">Copyright © Reserved for MerryMeals <br />Developed by Unity One Solutions</p>
 </footer>
