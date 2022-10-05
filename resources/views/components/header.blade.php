@@ -12,12 +12,14 @@
 
         @guest
             {{-- terms and conditions, about us pages missing --}}
-            <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
-            <li><a href="" class="d-block nav-item-link">Donation</a></li>
-            <li><a href="/login" class="d-block nav-item-link">Login</a></li>
-            <li><a href="/register" class="d-block nav-item-link">Register</a></li>
+            <li><a href="/" class="nav-item-link">Home</a></li>
+            <li><a href="" class="nav-item-link">Contact Us</a></li>
+            <li><a href="" class="nav-item-link">Donation</a></li>
+            <li><a href="/login" class="nav-item-link">Login</a></li>
+            <li><a href="/register" class="nav-item-link">Register</a></li>
         @endguest
         @auth
+            <li><a href="/dashboard" class="nav-item-link">Home</a></li>
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
                 <input type="checkbox" name="support" id="support" class="nav-button-toggle">
                 <label for="support" class="nav-toggler nav-item-link">

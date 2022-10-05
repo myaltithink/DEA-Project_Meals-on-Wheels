@@ -48,10 +48,6 @@ Route::get('/login', function () {
     return view('login');
 })->middleware(['guest'])->name('login');
 
-Route::get('/home', function () {
-    return view('dashboard');
-})->middleware(['auth']);
-
 Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
 
 Route::get('/dashboard', ['middleware' => 'auth', function () {
