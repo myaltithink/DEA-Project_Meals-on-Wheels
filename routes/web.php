@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 // Route::get('/register', function () {
 //     return view('register');
@@ -56,7 +56,7 @@ Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 
 
 Route::get('/dashboard', ['middleware' => 'auth', function () {
     return view('dashboard');
-}]);
+}])->name('dashboard');
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
