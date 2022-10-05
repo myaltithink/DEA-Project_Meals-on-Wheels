@@ -10,17 +10,21 @@ header {
 
 .nav-item-link {
     text-decoration: none;
-    color: black;
     padding: 10px 20px;
-    display: block;
+    height: 100%;
+    display: flex;
+    align-items: center;
     width: fit-content;
+    color: black;
+}
+
+#navigation-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 .nav-item-link:hover {
-    text-decoration: none;
     color: rgb(0, 85, 255);
-    padding: 10px 20px;
-    display: block;
-    width: fit-content;
 }
 
 .page-load {
@@ -86,7 +90,7 @@ header {
     left: 50%;
     border: 1px solid #555;
     border-radius:0.33rem;
-    top: 150%;
+    top: 100%;
     color: black;
     transform: translateX(-50%);
     width: 10rem;
@@ -116,7 +120,7 @@ header {
     top {right: -310px;}
 }
 
-#nav-bg{
+#nav-bg, #popup-bg{
     position: fixed;
     top: 0;
     left: 0;
@@ -124,6 +128,11 @@ header {
     right: 0;
     background-color: black;
     opacity: 0.5;
+}
+
+#popup-bg{
+    background-color: rgb(161, 161, 161);
+    z-index: -1;
 }
 
 #m-close-nav{
@@ -143,7 +152,7 @@ header {
         border-left: solid 3px rgb(182, 182, 182);
         background-color: rgb(255, 255, 255);
         position: fixed;
-        z-index: 1;
+        z-index: 2;
         padding: 0;
         margin: 0;
         height: 100vh;

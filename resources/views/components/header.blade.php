@@ -1,7 +1,5 @@
-<div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
-
 <header class="d-flex justify-content-between">
-    <a href=  "{{route('home')}}" class="logo">
+    <a href="{{ route('home') }}" class="logo">
         <img src="{{ Vite::asset('resources/images/logo.png') }}" class="rounded m-2 " alt="logo" height="50"
             width="50">
     </a>
@@ -13,20 +11,20 @@
         </div>
 
         @guest
-            {{--terms and conditions, about us pages missing--}}
+            {{-- terms and conditions, about us pages missing --}}
             <li><a href="" class="d-block nav-item-link">Contact Us</a></li>
             <li><a href="" class="d-block nav-item-link">Donation</a></li>
             <li><a href="/login" class="d-block nav-item-link">Login</a></li>
             <li><a href="/register" class="d-block nav-item-link">Register</a></li>
         @endguest
         @auth
-            <li class="d-block">
-                <input type = "checkbox" name = "support" id = "support" class = "nav-button-toggle" onchange="togglePopup(this)">
-                <label for = "support" class="nav-toggler nav-item-link">
+            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="support" id="support" class="nav-button-toggle">
+                <label for="support" class="nav-toggler nav-item-link">
                     Support
-                    <div class = "popup pointer">
-                        <div class = "card border p-0 m-0 border-0 bg-transparent">
-                            <div class ="card-body p-0 m-0">
+                    <div class="popup pointer">
+                        <div class="card border p-0 m-0 border-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
                                         <a href="" class="d-block nav-item-link">Contact Us</a>
@@ -43,22 +41,22 @@
                     </div>
                 </label>
             </li>
-            <li class="d-block">
-                <input type = "checkbox" name = "management" id = "management" class = "nav-button-toggle" onchange="togglePopup(this)">
-                <label for = "management" class="nav-toggler nav-item-link">
+            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="management" id="management" class="nav-button-toggle">
+                <label for="management" class="nav-toggler nav-item-link">
                     Management
-                    <div class = "popup pointer">
-                        <div class = "card border border-0 p-0 m-0 bg-transparent">
-                            <div class ="card-body p-0 m-0">
+                    <div class="popup pointer">
+                        <div class="card border border-0 p-0 m-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "" class="nav-item-link">Eligibility Assessment</a>
+                                        <a href="" class="nav-item-link">Eligibility Assessment</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "" class="nav-item-link">Food Safety</a>
+                                        <a href="" class="nav-item-link">Food Safety</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "" class="nav-item-link">General Management</a>
+                                        <a href="" class="nav-item-link">General Management</a>
                                     </li>
                                 </ul>
                             </div>
@@ -66,20 +64,20 @@
                     </div>
                 </label>
             </li>
-            <li class="d-block"><a href="{{route('dashboard')}}" class="nav-item-link">Profile</a></li>
-            <li class="d-block">
-                <input type = "checkbox" name = "meals" id = "meals" class = "nav-button-toggle" onchange="togglePopup(this)">
-                <label for = "meals" class="nav-toggler nav-item-link">
+            <li><a href="{{ route('dashboard') }}" class="nav-item-link">Profile</a></li>
+            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
+                <label for="meals" class="nav-toggler nav-item-link">
                     Meals
-                    <div class = "popup pointer">
-                        <div class = "card border border-0 p-0 m-0 bg-transparent">
-                            <div class ="card-body p-0 m-0">
+                    <div class="popup pointer">
+                        <div class="card border border-0 p-0 m-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "" class="nav-item-link">Meals List</a>
+                                        <a href="" class="nav-item-link">Meals List</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        <a href = "" class="nav-item-link">Meals Proposal</a>
+                                        <a href="" class="nav-item-link">Meals Proposal</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
                                         <a href="" class="nav-item-link">Orders</a>
@@ -90,10 +88,11 @@
                     </div>
                 </label>
             </li>
-            <li class="d-block"><a href="/logout" class="nav-item-link">Logout</a></li>
+            <li><a href="/logout" class="nav-item-link">Logout</a></li>
         @endauth
     </ul>
 </header>
+<div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
 
 <script>
     window.addEventListener("resize", () => {
@@ -131,16 +130,17 @@
     }
 
     //script for toggling popups
-    function togglePopup(navbox){
-       const navButtons = document.querySelectorAll(".nav-button-toggle");
-       navbox.nextElementSibling.firstElementChild.classList.add("fade");
-       navButtons.forEach(nav => {
-            nav.checked = false;
-        });
-       setTimeout(() => {
-            navbox.checked = true;
-            navbox.nextElementSibling.firstElementChild.classList.remove('fade');
-       }, 500);
+    function togglePopup(caller) {
+        let navbox = caller.firstElementChild;
+        navbox.nextElementSibling.firstElementChild.classList.add("fade");
+        navbox.checked = true;
+        navbox.nextElementSibling.firstElementChild.classList.remove('fade');
+    }
 
+    function closeAllPopUp() {
+        const navButtons = document.getElementsByClassName("nav-button-toggle");
+        for (const nav of navButtons) {
+            nav.checked = false;
+        }
     }
 </script>
