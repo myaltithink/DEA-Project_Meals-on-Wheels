@@ -15,6 +15,13 @@ header {
     display: block;
     width: fit-content;
 }
+.nav-item-link:hover {
+    text-decoration: none;
+    color: rgb(0, 85, 255);
+    padding: 10px 20px;
+    display: block;
+    width: fit-content;
+}
 
 .page-load {
     right: -310px;
@@ -29,6 +36,75 @@ header {
     right: -310px;
     animation: closeNavigation 1s;
 }
+
+/*
+    ADDITIONAL FOR HEADER:
+*/
+.nav-button-toggle{
+    position: absolute;
+    display: none;
+}
+
+.nav-toggler{
+    position:relative;
+    cursor: pointer;
+}
+.pointer{
+    position: relative;
+}
+
+.pointer::before{
+    content: "";
+    z-index: -1;
+    width: 0;
+	height: 0;
+    position: absolute;
+    top:-12%;
+    left: 50%;
+    transform: translateX(-50%);
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 20px solid #555;
+}
+.pointer::after{
+    content: "";
+    z-index: -1;
+    width: 0;
+	height: 0;
+    position: absolute;
+    top:-10%;
+    left: 50%;
+    transform: translateX(-50%);
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+	border-bottom: 19px solid rgb(255, 254, 254);
+}
+
+.popup{
+    display: none;
+    position: absolute;
+    left: 50%;
+    border: 1px solid #555;
+    border-radius:0.33rem;
+    top: 150%;
+    color: black;
+    transform: translateX(-50%);
+    width: 10rem;
+    opacity: 1;
+    transition: all 300ms ease-out;
+}
+
+.popup.fade{
+    transition: all 300ms ease-in;
+    opacity: 0;
+}
+
+.nav-button-toggle:checked + .nav-toggler .popup{
+    display: block;
+}
+
+/********************************/
+
 
 @keyframes openNavigation{
     from {right: -310px;}
