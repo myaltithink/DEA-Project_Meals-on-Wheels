@@ -38,5 +38,4 @@
 
 </form>
     @yield('registration-form')
-
 @endsection

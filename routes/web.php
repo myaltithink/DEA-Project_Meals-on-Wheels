@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MealProposalController;
 use App\Models\RegistrationData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -59,3 +60,22 @@ Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_t
 Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user')->middleware(['guest']);
 
 Route::post('/register-user', [AuthenticationController::class, 'register'])->name('register.member')->middleware(['guest']);
+
+//meal management module for meal proposal
+Route::group(
+    [
+        'middleware' =>
+        [
+            'auth',
+            'authorizerole:role_volunteer_cook,role_volunteer'
+        ]
+    ],
+    function(){
+        Route::get('/proposal-list', [MealProposalController::class, 'index'])
+            ->name('my-proposal-list');
+        Route::get('/create-proposal',[MealProposalController::class, 'create'])
+            ->name('add-meal-proposal');
+        Route::get('/edit-proposal',[MealProposalController::class, 'edit'])
+            ->name('edit-meal-proposal');
+    }
+);
