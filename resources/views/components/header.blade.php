@@ -20,6 +20,7 @@
             <li><a href="/register" class="d-block nav-item-link">Register</a></li>
         @endguest
         @auth
+<<<<<<< Updated upstream
             <li class="d-block">
                 <input type = "checkbox" name = "support" id = "support" class = "nav-button-toggle" onchange="togglePopup(this)">
                 <label for = "support" class="nav-toggler nav-item-link">
@@ -27,6 +28,20 @@
                     <div class = "popup pointer">
                         <div class = "card border p-0 m-0 border-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
+=======
+            <li><a href="/dashboard" class="nav-item-link">Home</a></li>
+              <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="support" id="support" class="nav-button-toggle">
+                <label for="support" class="nav-toggler nav-item-link">
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Support</p>
+                    </div>
+                    <div class="popup pointer">
+                        <div class="card border p-0 m-0 border-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
+>>>>>>> Stashed changes
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
                                         <a href="" class="d-block nav-item-link">Contact Us</a>
@@ -43,6 +58,7 @@
                     </div>
                 </label>
             </li>
+<<<<<<< Updated upstream
             <li class="d-block">
                 <input type = "checkbox" name = "management" id = "management" class = "nav-button-toggle" onchange="togglePopup(this)">
                 <label for = "management" class="nav-toggler nav-item-link">
@@ -50,6 +66,21 @@
                     <div class = "popup pointer">
                         <div class = "card border border-0 p-0 m-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
+=======
+
+            @role('role_admin')
+            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="management" id="management" class="nav-button-toggle">
+                <label for="management" class="nav-toggler nav-item-link">
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Management</p>
+                    </div>
+                    <div id="management-popup" class="popup pointer">
+                        <div class="card border border-0 p-0 m-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
+>>>>>>> Stashed changes
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
                                         <a href = "" class="nav-item-link">Eligibility Assessment</a>
@@ -66,6 +97,7 @@
                     </div>
                 </label>
             </li>
+<<<<<<< Updated upstream
             <li class="d-block"><a href="{{route('dashboard')}}" class="nav-item-link">Profile</a></li>
             <li class="d-block">
                 <input type = "checkbox" name = "meals" id = "meals" class = "nav-button-toggle" onchange="togglePopup(this)">
@@ -74,13 +106,43 @@
                     <div class = "popup pointer">
                         <div class = "card border border-0 p-0 m-0 bg-transparent">
                             <div class ="card-body p-0 m-0">
+=======
+            @endrole
+
+            <li><a href="{{ route('dashboard') }}" class="nav-item-link">Profile</a></li>
+            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
+                <label for="meals" class="nav-toggler nav-item-link">
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-caret-down"></i>
+                        &nbsp;&nbsp;
+                        <p class="m-0">Meals</p>
+                    </div>
+                    <div class="popup pointer">
+                        <div class="card border border-0 p-0 m-0 bg-transparent">
+                            <div class="card-body p-0 m-0">
+>>>>>>> Stashed changes
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
                                         <a href = "" class="nav-item-link">Meals List</a>
                                     </li>
+<<<<<<< Updated upstream
                                     <li class="list-group-item list-group-item-action">
                                         <a href = "" class="nav-item-link">Meals Proposal</a>
                                     </li>
+=======
+                                    @HasAnyRole(['role_admin', 'role_partner', 'role_volunteer_cook'])
+                                        <li class="list-group-item list-group-item-action">
+                                            <a href="
+                                                @role('role_volunteer_cook')
+                                                    {{ route('my-proposal-list') }}
+                                                @endrole
+                                            " class="nav-item-link">
+                                                Meals Proposal
+                                            </a>
+                                        </li>
+                                    @EndHasAnyRoles
+>>>>>>> Stashed changes
                                     <li class="list-group-item list-group-item-action">
                                         <a href="" class="nav-item-link">Orders</a>
                                     </li>
@@ -144,3 +206,4 @@
 
     }
 </script>
+
