@@ -4,19 +4,57 @@
         <div class = "col-md-2 col-0"></div>
         <div class = "col-md-8 col-12">
            <div class = "card shadow-sm p-3">
-               <h1 class="text-uppercase text-center">Add meal</h1>
-                <form class="row gy-3">
+                <div class = "alert alert-info">
+                    <strong>Separate ingredients by "," (Comma).</strong>
+                </div>
+               <h1 class="text-uppercase text-center">Edit Meal</h1>
+                <form class="row gy-3" method="POST" action="{{ route('edit-meal', $plan) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class = "col-12 d-flex justify-content-center">
+                        <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
+                            <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100"/>
+                        </div>
+                    </div>
+
+                    @role('ROLE_PARTNER')
+                    <div class = "col-12">
+                        <label  class = "fw-bold" for = "employee_name">Employee Name</label>
+                        <input class="form-control w-100 @error('employee_name') is-invalid @enderror" name = "employee_name" value="{{ old('employee_name', $plan->proposed_by) }}">
+                        <div class = "invalid-feedback">
+                            @error('employee_name')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                    @endrole
+
                     <div class = "col-12">
                         <label  class = "fw-bold" for = "meal_name">Meal Name</label>
-                        <input class="form-control w-100" name = "meal_name">
+                        <input class="form-control w-100 @error('meal_name') is-invalid @enderror" name = "meal_name" value="{{ old('meal_name', $plan->meal_name) }}">
+                        <div class = "invalid-feedback">
+                            @error('meal_name')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class = "col-12">
                         <label  class = "fw-bold" for = "meal_image">Meal Image</label>
-                        <input class="form-control w-100" name = "meal_image" type="file">
+                        <input class="form-control w-100 @error('meal_image') is-invalid @enderror" name = "meal_image" type="file" accept="image/png, image/gif, image/jpeg">
+                        <div class = "invalid-feedback">
+                            @error('meal_image')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class = "col-12">
                         <label  class = "fw-bold" for = "ingredients">Ingredients</label>
-                        <textarea class="form-control w-100" name = "ingredients" style="height: 10rem"></textarea>
+                        <textarea class="form-control w-100 @error('ingredients') is-invalid @enderror" name = "ingredients" style="height: 10rem"></textarea>
+                        <div class = "invalid-feedback">
+                            @error('ingredients')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class="col-12">
                         <button class ="btn btn-primary w-100">

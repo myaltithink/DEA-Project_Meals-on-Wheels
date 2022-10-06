@@ -73,6 +73,10 @@ class User extends Authenticatable
                     return true;
                 }
             }
+        }else{
+            if($this->hasPermission($role)){
+                return true;
+            }
         }
         return false;
     }

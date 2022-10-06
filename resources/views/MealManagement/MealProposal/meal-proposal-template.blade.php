@@ -2,7 +2,7 @@
 @section('subcontent')
 
     {{--tabs here--}}
-    <div style="width: 100vw; z-index:-1;">
+    <div class="w-100">
         <div class="card border border-0 bg-transparent mx-5 my-4">
             <div class = "card-header bg-transparent border border-0 p-0 m-0">
                 <nav>
@@ -30,7 +30,7 @@
                       </ul>
                 </nav>
             </div>
-            <div class="card-body border border-bottom-0 border-1 rounded-1" style="height: 50rem">
+            <div class="card-body border border-bottom-0 border-1 rounded-1 overflow-auto position-relative" style="height: 50rem; overflow-x:hidden;">
                 @yield('main')
             </div>
             <div class = "card-footer bg-transparent border border-1 border-top-0">
