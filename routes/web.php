@@ -65,12 +65,29 @@ Route::post('/register-user', [AuthenticationController::class, 'register'])->na
 Route::group(
     [
     ],
-    function () {
+    function() {
+
+        //get mappings
         Route::get('/proposal-list', [MealProposalController::class, 'index'])
             ->name('my-proposal-list');
         Route::get('/create-proposal', [MealProposalController::class, 'create'])
             ->name('add-meal-proposal');
-        Route::get('/edit-proposal', [MealProposalController::class, 'edit'])
+        Route::get('/edit-proposal/{mealPlan}', [MealProposalController::class, 'edit'])
             ->name('edit-meal-proposal');
+        Route::get('/view-proposal/{mealPlan}',[MealProposalController::class, 'show'])
+            ->name('view-meal-proposal');
+        //sample data
+        Route::get('/sample-meal-data',[MealProposalController::class, 'testMealPlanData']);
+
+        //post mapping
+        Route::post('/create-meal-proposal', [MealProposalController::class, 'store'])
+            ->name('add-meal');
+        //put mapping
+        Route::put('/edit-meal/{mealPlan}',[MealProposalController::class, 'update'])
+            ->name('edit-meal');
+
+        //delete mapping
+        Route::delete('/delete-meal-proposal/{mealPlan}', [MealProposalController::class, 'destroy'])
+            ->name('delete-meal');
     }
 );
