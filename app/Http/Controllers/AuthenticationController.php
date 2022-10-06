@@ -50,6 +50,20 @@ class AuthenticationController extends Controller
         return redirect('/');
     }
 
+    public function save_image(Request $request)
+    {
+        $uploaded_dir = FileUploadController::upload_file($request->file('file_input'), 'test new uploade', 'new destination');
+
+        Log::info('saved dir ' . $uploaded_dir);
+    }
+
+    public function register(Request $request)
+    {
+        $this->save_image($request);
+
+        //return redirect('/');
+    }
+
     public function create_auth_test_data()
     {
         $member_test_data = array(
@@ -227,11 +241,5 @@ class AuthenticationController extends Controller
         $partner_data = new PartnerDetails();
         $partner_data->fill($partner_test_data);
         $partner_account->partner_details()->save($partner_data);
-    }
-
-
-    public function register(Request $request)
-    {
-        //return redirect('/');
     }
 }
