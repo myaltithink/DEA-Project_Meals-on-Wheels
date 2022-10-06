@@ -88,6 +88,7 @@ header {
     position: absolute;
     left: 50%;
     top: 100%;
+    z-index: 120;
     border: 1px solid #555;
     border-radius:0.33rem;
     color: black;
@@ -129,7 +130,7 @@ h3{
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 1;
+    z-index: 120;
     background-color: black;
     opacity: 0.5;
 }
@@ -216,7 +217,7 @@ footer .copyright {
         border-left: solid 3px rgb(182, 182, 182);
         background-color: rgb(255, 255, 255);
         position: fixed;
-        z-index: 2;
+        z-index: 125;
         padding: 0;
         margin: 0;
         height: 100vh;

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class MealProposalController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER');
+    }
     //viewing meal proposal lists page
     public function index(){
         return view('MealManagement.MealProposal.MealProposalContents.meal-proposal-list');

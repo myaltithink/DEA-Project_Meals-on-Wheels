@@ -65,4 +65,23 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id');
     }
+
+    public function hasAnyRole($role){
+        if(is_array($role)){
+            foreach($role as $rolecheck){
+                if($this->hasPermission($rolecheck)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function hasPermission(string $role){
+        if($this->roles()->where('role_name', $role)->first() != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
