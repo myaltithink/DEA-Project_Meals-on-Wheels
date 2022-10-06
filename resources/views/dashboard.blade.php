@@ -18,7 +18,7 @@
     @endrole
 
     @role('ROLE_VOLUNTEER_COOK')
-        @include('dashboard-content.volunter-cook')
+        @include('dashboard-content.volunteer-cook')
     @endrole
 
     @role('ROLE_VOLUNTEER_RIDER')

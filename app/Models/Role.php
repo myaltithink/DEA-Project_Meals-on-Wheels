@@ -18,4 +18,8 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class, 'user_roles', 'role_id');
     }
+
+    public function findByName(string $role_name){
+        return $this->where('role_name', $role_name);
+    }
 }

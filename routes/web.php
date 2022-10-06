@@ -64,11 +64,6 @@ Route::post('/register-user', [AuthenticationController::class, 'register'])->na
 //meal management module for meal proposal
 Route::group(
     [
-        'middleware' =>
-        [
-            'auth',
-            'authorizerole:ROLE_VOLUNTEER_COOK,ROLE_VOLUNTEER'
-        ]
     ],
     function () {
         Route::get('/proposal-list', [MealProposalController::class, 'index'])

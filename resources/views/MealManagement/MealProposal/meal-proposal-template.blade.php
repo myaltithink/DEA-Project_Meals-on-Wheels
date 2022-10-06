@@ -2,7 +2,7 @@
 @section('subcontent')
 
     {{--tabs here--}}
-    <div style="width: 100vw; z-index:-5">
+    <div style="width: 100vw; z-index:-1;">
         <div class="card border border-0 bg-transparent mx-5 my-4">
             <div class = "card-header bg-transparent border border-0 p-0 m-0">
                 <nav>

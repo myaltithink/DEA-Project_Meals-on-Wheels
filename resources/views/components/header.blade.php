@@ -98,6 +98,9 @@
                                                 @role('ROLE_VOLUNTEER_COOK')
                                                     {{ route('my-proposal-list') }}
                                                 @endrole
+                                                @role('ROLE_PARTNER')
+                                                    {{ route('my-proposal-list') }}
+                                                @endrole
                                             "
                                                 class="nav-item-link">
                                                 Meals Proposal
