@@ -21,7 +21,7 @@
             border-right: none
         }
     </style>
-    @vite(['resources/css/app.css', 'node_modules/bootstrap/dist/css/bootstrap.min.css', 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'])
+    @vite(['resources/css/app.css', 'resources/css/app-mobile.css', 'node_modules/bootstrap/dist/css/bootstrap.min.css', 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'])
 </head>
 
 <body>

@@ -201,63 +201,48 @@ footer .copyright {
     margin-bottom: 0;
 }
 
+#hero-banner {
+    background-image: url('../images/hero-banner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.205);
+    background-blend-mode: multiply;
+    height: 40vh;
+}
 
+#main-content {
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0rem;
+}
 
+#main-content .main-child{
+    justify-content: space-evenly;
+    width: 85vw;
+    margin: 5rem 0rem;
+}
 
-/*********************/
+#main-content .block-content {
+    border: solid 1px black;
+    margin: 0px 20px;
+}
 
-@media screen and (max-width: 767px) {
-    .nav-item-link {
-        width: 100%;
-        font-size: 20px;
-        display: block;
-    }
+#main-content div:nth-child(1){
+    margin-top: 0;
+}
 
-    #navigation-links {
-        border-left: solid 3px rgb(182, 182, 182);
-        background-color: rgb(255, 255, 255);
-        position: fixed;
-        z-index: 125;
-        padding: 0;
-        margin: 0;
-        height: 100vh;
-        width: 40vw;
-    }
+#main-content div:nth-child(2){
+    margin-bottom: 0;
+}
 
-    #navigation-links li {
-        display: block;
-        height: fit-content;
-    }
-
-    .popup{
-        left: -103px;
-        top: -10%;
-        width: 13rem;
-    }
-
-    #management-popup{
-        top: -20% !important;
-    }
-
-    .pointer::before{
-        top: 10%;
-        left: 107%;
-        transform: translateX(-50%);
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 20px solid #555;
-    }
-
-    .pointer::after{
-        top: 10%;
-        left: 105%;
-        transform: translateX(-50%);
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 20px solid rgb(255, 254, 254);
-    }
-
-    .fa-caret-down {
-        transform: rotate(90deg);
-    }
+#main-content .main-child .img-container {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    border-radius: 15px;
+    box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58) inset;
+    -webkit-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58)inset;
+    -moz-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58)inset;
 }
