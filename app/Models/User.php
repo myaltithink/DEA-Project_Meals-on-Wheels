@@ -66,6 +66,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id');
     }
 
+    public function hasRoles($role){
+        if(is_array($role)){
+            foreach($role as $rolecheck){
+                if(!$this->hasPermission($rolecheck)){
+                    return false;
+                }
+            }
+        }else{
+            if(!$this->hasPermission($role)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function hasAnyRole($role){
         if(is_array($role)){
             foreach($role as $rolecheck){

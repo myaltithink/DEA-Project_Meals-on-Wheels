@@ -106,70 +106,70 @@
                                                 Meals Proposal
                                             </a>
                                         </li>
-                                        @EndHasAnyRoles
-                                        <li class="list-group-item list-group-item-action">
-                                            <a href="" class="nav-item-link">Orders</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    @EndHasAnyRoles
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="" class="nav-item-link">Orders</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </label>
-                </li>
-                <li><a href="/logout" class="nav-item-link">Logout</a></li>
-            @endauth
-        </ul>
-    </header>
-    <div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
+                    </div>
+                </label>
+            </li>
+            <li><a href="/logout" class="nav-item-link">Logout</a></li>
+        @endauth
+    </ul>
+</header>
+<div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
 
-    <script>
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 767) {
-                const navigation = document.getElementById("navigation-links");
-                const bg = document.getElementById("nav-bg");
+<script>
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 767) {
+            const navigation = document.getElementById("navigation-links");
+            const bg = document.getElementById("nav-bg");
 
+            bg.classList.remove('d-block')
+            bg.classList.add('d-none')
+            navigation.classList.remove("show-m-nav")
+            navigation.classList.remove("close-m-nav")
+        }
+        closeAllPopUp()
+    })
+
+    function handleNavigation(action) {
+        const navigation = document.getElementById("navigation-links");
+        const bg = document.getElementById("nav-bg");
+        switch (action) {
+            case "open":
+                console.log("open navigation")
+                bg.classList.remove('d-none')
+                bg.classList.add('d-block')
+                navigation.classList.remove("close-m-nav")
+                navigation.classList.add("show-m-nav")
+                break;
+
+            case "close":
+                console.log("close navigation")
                 bg.classList.remove('d-block')
                 bg.classList.add('d-none')
                 navigation.classList.remove("show-m-nav")
-                navigation.classList.remove("close-m-nav")
-            }
-            closeAllPopUp()
-        })
-
-        function handleNavigation(action) {
-            const navigation = document.getElementById("navigation-links");
-            const bg = document.getElementById("nav-bg");
-            switch (action) {
-                case "open":
-                    console.log("open navigation")
-                    bg.classList.remove('d-none')
-                    bg.classList.add('d-block')
-                    navigation.classList.remove("close-m-nav")
-                    navigation.classList.add("show-m-nav")
-                    break;
-
-                case "close":
-                    console.log("close navigation")
-                    bg.classList.remove('d-block')
-                    bg.classList.add('d-none')
-                    navigation.classList.remove("show-m-nav")
-                    navigation.classList.add("close-m-nav")
-                    break;
-            }
+                navigation.classList.add("close-m-nav")
+                break;
         }
+    }
 
-        //script for toggling popups
-        function togglePopup(caller) {
-            let navbox = caller.firstElementChild;
-            navbox.nextElementSibling.firstElementChild.classList.add("fade");
-            navbox.checked = true;
-            navbox.nextElementSibling.firstElementChild.classList.remove('fade');
-        }
+    //script for toggling popups
+    function togglePopup(caller) {
+        let navbox = caller.firstElementChild;
+        navbox.nextElementSibling.firstElementChild.classList.add("fade");
+        navbox.checked = true;
+        navbox.nextElementSibling.firstElementChild.classList.remove('fade');
+    }
 
-        function closeAllPopUp() {
-            const navButtons = document.getElementsByClassName("nav-button-toggle");
-            for (const nav of navButtons) {
-                nav.checked = false;
-            }
+    function closeAllPopUp() {
+        const navButtons = document.getElementsByClassName("nav-button-toggle");
+        for (const nav of navButtons) {
+            nav.checked = false;
         }
-    </script>
+    }
+</script>
