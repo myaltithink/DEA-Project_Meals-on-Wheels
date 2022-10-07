@@ -98,10 +98,6 @@ header {
     transition: all 300ms ease-out;
 }
 
-h3{
-    border: solid 1px black;
-}
-
 .popup.fade{
     transition: all 300ms ease-in;
     opacity: 0;
@@ -214,18 +210,20 @@ footer .copyright {
 #main-content {
     display: flex;
     justify-content: center;
-    margin: 5rem 0rem;
+    margin: 2rem 0rem;
 }
 
 #main-content .main-child{
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 85vw;
-    margin: 5rem 0rem;
+    margin: 5rem 0rem 5rem 0rem;
 }
 
 #main-content .block-content {
-    border: solid 1px black;
-    margin: 0px 20px;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #main-content div:nth-child(1){
@@ -241,8 +239,21 @@ footer .copyright {
     background-size: cover;
     background-position: center;
     height: 350px;
-    border-radius: 15px;
-    box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58) inset;
-    -webkit-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58)inset;
-    -moz-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58)inset;
+    border-radius: 10px;
+    box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58);
+    -moz-box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58);
+    transition-duration: 350ms;
+}
+
+#main-content .main-child .img-container:hover {
+    height: 400px;
+}
+
+.block-content a{
+    text-decoration: none;
+}
+
+.block-content a:hover {
+    text-decoration: underline;
 }
