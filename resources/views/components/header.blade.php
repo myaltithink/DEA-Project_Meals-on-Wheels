@@ -90,7 +90,7 @@
                             <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="" class="nav-item-link">Meals List</a>
+                                        <a href="{{route('meals-list')}}" class="nav-item-link">Meals List</a>
                                     </li>
                                     @HasAnyRole(['ROLE_ADMIN', 'ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
                                         <li class="list-group-item list-group-item-action">

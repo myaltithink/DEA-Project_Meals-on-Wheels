@@ -1,4 +1,4 @@
 @extends('layouts.base')
 @section('content')
-    {{--content here--}}
+    @yield('subcontent')
 @endsection
