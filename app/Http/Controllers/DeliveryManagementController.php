@@ -16,11 +16,35 @@ class DeliveryManagementController extends Controller
         return view('MealManagement.DeliveryManagement.meals-available');
     }
 
-    //rendering order page all roles GET
-    public function index(){
-        return view('');
+    //rendering order page for member and caretaker GET
+    public function ordersForMemberCareTaker(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.mc-order');
     }
 
+    //rendering order page for member and caretaker GET
+    public function ordersForVolunteerPartnerForPreparation(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-prepare');
+    }
+
+    //rendering order page for volunteer and partner for packing GET
+    public function ordersForVolunteerPartnerForPacking(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-pack');
+    }
+
+    //render order page for rider, partner for delivery GET
+    public function ordersForRiderPartnerDelivery(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.rp-order');
+    }
+
+    //rendering order page for admin for assigning orders to partner and volunteer GET
+    public function ordersForAdminAssignVP(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.a-order-prep');
+    }
+
+    //rendering order page for admin assigning orders to riders GET
+    public function ordersForAdminAssignR(){
+        return view('MealManagement.DeliveryManagement.OrdersListContents.a-order-deliver');
+    }
 
     //for members/caregivers to order food POST
     public function orderForMeal(){

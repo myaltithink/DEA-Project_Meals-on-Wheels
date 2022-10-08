@@ -5,8 +5,8 @@
             {{session('success')}}
         </div>
     @endif
-    @forelse ($plans as $plan)
-        <div class ="row p-3 gy-4">
+    <div class ="row p-3 gy-4">
+        @forelse ($plans as $plan)
             <div class = "card col-12">
                 <div class = "card-header border-0 bg-transparent">
                     <div class ="d-flex flex-fill justify-content-lg-end justify-content-center">
@@ -66,9 +66,8 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        @empty
+            @empty
             <div class = "position-absolute start-50 top-50 translate-middle">
                 <div class = "d-flex align-items-center justify-content-center">
                     <h1 class ="display-1 text-muted">
@@ -77,7 +76,8 @@
                 </div>
             </div>
 
-    @endforelse
+        @endforelse
+    </div>
 @endsection
 @section('paginations')
     {{ $plans->links() }}
