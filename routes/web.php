@@ -103,9 +103,29 @@ Route::group(
         Route::get('/meals', [DeliveryManagementController::class, 'meals'])
             ->name('meals-list');
 
-        //rendering order page for all roles
-        Route::get('/orders', [DeliveryManagementController::class, 'index'])
-               ->name('orders');
+        //rendering order page for member and caretaker
+        Route::get('/my-orders', [DeliveryManagementController::class, 'ordersForMemberCareTaker'])
+               ->name('mc-orders');
+
+        //rendering order page for partner and volunteer for preparation
+        Route::get('/to-prepare-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPreparation'])
+               ->name('vp-prep-orders');
+
+        //rendering order page for partner and volunteer for packing
+        Route::get('/to-pack-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPacking'])
+               ->name('vp-pack-orders');
+
+        //rendering order page for riders and parnters for delivery
+        Route::get('/to-deliver-orders', [DeliveryManagementController::class, 'ordersForRiderPartnerDelivery'])
+               ->name('rp-del-orders');
+
+        //rendering order page for assigning meal to partner/volunteer for admin
+        Route::get('/assign-orders', [DeliveryManagementController::class, 'ordersForAdminAssignVP'])
+            ->name('a-prep-orders');
+
+        //rendering order page for assigning meal to partner/volunteer for admin
+        Route::get('/assign-orders-delivery', [DeliveryManagementController::class, 'ordersForAdminAssignR'])
+            ->name('a-del-orders');
 
         //patch process for updating status from preparing to packing
         Route::patch('/update-order-prepared', [DeliveryManagementController::class, 'updateOrderToPrepared'])

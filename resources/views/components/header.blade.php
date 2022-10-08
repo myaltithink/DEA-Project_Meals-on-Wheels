@@ -108,7 +108,31 @@
                                         </li>
                                     @EndHasAnyRoles
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="" class="nav-item-link">Orders</a>
+                                        <a href =
+                                            "
+                                                @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
+                                                    {{ route('mc-orders') }}
+                                                @EndHasAnyRoles
+
+                                                @role('ROLE_VOLUNTEER_RIDER')
+                                                    {{ route('rp-del-orders') }}
+                                                @endrole
+
+                                                @role('ROLE_ADMIN')
+                                                    {{ route('a-prep-orders') }}
+                                                @endrole
+
+                                                @HasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER'])
+                                                    {{ route('vp-prep-orders') }}
+                                                @EndHasAnyRoles
+                                            "
+                                            class =
+                                                "
+                                                    nav-item-link
+                                                "
+                                        >
+                                            Orders
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

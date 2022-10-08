@@ -2,7 +2,7 @@
 @section('main')
     <div class = "row gy-2">
         {{-- For each this column --}}
-        <div class = "card col-12">
+        <div class = "card col-12 px-2 pb-3">
             <div class = "card-header border-0 bg-transparent">
                 <div class ="d-flex flex-fill justify-content-lg-end justify-content-center">
                     <div class = "d-flex">
@@ -24,11 +24,7 @@
                         <h1>Food Name</h1>
                     </div>
                     <div class ="col-12 d-flex">
-                        <strong>Prepared By: </strong>
-                        <span class="ms-2"></span>
-                    </div>
-                    <div class ="col-12 d-flex">
-                        <strong>Delivered By: </strong>
+                        <strong>Ordered By: </strong>
                         <span class="ms-2"></span>
                     </div>
                     <div class ="col-12 d-flex">
@@ -39,15 +35,14 @@
                         <strong>Status: </strong>
                         <span class="ms-2"></span>
                     </div>
-                    <div class ="col-12 d-flex">
-                        <strong>Delivery Date: </strong>
-                        <span class="ms-2"></span>
-                    </div>
-
                 </div>
 
             </div>
-
+            <div class = "card-footer bg-transparent border-0 d-flex justify-content-end">
+                <button class ="btn btn-outline-primary">
+                    Ready for Packaging
+                </button>
+            </div>
         </div>
     </div>
 @endsection

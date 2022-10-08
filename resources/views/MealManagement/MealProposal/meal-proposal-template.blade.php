@@ -13,8 +13,9 @@
                                 @if (Request::url() == route('my-proposal-list'))
                                     active
                                 @endif"
-                                href="{{route('my-proposal-list')}}">
-                                    Proposed Meals
+                                href="{{route('my-proposal-list')}}"
+                            >
+                                Proposed Meals
                             </a>
                         </li>
                         <li class="nav-item">
@@ -23,8 +24,9 @@
                                 @if (Request::url() == route('add-meal-proposal'))
                                 active
                                 @endif"
-                                href="{{route('add-meal-proposal')}}">
-                                    New Meal
+                                href="{{route('add-meal-proposal')}}"
+                            >
+                                New Meal
                             </a>
                         </li>
                       </ul>
