@@ -1,4 +1,4 @@
 @extends('register')
 @section('registration-form')
-<h1>For member</h1>
+    @include('registration.components.account')
 @endsection

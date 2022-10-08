@@ -26,8 +26,6 @@ class AuthenticationController extends Controller
             'password' => ['required'],
         ]);
 
-        Log::info("credentials " . print_r($credentials, true));
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -55,6 +53,21 @@ class AuthenticationController extends Controller
         $uploaded_dir = FileUploadController::upload_file($request->file('file_input'), 'test new uploade', 'new destination');
 
         Log::info('saved dir ' . $uploaded_dir);
+    }
+
+    public function member_registration(Request $request)
+    {
+    }
+
+    public function caregiver_registration(Request $request)
+    {
+    }
+
+    public function partner_registration(Request $request)
+    {
+    }
+    public function volunteer_registration(Request $request)
+    {
     }
 
     public function register(Request $request)

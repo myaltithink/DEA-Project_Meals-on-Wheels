@@ -18,6 +18,9 @@ header {
     color: black;
 }
 
+.nav-item-link:hover {
+    text-decoration: underline;
+}
 #navigation-links li {
     height: 100%;
     display: flex;
@@ -256,4 +259,40 @@ footer .copyright {
 
 .block-content a:hover {
     text-decoration: underline;
+}
+
+#registration-type {
+    width: fit-content;
+    display: flex;
+    margin-left: 10px
+}
+
+#registration-type button {
+    margin: 0;
+    border-radius: 0;
+    border: gray solid 1px;
+    border-right: none;
+    transition-duration: 100ms;
+}
+
+#registration-type a{
+    text-decoration: none;
+}
+
+#registration-type .current-registration {
+    background-color: #0045af;
+    color: white;
+}
+
+#registration-type a button:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+#registration-type a:nth-of-type(4){
+    border-right: gray solid 1px;
+}
+
+.error-message {
+    color: red;
 }

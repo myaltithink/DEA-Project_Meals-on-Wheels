@@ -16,7 +16,7 @@
             <li><a href="" class="nav-item-link">Contact Us</a></li>
             <li><a href="" class="nav-item-link">Donation</a></li>
             <li><a href="/login" class="nav-item-link">Login</a></li>
-            <li><a href="/register" class="nav-item-link">Register</a></li>
+            <li><a href="/register-member" class="nav-item-link">Register</a></li>
         @endguest
         @auth
             <li><a href="/dashboard" class="nav-item-link">Home</a></li>
@@ -90,7 +90,7 @@
                             <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="{{route('meals-list')}}" class="nav-item-link">Meals List</a>
+                                        <a href="{{ route('meals-list') }}" class="nav-item-link">Meals List</a>
                                     </li>
                                     @HasAnyRole(['ROLE_ADMIN', 'ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
                                         <li class="list-group-item list-group-item-action">
@@ -137,63 +137,62 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </label>
-            </li>
-            <li><a href="/logout" class="nav-item-link">Logout</a></li>
-        @endauth
-    </ul>
-</header>
-<div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
+                    </label>
+                </li>
+                <li><a href="/logout" class="nav-item-link">Logout</a></li>
+            @endauth
+        </ul>
+    </header>
+    <div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
 
-<script>
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 767) {
-            const navigation = document.getElementById("navigation-links");
-            const bg = document.getElementById("nav-bg");
+    <script>
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 767) {
+                const navigation = document.getElementById("navigation-links");
+                const bg = document.getElementById("nav-bg");
 
-            bg.classList.remove('d-block')
-            bg.classList.add('d-none')
-            navigation.classList.remove("show-m-nav")
-            navigation.classList.remove("close-m-nav")
-        }
-        closeAllPopUp()
-    })
-
-    function handleNavigation(action) {
-        const navigation = document.getElementById("navigation-links");
-        const bg = document.getElementById("nav-bg");
-        switch (action) {
-            case "open":
-                console.log("open navigation")
-                bg.classList.remove('d-none')
-                bg.classList.add('d-block')
-                navigation.classList.remove("close-m-nav")
-                navigation.classList.add("show-m-nav")
-                break;
-
-            case "close":
-                console.log("close navigation")
                 bg.classList.remove('d-block')
                 bg.classList.add('d-none')
                 navigation.classList.remove("show-m-nav")
-                navigation.classList.add("close-m-nav")
-                break;
-        }
-    }
+                navigation.classList.remove("close-m-nav")
+            }
+            closeAllPopUp()
+        })
 
-    //script for toggling popups
-    function togglePopup(caller) {
-        let navbox = caller.firstElementChild;
-        navbox.nextElementSibling.firstElementChild.classList.add("fade");
-        navbox.checked = true;
-        navbox.nextElementSibling.firstElementChild.classList.remove('fade');
-    }
+        function handleNavigation(action) {
+            const navigation = document.getElementById("navigation-links");
+            const bg = document.getElementById("nav-bg");
+            switch (action) {
+                case "open":
+                    console.log("open navigation")
+                    bg.classList.remove('d-none')
+                    bg.classList.add('d-block')
+                    navigation.classList.remove("close-m-nav")
+                    navigation.classList.add("show-m-nav")
+                    break;
 
-    function closeAllPopUp() {
-        const navButtons = document.getElementsByClassName("nav-button-toggle");
-        for (const nav of navButtons) {
-            nav.checked = false;
+                case "close":
+                    console.log("close navigation")
+                    bg.classList.remove('d-block')
+                    bg.classList.add('d-none')
+                    navigation.classList.remove("show-m-nav")
+                    navigation.classList.add("close-m-nav")
+                    break;
+            }
         }
-    }
-</script>
+
+        //script for toggling popups
+        function togglePopup(caller) {
+            let navbox = caller.firstElementChild;
+            navbox.nextElementSibling.firstElementChild.classList.add("fade");
+            navbox.checked = true;
+            navbox.nextElementSibling.firstElementChild.classList.remove('fade');
+        }
+
+        function closeAllPopUp() {
+            const navButtons = document.getElementsByClassName("nav-button-toggle");
+            for (const nav of navButtons) {
+                nav.checked = false;
+            }
+        }
+    </script>

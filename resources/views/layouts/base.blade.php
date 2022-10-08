@@ -7,27 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'laravel') }}</title>
     <link rel="icon" href="{{ URL::asset('favicon.ico') }}">
-    <style>
-        #registration-type {
-            width: fit-content;
-            display: flex;
-            margin-left: 10px
-        }
+    @vite(['resources/css/app.css', 'resources/css/app-mobile.css', 'resources/js/app.js', 'node_modules/bootstrap/dist/css/bootstrap.min.css', 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'])
 
-        #registration-type button {
-            margin: 0;
-            border-radius: 0;
-            border: gray solid 1px;
-            border-right: none
-        }
-    </style>
-    @vite(['resources/css/app.css', 'resources/css/app-mobile.css', 'node_modules/bootstrap/dist/css/bootstrap.min.css', 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'])
+    @stack('styles')
+
+    @stack('scripts')
+
 </head>
 
 <body>
 
-    @auth
-    @endauth
 
     @include('components.header')
     @yield('content')
