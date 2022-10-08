@@ -1,44 +1,61 @@
 @extends('layouts.base')
 @section('content')
-    <h3>Register</h3>
+    <div id="registration-container">
+        <div class="form-group">
+            <h3>Register</h3>
 
-    <p>Register As</p>
+            <p>Register As</p>
 
-    <div id='registration-type'>
-        <button type="button" class="btn">Member</button>
-        <button type="button" class="btn">Caregiver</button>
-        <button type="button" class="btn">Partner</button>
-        <button type="button" class="btn" style="border-right: solid 1px gray">Volunteer</button>
+            <div id='registration-type'>
+                <a href="/register-member">
+                    <button type="button" class="btn @if (Request::is('register-member')) current-registration @endif">
+                        Member
+                    </button>
+                </a>
+                <a href="/register-caregiver">
+                    <button type="button" class="btn @if (Request::is('register-caregiver')) current-registration @endif">
+                        Caregiver
+                    </button>
+                </a>
+                <a href="/register-partner">
+                    <button type="button" class="btn @if (Request::is('register-partner')) current-registration @endif">
+                        Partner
+                    </button>
+                </a>
+                <a href="/register-volunteer">
+                    <button type="button" class="btn @if (Request::is('register-volunteer')) current-registration @endif">
+                        Volunteer
+                    </button>
+                </a>
+            </div>
+
+        </div>
+
+        <div id="form-content">
+            <form
+                action="
+        @if (Request::is('register-member')) {{ route('register.member') }}
+            @elseif (Request::is('register-caregiver'))
+            {{ route('register.caregiver') }}
+            @elseif (Request::is('registration-partner'))
+            {{ route('register.partner') }}
+            @elseif (Request::is('registration-volunteer'))
+            {{ route('register.volunteer') }} @endif
+        "
+                method="POST" class="form-group" enctype="multipart/form-data">
+
+                <input class="form-control w-100" name="file_input" type="file"
+                    accept="image/png, image/gif, image/jpeg" />
+                @yield('registration-form')
+                <div class="form-control border-0">
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </div>
+                @csrf
+            </form>
+        </div>
     </div>
-    <form action="{{ route('register.member') }}" method="POST" class="form-control w-75 border-dark m-5"
-        enctype="multipart/form-data">
-
-        <input class="form-control w-100" name="file_input" type="file" accept="image/png, image/gif, image/jpeg" />
-
-        <div class="form-control border-0">
-            <label for="first-name">First Name</label>
-            <input type="text" name='first_name' class="form-control">
-        </div>
-
-        <div class="form-control border-0">
-            <label for="last-name">Last Name</label>
-            <input type="text" name='last_name' class="form-control">
-        </div>
-        <div class="form-control border-0">
-            <label for="email">Email</label>
-            <input type="text" name='email' class="form-control">
-        </div>
-        <div class="form-control border-0">
-            <label for="password">Password</label>
-            <input type="password" name='password' class="form-control">
-        </div>
-
-        <div class="form-control border-0">
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
-        </div>
-
-        @csrf
-
-    </form>
-    @yield('registration-form')
 @endsection
+
+@push('styles')
+    @vite(['resources/css/registration-style.css'])
+@endpush

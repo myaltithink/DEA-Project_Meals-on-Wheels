@@ -33,7 +33,8 @@
                         <h3>Do you want to also help people in need?</h3>
                         <p>As a charitable organization, we are also open to partners or volunteers who are able to cook to
                             provide a wider range of service for those who are in need that are outside of our reach</p>
-                        <p>You may register at our <a href="">Partner</a> / <a href="">Volunteer</a>
+                        <p>You may register at our <a href="/register-partner">Partner</a> / <a
+                                href="/register-volunteer">Volunteer</a>
                             Registration
                             Page</p>
                     </div>

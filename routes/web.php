@@ -25,20 +25,17 @@ Route::get('/', function () {
 // });
 
 //better if closure is assigned to controllers even the get method
-Route::group(['prefix' => '/register', 'middleware' => ['guest']], function () {
-    Route::get('/', function () {
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('register-member', function () {
         return view('registration.member');
     });
-    Route::get('member', function () {
-        return view('registration.member');
-    });
-    Route::get('volunteer', function () {
+    Route::get('register-volunteer', function () {
         return view('registration.volunteer');
     });
-    Route::get('partner', function () {
+    Route::get('register-partner', function () {
         return view('registration.partner');
     });
-    Route::get('caregiver', function () {
+    Route::get('register-caregiver', function () {
         return view('registration.caregiver');
     });
 });
@@ -57,12 +54,18 @@ Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_t
 
 Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user')->middleware(['guest']);
 
-Route::post('/register-user', [AuthenticationController::class, 'register'])->name('register.member')->middleware(['guest']);
+Route::post('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member')->middleware(['guest']);
+
+Route::post('/caregiver-registration', [AuthenticationController::class, 'caregiver_registration'])->name('register.caregiver')->middleware(['guest']);
+
+Route::post('/partner-registration', [AuthenticationController::class, 'partner_registration'])->name('register.partner')->middleware(['guest']);
+
+Route::post('/volunteer-registration', [AuthenticationController::class, 'volunteer_registration'])->name('register.volunteer')->middleware(['guest']);
 
 //meal management module for meal proposal
 Route::group(
     [],
-    function() {
+    function () {
 
         //get mappings
         Route::get('/proposal-list', [MealProposalController::class, 'index'])
@@ -71,16 +74,16 @@ Route::group(
             ->name('add-meal-proposal');
         Route::get('/edit-proposal/{mealPlan}', [MealProposalController::class, 'edit'])
             ->name('edit-meal-proposal');
-        Route::get('/view-proposal/{mealPlan}',[MealProposalController::class, 'show'])
+        Route::get('/view-proposal/{mealPlan}', [MealProposalController::class, 'show'])
             ->name('view-meal-proposal');
         //sample data
-        Route::get('/sample-meal-data',[MealProposalController::class, 'testMealPlanData']);
+        Route::get('/sample-meal-data', [MealProposalController::class, 'testMealPlanData']);
 
         //post mapping
         Route::post('/create-meal-proposal', [MealProposalController::class, 'store'])
             ->name('add-meal');
         //put mapping
-        Route::put('/edit-meal/{mealPlan}',[MealProposalController::class, 'update'])
+        Route::put('/edit-meal/{mealPlan}', [MealProposalController::class, 'update'])
             ->name('edit-meal');
 
         //delete mapping
@@ -93,11 +96,11 @@ Route::group(
 Route::group(
     [
         'middleware' =>
-            [
-                'auth'
-            ],
+        [
+            'auth'
+        ],
     ],
-    function(){
+    function () {
 
         //rendering meals list for all roles
         Route::get('/meals', [DeliveryManagementController::class, 'meals'])
@@ -105,7 +108,7 @@ Route::group(
 
         //rendering order page for all roles
         Route::get('/orders', [DeliveryManagementController::class, 'index'])
-               ->name('orders');
+            ->name('orders');
 
         //patch process for updating status from preparing to packing
         Route::patch('/update-order-prepared', [DeliveryManagementController::class, 'updateOrderToPrepared'])
