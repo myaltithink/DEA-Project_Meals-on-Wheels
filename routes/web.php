@@ -24,20 +24,24 @@ Route::get('/', function () {
 //     return view('register');
 // });
 
-//better if closure is assigned to controllers even the get method
 Route::group(['middleware' => ['guest']], function () {
+
     Route::get('register-member', function () {
         return view('registration.member');
     });
+
     Route::get('register-volunteer', function () {
         return view('registration.volunteer');
     });
+
     Route::get('register-partner', function () {
         return view('registration.partner');
     });
+
     Route::get('register-caregiver', function () {
         return view('registration.caregiver');
     });
+
 });
 
 Route::get('/login', function () {
@@ -70,18 +74,23 @@ Route::group(
         //get mappings
         Route::get('/proposal-list', [MealProposalController::class, 'index'])
             ->name('my-proposal-list');
+
         Route::get('/create-proposal', [MealProposalController::class, 'create'])
             ->name('add-meal-proposal');
+
         Route::get('/edit-proposal/{mealPlan}', [MealProposalController::class, 'edit'])
             ->name('edit-meal-proposal');
+
         Route::get('/view-proposal/{mealPlan}', [MealProposalController::class, 'show'])
             ->name('view-meal-proposal');
+
         //sample data
         Route::get('/sample-meal-data', [MealProposalController::class, 'testMealPlanData']);
 
         //post mapping
         Route::post('/create-meal-proposal', [MealProposalController::class, 'store'])
             ->name('add-meal');
+
         //put mapping
         Route::put('/edit-meal/{mealPlan}', [MealProposalController::class, 'update'])
             ->name('edit-meal');
