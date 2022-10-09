@@ -47,7 +47,7 @@
 
             </div>
             <div class = "card-footer bg-transparent border-0 d-flex justify-content-end">
-                <button class ="btn btn-outline-primary">
+                <button class ="btn btn-outline-primary px-5 py-2">
                     Ready for Packaging
                 </button>
             </div>
