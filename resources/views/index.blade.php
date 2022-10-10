@@ -7,7 +7,7 @@
     <div id="main-content">
         <div>
             <div id="welcome-block" class="main-child d-md-flex">
-                <div class="img-container col-12 col-md-6 col-lg-7 col-xl-5"
+                <div class="img-container img-background col-12 col-md-6 col-lg-7 col-xl-5"
                     style="background-image: url('{{ Vite::asset('resources/images/welcome-block-img.jpg') }}')">
                 </div>
 
@@ -39,7 +39,7 @@
                             Page</p>
                     </div>
                 </div>
-                <div class="img-container col-12 col-md-6 col-lg-7 col-xl-5"
+                <div class="img-container img-background col-12 col-md-6 col-lg-7 col-xl-5"
                     style="background-image: url('{{ Vite::asset('resources/images/registration-block-img.jpg') }}')">
                 </div>
             </div>

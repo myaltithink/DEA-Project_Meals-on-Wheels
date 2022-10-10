@@ -55,4 +55,9 @@
     .fa-caret-down {
         transform: rotate(90deg);
     }
+
+
+    #registration-container #form-container {
+        width: 100vw !important;
+    }
 }

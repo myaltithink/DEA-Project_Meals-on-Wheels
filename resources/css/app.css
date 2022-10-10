@@ -149,6 +149,7 @@ footer {
     padding: 40px 0;
     color: #4b4c4d;
     background-color: rgb(82 82 82 / 3%);
+    border-top: 1px #797979 solid;
 }
 
 footer ul {
@@ -237,10 +238,13 @@ footer .copyright {
     margin-bottom: 0;
 }
 
-#main-content .main-child .img-container {
+.img-background {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+#main-content .main-child .img-container {
     height: 350px;
     border-radius: 10px;
     box-shadow: 1px 6px 19px 3px rgba(0,0,0,0.58);
@@ -260,39 +264,6 @@ footer .copyright {
 .block-content a:hover {
     text-decoration: underline;
 }
-
-#registration-type {
-    width: fit-content;
-    display: flex;
-    margin-left: 10px
-}
-
-#registration-type button {
-    margin: 0;
-    border-radius: 0;
-    border: gray solid 1px;
-    border-right: none;
-    transition-duration: 100ms;
-}
-
-#registration-type a{
-    text-decoration: none;
-}
-
-#registration-type .current-registration {
-    background-color: #0045af;
-    color: white;
-}
-
-#registration-type a button:hover {
-    background-color: #0d6efd;
-    color: white;
-}
-
-#registration-type a:nth-of-type(4){
-    border-right: gray solid 1px;
-}
-
 .error-message {
     color: red;
 }
