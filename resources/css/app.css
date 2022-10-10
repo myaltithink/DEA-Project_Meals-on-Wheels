@@ -45,7 +45,7 @@ header {
 }
 
 /*
-    ADDITIONAL FOR HEADER:
+    POPUP FOR HEADERS
 */
 .nav-button-toggle{
     position: absolute;
@@ -112,6 +112,41 @@ header {
 
 /********************************/
 
+/*****For Spreading the link*****/
+.categ-link {
+    text-decoration: none;
+    color: black;
+    text-transform: uppercase;
+}
+
+.categ-link:hover {
+    color: rgb(104, 103, 103);
+    text-transform: uppercase;
+}
+
+.categ-link::after {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    transition: 0.3s;
+    opacity: 0;
+}
+
+.categ-link:hover::after {
+    background-color: black;
+    opacity: 0.3;
+}
+
+.categ-link, .categ-link::after{
+    transition:all 0.3s ease-in-out;
+}
+
+/*******************/
 
 @keyframes openNavigation{
     from {right: -310px;}

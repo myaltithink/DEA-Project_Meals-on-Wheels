@@ -28,4 +28,8 @@ class MealPlan extends Model
     {
         return 'meal_plan_id';
     }
+
+    public function mealOrder(){
+        return $this->hasMany(MealOrder::class, 'meal_plan_id');
+    }
 }

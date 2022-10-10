@@ -117,7 +117,8 @@ Route::group(
 
         //rendering order page for member and caretaker
         Route::get('/my-orders', [DeliveryManagementController::class, 'ordersForMemberCareTaker'])
-               ->name('mc-orders');
+               ->name('mc-orders')
+               ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
 
         //rendering order page for partner and volunteer for preparation
         Route::get('/to-prepare-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPreparation'])
@@ -138,6 +139,11 @@ Route::group(
         //rendering order page for assigning meal to partner/volunteer for admin
         Route::get('/assign-orders-delivery', [DeliveryManagementController::class, 'ordersForAdminAssignR'])
             ->name('a-del-orders');
+
+        //post process for creating new meal post
+        Route::post('/new-order',[DeliveryManagementController::class, 'orderForMeal'])
+            ->name('new-order')
+            ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
 
         //patch process for updating status from preparing to packing
         Route::patch('/update-order-prepared', [DeliveryManagementController::class, 'updateOrderToPrepared'])
