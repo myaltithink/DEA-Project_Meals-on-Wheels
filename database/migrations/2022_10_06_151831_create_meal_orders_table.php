@@ -24,6 +24,11 @@ return new class extends Migration
             $table->dateTime('meal_order_ordered_at')->nullable();
             $table->dateTime('meal_order_delivered_at')->nullable();
 
+            //ordered by name and id
+            $table->bigInteger('ordered_by_id');
+            $table->string('ordered_by');
+            $table->string('ordered_by_role');
+
             //prepared by name and id
             $table->bigInteger('prepared_by_id')->nullable();
             $table->string('prepared_by')->nullable();
@@ -34,7 +39,7 @@ return new class extends Migration
             $table->string('delivered_by')->nullable();
 
             //for referencing meals
-            $table->foreignId('meal_plan_id')->constrained();
+            $table->foreignId('meal_plan_id')->constrained('meal_plan','meal_plan_id')->cascadeOnDelete();
 
         });
     }
