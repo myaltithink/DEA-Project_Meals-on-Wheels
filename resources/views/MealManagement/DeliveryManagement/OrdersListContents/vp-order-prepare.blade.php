@@ -28,10 +28,10 @@
                         <strong>Ordered By: </strong>
                         <span class="ms-2">{{ $order->ordered_by }}</span>
                     </div>
-                    <div class ="col-12 d-flex">
+                    {{-- <div class ="col-12 d-flex">
                         <strong>Distance: </strong>
                         <span class="ms-2">{{ 'pending' }}</span>
-                    </div>
+                    </div> --}}
                     <div class ="col-12 d-flex">
                         <strong>Status: </strong>
                         <span class="ms-2">{{ $order->meal_order_status }}</span>

@@ -1,6 +1,7 @@
 @extends('MealManagement.DeliveryManagement.delivery-management-template')
 @section('main')
-    <div class = "row gy-2">
+<div class = "row gy-2">
+        @inject('calculator', App\Http\Helper\DistanceCalculator::class)
 
         @forelse ($orders as $order)
             <div class = "card col-12">
@@ -32,10 +33,10 @@
                             <strong>Delivered By: </strong>
                             <span class="ms-2">{{ $order->delivered_by == null ? 'pending' : $order->delivered_by;  }}</span>
                         </div>
-                        <div class ="col-12 d-flex">
+                        {{-- <div class ="col-12 d-flex">
                             <strong>Distance: </strong>
-                            <span class="ms-2"> {{ 'pending' }} </span>
-                        </div>
+                            <span class="ms-2"> {{ $order->prepared_by_id == null ? 'pending' : $calculator->calculateDistance($order->ordered_by_id, $order->prepared_by_id).' km' }} </span>
+                        </div> --}}
                         <div class ="col-12 d-flex">
                             <strong>Status: </strong>
                             <span class="ms-2">{{ $order->meal_order_status }}</span>

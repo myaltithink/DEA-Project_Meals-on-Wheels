@@ -20,9 +20,11 @@ class MealOrder extends Model
         'ordered_by_id',
         'ordered_by',
         'ordered_by_role',
+        'ordered_by_address',
         'prepared_by_id',
         'prepared_by',
         'prepared_by_role',
+        'prepared_by_address',
         'delivered_by_id',
         'delivered_by',
         'meal_plan_id'

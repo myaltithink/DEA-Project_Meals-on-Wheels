@@ -28,11 +28,13 @@ return new class extends Migration
             $table->bigInteger('ordered_by_id');
             $table->string('ordered_by');
             $table->string('ordered_by_role');
+            $table->text('ordered_by_address');
 
             //prepared by name and id
             $table->bigInteger('prepared_by_id')->nullable();
             $table->string('prepared_by')->nullable();
             $table->string('prepared_by_role')->nullable();
+            $table->string('prepared_by_address')->nullable();
 
             //delivered by name and id
             $table->bigInteger('delivered_by_id')->nullable();

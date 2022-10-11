@@ -21,7 +21,7 @@ class Profile extends Model
         'birthday',
         'contact_number',
         'address',
-        'valid_id'
+        'valid_id',
     ];
 
 
