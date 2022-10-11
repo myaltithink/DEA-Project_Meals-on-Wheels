@@ -7,6 +7,9 @@ use App\Models\MealPlan;
 use App\Models\MealOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PartnerDetails;
+use App\Models\Profile;
+use App\Models\VolunteerDetails;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Validator;
 
@@ -92,6 +95,7 @@ class DeliveryManagementController extends Controller
             'meal_order_ordered_at' => date('Y-m-d H:i:s'),
             'ordered_by' => $userProfile->first_name." ".$userProfile->last_name,
             'ordered_by_role' => $user->hasPermission('ROLE_CARETAKER') ? 'ROLE_CARETAKER' : 'ROLE_MEMBER',
+            'ordered_by_address' => $userProfile->address,
         );
 
         $meal = new MealOrder();
@@ -101,7 +105,7 @@ class DeliveryManagementController extends Controller
     }
 
     //for volunteers/parnters to update status to prepared PATCH
-    public function updateOrderToPrepared(Request $request, MealOrder $mealOrder){
+    public function updateOrderToPrepared(MealOrder $mealOrder){
 
         $mealOrder->update([
             'meal_order_status' => 'Packing',
@@ -158,6 +162,11 @@ class DeliveryManagementController extends Controller
         ])->validate();
 
         $assignToUser = User::find((int) $request['selected-person']);
+        $userDetails = $assignToUser->hasPermission('ROLE_VOLUNTEER') ? VolunteerDetails::where('user_id', $assignToUser->user_id)->first() : PartnerDetails::where('user_id', $assignToUser->user_id)->first();
+        $volunteerProfile = $assignToUser->hasPermission('ROLE_VOLUNTEER') ? Profile::whereHas('volunteer_details', function(Builder $query) use ($userDetails){
+            $query->where('volunteer_id', $userDetails->volunteer_id);
+        })->first() : null;
+
         $order = MealOrder::find((int) $request['selected-order']);
 
         $order->update([
@@ -165,6 +174,7 @@ class DeliveryManagementController extends Controller
             'prepared_by_id' => $assignToUser->user_id,
             'prepared_by' => ($assignToUser->hasPermission('ROLE_VOLUNTEER') ? $assignToUser->volunteer_details->volunteer_name : $assignToUser->partner_details->partner_name),
             'prepared_by_role' => ($assignToUser->hasPermission('ROLE_VOLUNTEER_COOK') ? 'ROLE_VOLUNTEER' : 'ROLE_PARTNER'),
+            'prepared_by_address' => $volunteerProfile != null ? $volunteerProfile->address : $assignToUser->partner_details->partner_address,
         ]);
 
         return redirect(route('a-prep-orders'));

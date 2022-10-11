@@ -18,6 +18,7 @@
             <li><a href="/login" class="nav-item-link">Login</a></li>
             <li><a href="/register-member" class="nav-item-link">Register</a></li>
         @endguest
+
         @auth
             <li><a href="/dashboard" class="nav-item-link">Home</a></li>
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
@@ -92,16 +93,9 @@
                                     <li class="list-group-item list-group-item-action">
                                         <a href="{{ route('meals-list') }}" class="nav-item-link">Meals List</a>
                                     </li>
-                                    @HasAnyRole(['ROLE_ADMIN', 'ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
+                                    @HasAnyRole(['ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="
-                                                @role('ROLE_VOLUNTEER_COOK')
-                                                    {{ route('my-proposal-list') }}
-                                                @endrole
-                                                @role('ROLE_PARTNER')
-                                                    {{ route('my-proposal-list') }}
-                                                @endrole
-                                            "
+                                            <a href="{{ route('my-proposal-list') }}"
                                                 class="nav-item-link">
                                                 Meals Proposal
                                             </a>

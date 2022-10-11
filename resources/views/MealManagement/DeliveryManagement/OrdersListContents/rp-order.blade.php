@@ -1,5 +1,6 @@
 @extends('MealManagement.DeliveryManagement.delivery-management-template')
 @section('main')
+
     <div class = "row gy-2">
         {{-- For each this column --}}
         @forelse ($orders as $order)
@@ -40,6 +41,21 @@
                             <strong>Meal Type: </strong>
                             <span class="ms-2">{{ 'pending' }}</span>
                         </div>
+
+                        @role('ROLE_VOLUNTEER_RIDER')
+                            <div class ="col-12 d-flex">
+                                <strong>Meal Address: </strong>
+                                <span class="ms-2">{{ $order->prepared_by_address }}</span>
+                            </div>
+                        @endrole
+
+                        <div class ="col-12 d-flex">
+                            <strong>Address To Deliver: </strong>
+                            <span class="ms-2">
+                                {{ $order->ordered_by_address }}
+                            </span>
+                        </div>
+
 
                     </div>
 
