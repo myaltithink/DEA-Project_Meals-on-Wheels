@@ -122,23 +122,28 @@ Route::group(
 
         //rendering order page for partner and volunteer for preparation
         Route::get('/to-prepare-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPreparation'])
-               ->name('vp-prep-orders');
+               ->name('vp-prep-orders')
+               ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
 
         //rendering order page for partner and volunteer for packing
         Route::get('/to-pack-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPacking'])
-               ->name('vp-pack-orders');
+               ->name('vp-pack-orders')
+               ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
 
         //rendering order page for riders and parnters for delivery
         Route::get('/to-deliver-orders', [DeliveryManagementController::class, 'ordersForRiderPartnerDelivery'])
-               ->name('rp-del-orders');
+               ->name('rp-del-orders')
+               ->middleware(['anyrole:ROLE_VOLUNTEER_RIDER,ROLE_PARTNER']);
 
         //rendering order page for assigning meal to partner/volunteer for admin
         Route::get('/assign-orders', [DeliveryManagementController::class, 'ordersForAdminAssignVP'])
-            ->name('a-prep-orders');
+            ->name('a-prep-orders')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
 
         //rendering order page for assigning meal to partner/volunteer for admin
         Route::get('/assign-orders-delivery', [DeliveryManagementController::class, 'ordersForAdminAssignR'])
-            ->name('a-del-orders');
+            ->name('a-del-orders')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
 
         //post process for creating new meal post
         Route::post('/new-order',[DeliveryManagementController::class, 'orderForMeal'])
@@ -146,14 +151,20 @@ Route::group(
             ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
 
         //patch process for updating status from preparing to packing
-        Route::patch('/update-order-prepared', [DeliveryManagementController::class, 'updateOrderToPrepared'])
+        Route::patch('/update-order-prepared/{mealOrder}', [DeliveryManagementController::class, 'updateOrderToPrepared'])
             ->name('prepared')
             ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
 
         //patch process to update status from packing to delivering
-        Route::patch('/update-order-packed', [DeliveryManagementController::class, 'updateOrderToPacked'])
+        Route::patch('/update-order-packed/{mealOrder}', [DeliveryManagementController::class, 'updateOrderToPacked'])
             ->name('packed')
-            ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
+            ->middleware(['authorizerole:ROLE_VOLUNTEER_COOK']);
+
+        //patch process to assing
+        Route::patch('/update-order-packed', [DeliveryManagementController::class, 'assignDeliverToMeal'])
+            ->name('packed-and-assign-delivery')
+            ->middleware(['authorizerole:ROLE_PARTNER']);
+
 
         //put process to assign partner or volunteer for preparing the order (pending to preparing)
         Route::put('/assign-meal', [DeliveryManagementController::class, 'assignMealToPrepare'])
@@ -166,7 +177,7 @@ Route::group(
             ->middleware(['anyrole:ROLE_ADMIN,ROLE_PARNTER']);
 
         //patch method to update status from delivering to delivered.
-        Route::patch('/update-order-delivered', [DeliveryManagementController::class, 'updateOrderToDeliver'])
+        Route::patch('/update-order-delivered/{mealOrder}', [DeliveryManagementController::class, 'updateOrderToDelivered'])
             ->name('delivered')
             ->middleware(['anyrole:ROLE_VOLUNTEER_RIDER,ROLE_PARTNER']);
     }

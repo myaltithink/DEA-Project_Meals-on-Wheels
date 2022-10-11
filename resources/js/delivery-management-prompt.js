@@ -37,4 +37,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
             document.querySelector('#selected-person').value = "";
         });
     });
+
+    //for selecting meal for delivering order (admin)
+    document.querySelectorAll('[data-select-meal-delivery]').forEach(element =>{
+        element.addEventListener('click', e => {
+            document.querySelector('#selected-order').value = e.target.getAttribute('data-select-meal-delivery');
+        });
+    });
+
+    //for selecting a volunteer for delivering order (admin)
+    document.querySelectorAll('[data-select-rider]').forEach(element => {
+        element.addEventListener('click', e => {
+            document.querySelector('#selected-person').value = e.target.getAttribute('data-select-rider');
+            document.querySelector("#assign-order-deliver").submit();
+        })
+    });
+
+    //for opening modal for partner to assign employee to deliver.
+    document.querySelectorAll('[data-assign-delivery]').forEach(element => {
+        element.addEventListener('click', e => {
+            document.querySelector('#selected-order').value = e.target.getAttribute('data-assign-delivery');
+        });
+    });
 });

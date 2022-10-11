@@ -20,29 +20,33 @@ class DeliveryManagementController extends Controller
     public function meals(Request $request){
         $plans = MealPlan::where('status','approved')->get();
         $hasOrdered = $request->user()->hasAnyRole(['ROLE_CARETAKER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
-        #dd($hasOrdered);
         return view('MealManagement.DeliveryManagement.meals-available')->with('plans', $plans)->with('hasOrdered', $hasOrdered);
     }
 
     //rendering order page for member and caretaker GET
     public function ordersForMemberCareTaker(Request $request){
-        $mealOrders = MealOrder::where('ordered_by_id', $request->user()->user_id)->get();
+        $mealOrders = MealOrder::where('ordered_by_id', $request->user()->user_id)->latest('meal_order_ordered_at')->get();
         return view('MealManagement.DeliveryManagement.OrdersListContents.mc-order')->with('orders', $mealOrders);
     }
 
     //rendering order page for member and caretaker GET
-    public function ordersForVolunteerPartnerForPreparation(){
-        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-prepare');
+    public function ordersForVolunteerPartnerForPreparation(Request $request){
+        $mealOrders = MealOrder::where('prepared_by_id', $request->user()->user_id)->where('meal_order_status','Preparing')->get();
+        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-prepare')->with('orders', $mealOrders);
     }
 
     //rendering order page for volunteer and partner for packing GET
-    public function ordersForVolunteerPartnerForPacking(){
-        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-pack');
+    public function ordersForVolunteerPartnerForPacking(Request $request){
+        $mealOrders = MealOrder::where('prepared_by_id', $request->user()->user_id)->where('meal_order_status','Packing')->get();
+        return view('MealManagement.DeliveryManagement.OrdersListContents.vp-order-pack')->with('orders', $mealOrders);
     }
 
     //render order page for rider, partner for delivery GET
-    public function ordersForRiderPartnerDelivery(){
-        return view('MealManagement.DeliveryManagement.OrdersListContents.rp-order');
+    public function ordersForRiderPartnerDelivery(Request $request){
+
+        $mealOrders = MealOrder::where('delivered_by_id', $request->user()->user_id)->where('meal_order_status', 'Delivering')->get();
+
+        return view('MealManagement.DeliveryManagement.OrdersListContents.rp-order')->with('orders', $mealOrders);
     }
 
     //rendering order page for admin for assigning orders to partner and volunteer GET
@@ -59,9 +63,9 @@ class DeliveryManagementController extends Controller
 
     //rendering order page for admin assigning orders to riders GET
     public function ordersForAdminAssignR(){
-        $pendingOrders = MealOrder::where('meal_order_status', 'packed')->get();
+        $pendingOrders = MealOrder::where('meal_order_status', 'packed')->where('prepared_by_role','ROLE_VOLUNTEER')->get();
         $assignTo = User::whereHas('roles', function(Builder $query){
-            $query->where('role_name','ROLE_PARTNER')->orWhere('role_name','ROLE_VOLUNTEER_RIDER');
+            $query->where('role_name','ROLE_VOLUNTEER_RIDER');
         })->get();
 
         return view('MealManagement.DeliveryManagement.OrdersListContents.a-order-deliver')
@@ -97,23 +101,53 @@ class DeliveryManagementController extends Controller
     }
 
     //for volunteers/parnters to update status to prepared PATCH
-    public function updateOrderToPrepared(){
+    public function updateOrderToPrepared(Request $request, MealOrder $mealOrder){
 
+        $mealOrder->update([
+            'meal_order_status' => 'Packing',
+        ]);
+
+        return redirect(route('vp-pack-orders'));
     }
 
     //for volunteers/partners to update status to packed PATCH
-    public function updateOrderToPacked(){
+    public function updateOrderToPacked(Request $request, MealOrder $mealOrder){
 
+        if ($request->user()->hasPermission('ROLE_VOLUNTEER_COOK')){
+            $mealOrder->update([
+                'meal_order_status' => 'Packed',
+            ]);
+        }
+
+        return redirect(route('vp-pack-orders'));
     }
 
     //for partners to assign delivery personel to meal PUT
-    public function assignDeliverToMeal(){
+    public function assignDeliverToMeal(Request $request){
+        Validator::make($request->all(), [
+            'selected-person' => ['required', 'string'],
+            'selected-order' => ['required']
+        ])->validate();
 
+        $order = MealOrder::find((int) $request['selected-order']);
+
+        $order->update([
+            'delivered_by_id' => $request->user()->user_id,
+            'delivered_by' => $request['selected-person'],
+            'meal_order_status' => 'Delivering',
+        ]);
+
+        return redirect(route('rp-del-orders'));
     }
 
     //for volunteers with rider role/partners to update status to delivered PATCH
-    public function updateOrderToDelivered(){
+    public function updateOrderToDelivered(MealOrder $mealOrder){
+        $mealOrder->update([
+            'meal_order_delivered_at' => date('Y-m-d H:i:s'),
+            'meal_order_status' => 'Delivered',
+        ]);
 
+        return redirect(route('rp-del-orders'));
     }
 
     //admin assigns partner/volunteer to prepare meal PUT
@@ -129,7 +163,7 @@ class DeliveryManagementController extends Controller
         $order->update([
             'meal_order_status' => 'Preparing',
             'prepared_by_id' => $assignToUser->user_id,
-            'prepared_by' => ($assignToUser->hasPermission('ROLE_VOLUNTEER') ? $assignToUser->volunteer_details->volunteer_name : null),
+            'prepared_by' => ($assignToUser->hasPermission('ROLE_VOLUNTEER') ? $assignToUser->volunteer_details->volunteer_name : $assignToUser->partner_details->partner_name),
             'prepared_by_role' => ($assignToUser->hasPermission('ROLE_VOLUNTEER_COOK') ? 'ROLE_VOLUNTEER' : 'ROLE_PARTNER'),
         ]);
 
@@ -150,6 +184,7 @@ class DeliveryManagementController extends Controller
         $order->update([
             'delivered_by_id' => $assignToUser->user_id,
             'delivered_by' => $assignToUser->volunteer_details->volunteer_name,
+            'meal_order_status' => 'Delivering',
         ]);
 
         return redirect(route('a-del-orders'));

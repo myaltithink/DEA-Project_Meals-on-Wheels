@@ -60,7 +60,7 @@
         <div class="modal-dialog modal-fullscreen-md-down">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Select Personel</h5>
+                    <h5 class="modal-title">Select Personnel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-select-remove = "#select-to-prepare"></button>
                 </div>
                 <div class="modal-body row gy-2">
