@@ -17,11 +17,11 @@
 
         <div>
             <label for="member-name">Member Name</label>
-            <input type="text" name="member-name" class="form-control">
+            <input type="text" name="member-name" id="member-name" class="form-control nullable">
         </div>
         <div>
             <label for="member-email">Member Email</label>
-            <input type="text" name="member-email" class="form-control">
+            <input type="text" name="member-email" id="member-email" class="form-control nullable">
         </div>
     </div>
 

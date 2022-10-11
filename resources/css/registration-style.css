@@ -18,8 +18,8 @@
 }
 
 #registration-container #form-content {
-    overflow: scroll;
-    height: calc(100vh - 192px);
+    overflow: auto;
+    height: 70vh;
     padding-bottom: 20px;
 }
 
@@ -69,6 +69,10 @@
 
 .form-control {
     margin-bottom: 10px;
+}
+
+.required {
+    color: gray;
 }
 
 @media screen and (max-width: 800px) {

@@ -4,7 +4,7 @@
     <hr>
 
     <div class="form-control border-0 left-padding">
-        <h4>Role</h4>
+        <h4>Role <i class="required"><small>(required)</small></i></h4>
 
         <input type="checkbox" name="volunteer-kitchen" id="volunteer-kitchen" value="Outsource Kitchen">
         <label for="volunteer-kitchen">Outsource Kitchen</label><br>

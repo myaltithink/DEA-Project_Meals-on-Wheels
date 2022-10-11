@@ -131,7 +131,15 @@
     <div id="hero-backdrop"></div>
 </div>
 
+<form action="" onchange="test()">
+    <input type="text">
+</form>
+
 <script>
+
+function test(e) {
+    console.log(e)
+}
 
     window.addEventListener("resize", () => {
         if (window.innerWidth > 767) {
