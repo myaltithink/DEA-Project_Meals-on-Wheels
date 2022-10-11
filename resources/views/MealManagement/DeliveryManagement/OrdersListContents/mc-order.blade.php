@@ -41,8 +41,14 @@
                             <span class="ms-2">{{ $order->meal_order_status }}</span>
                         </div>
                         <div class ="col-12 d-flex">
+                            <strong>Meal Type: </strong>
+                            <span class="ms-2">{{ 'frozen or hot' }}</span>
+                        </div>
+                        <div class ="col-12 d-flex">
                             <strong>Delivery Date: </strong>
-                            <span class="ms-2">{{ $order->meal_order_delivered_at != null ? $order->meal_order_delivered_at :'pending'; }}</span>
+                            <span class="ms-2">
+                                {{ $order->meal_order_delivered_at != null ? date_format(date_create($order->meal_order_delivered_at), 'Y/m/d').' at '.date_format(date_create($order->meal_order_delivered_at), 'H:i:s') : 'pending'; }}
+                            </span>
                         </div>
 
                     </div>
