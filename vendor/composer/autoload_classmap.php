@@ -18,7 +18,6 @@ return array(
     'App\\Http\\Controllers\\MemberController' => $baseDir . '/app/Http/Controllers/MemberController.php',
     'App\\Http\\Controllers\\PartnerController' => $baseDir . '/app/Http/Controllers/PartnerController.php',
     'App\\Http\\Controllers\\VolunteerController' => $baseDir . '/app/Http/Controllers/VolunteerController.php',
-    'App\\Http\\Helper\\DistanceCalculator' => $baseDir . '/app/Http/Helper/DistanceCalculator.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\AuthorizeAnyRole' => $baseDir . '/app/Http/Middleware/AuthorizeAnyRole.php',

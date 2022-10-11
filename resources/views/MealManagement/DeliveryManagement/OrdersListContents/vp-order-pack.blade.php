@@ -31,7 +31,7 @@
 
                         <div class ="col-12 d-flex">
                             <strong>Distance: </strong>
-                            <span class="ms-2">{{ 'pending' }}</span>
+                            <span class="ms-2">{{ $order->prepared_by != null ? calculateDistance($order->ordered_by_id, $order->prepared_by_id).' km' : 'pending' }}</span>
                         </div>
 
                         <div class ="col-12 d-flex">
@@ -57,9 +57,11 @@
                             </button>
                         </form>
                     @endrole
-                    <button class ="btn btn-outline-primary px-5 py-2" data-bs-toggle = 'modal' data-bs-target ="#select-to-deliver" data-assign-delivery = '{{$order->meal_order_id}}'>
-                        Ready for Delivery
-                    </button>
+                    @role('ROLE_PARTNER')
+                        <button class ="btn btn-outline-primary px-5 py-2" data-bs-toggle = 'modal' data-bs-target ="#select-to-deliver" data-assign-delivery = '{{$order->meal_order_id}}'>
+                            Ready for Delivery
+                        </button>
+                    @endrole
                 </div>
             </div>
         @empty

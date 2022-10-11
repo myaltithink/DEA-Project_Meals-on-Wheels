@@ -528,7 +528,6 @@ class ComposerStaticInit3e0c0d33b842aea66476b24b0ca3647f
         'App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/MemberController.php',
         'App\\Http\\Controllers\\PartnerController' => __DIR__ . '/../..' . '/app/Http/Controllers/PartnerController.php',
         'App\\Http\\Controllers\\VolunteerController' => __DIR__ . '/../..' . '/app/Http/Controllers/VolunteerController.php',
-        'App\\Http\\Helper\\DistanceCalculator' => __DIR__ . '/../..' . '/app/Http/Helper/DistanceCalculator.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\AuthorizeAnyRole' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthorizeAnyRole.php',
