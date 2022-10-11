@@ -167,6 +167,7 @@ class DeliveryManagementController extends Controller
             $query->where('volunteer_id', $userDetails->volunteer_id);
         })->first() : null;
 
+
         $order = MealOrder::find((int) $request['selected-order']);
 
         $order->update([
@@ -175,6 +176,7 @@ class DeliveryManagementController extends Controller
             'prepared_by' => ($assignToUser->hasPermission('ROLE_VOLUNTEER') ? $assignToUser->volunteer_details->volunteer_name : $assignToUser->partner_details->partner_name),
             'prepared_by_role' => ($assignToUser->hasPermission('ROLE_VOLUNTEER_COOK') ? 'ROLE_VOLUNTEER' : 'ROLE_PARTNER'),
             'prepared_by_address' => $volunteerProfile != null ? $volunteerProfile->address : $assignToUser->partner_details->partner_address,
+            #'meal_order_distance' => calculateDistance($orderedBy->longtitude, $orderedBy->latitude, $assignToUser->longtitude, $assignToUser->latitude),
         ]);
 
         return redirect(route('a-prep-orders'));

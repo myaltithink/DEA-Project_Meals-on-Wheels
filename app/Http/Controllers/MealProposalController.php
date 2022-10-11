@@ -49,8 +49,6 @@ class MealProposalController extends Controller
         //userid 4 is volunteer cook
         $volunteer = User::where('user_id', 4)->first();
 
-        #dd($volunteer);
-        #dd(str_replace('ROLE_', '', $volunteer->roles()->where('role_name', 'role_volunteer')->first()->role_name));
         $meal_plan_1_test_data = array(
             'meal_name' => 'wasdwasd',
             'meal_ingredients' => 'wasdwasd',
