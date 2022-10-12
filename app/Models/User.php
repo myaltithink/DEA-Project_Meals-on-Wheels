@@ -26,7 +26,6 @@ class User extends Authenticatable
         'password',
         'longtitude',
         'latitude',
-        'details_id',
         'status'
     ];
 
@@ -66,40 +65,43 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id');
     }
 
-    public function hasRoles($role){
-        if(is_array($role)){
-            foreach($role as $rolecheck){
-                if(!$this->hasPermission($rolecheck)){
+    public function hasRoles($role)
+    {
+        if (is_array($role)) {
+            foreach ($role as $rolecheck) {
+                if (!$this->hasPermission($rolecheck)) {
                     return false;
                 }
             }
-        }else{
-            if(!$this->hasPermission($role)){
+        } else {
+            if (!$this->hasPermission($role)) {
                 return false;
             }
         }
         return true;
     }
 
-    public function hasAnyRole($role){
-        if(is_array($role)){
-            foreach($role as $rolecheck){
-                if($this->hasPermission($rolecheck)){
+    public function hasAnyRole($role)
+    {
+        if (is_array($role)) {
+            foreach ($role as $rolecheck) {
+                if ($this->hasPermission($rolecheck)) {
                     return true;
                 }
             }
-        }else{
-            if($this->hasPermission($role)){
+        } else {
+            if ($this->hasPermission($role)) {
                 return true;
             }
         }
         return false;
     }
 
-    public function hasPermission(string $role){
-        if($this->roles()->where('role_name', $role)->first() != null){
+    public function hasPermission(string $role)
+    {
+        if ($this->roles()->where('role_name', $role)->first() != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

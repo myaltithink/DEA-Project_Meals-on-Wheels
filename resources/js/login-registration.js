@@ -6,8 +6,47 @@ const form = document.getElementById('registration-form');
 
 form.addEventListener('input', validateForm);
 
+window.addEventListener('load', getLocation);
+
 for (const showPassBtn of document.getElementsByClassName('show-pass')) {
     showPassBtn.addEventListener('click', showPass);
+}
+
+function getLocation(e) {
+    console.log(e)
+    if (navigator.geolocation) {
+        console.log('geo location')
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        console.log('geo location not supported')
+        alert("Geolocation is not supported by this browser.\nGeolocation is required to register");
+    }
+}
+
+function showPosition(position) {
+    console.log(position);
+    const latitude = document.getElementById('latitude');
+    const longtitude = document.getElementById('longtitude');
+
+    latitude.value = position.coords.latitude;
+    longtitude.value = position.coords.longitude;
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("Request for Geolocation has been denied\nGeolocation is required to register");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.")
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.")
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.")
+            break;
+    }
 }
 
 function validateForm(e) {
@@ -154,7 +193,6 @@ function setErrorMessage(input, message) {
     if (input.name == 'password' || input.name == "confirm-pass") {
         errorMessage = input.parentElement.nextElementSibling;
     }
-
     errorMessage.innerText = message;
 }
 

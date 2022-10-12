@@ -41,7 +41,6 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('register-caregiver', function () {
         return view('registration.caregiver');
     });
-
 });
 
 Route::get('/login', function () {
@@ -117,23 +116,23 @@ Route::group(
 
         //rendering order page for member and caretaker
         Route::get('/my-orders', [DeliveryManagementController::class, 'ordersForMemberCareTaker'])
-               ->name('mc-orders')
-               ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
+            ->name('mc-orders')
+            ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
 
         //rendering order page for partner and volunteer for preparation
         Route::get('/to-prepare-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPreparation'])
-               ->name('vp-prep-orders')
-               ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
+            ->name('vp-prep-orders')
+            ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
 
         //rendering order page for partner and volunteer for packing
         Route::get('/to-pack-orders', [DeliveryManagementController::class, 'ordersForVolunteerPartnerForPacking'])
-               ->name('vp-pack-orders')
-               ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
+            ->name('vp-pack-orders')
+            ->middleware(['anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER']);
 
         //rendering order page for riders and parnters for delivery
         Route::get('/to-deliver-orders', [DeliveryManagementController::class, 'ordersForRiderPartnerDelivery'])
-               ->name('rp-del-orders')
-               ->middleware(['anyrole:ROLE_VOLUNTEER_RIDER,ROLE_PARTNER']);
+            ->name('rp-del-orders')
+            ->middleware(['anyrole:ROLE_VOLUNTEER_RIDER,ROLE_PARTNER']);
 
         //rendering order page for assigning meal to partner/volunteer for admin
         Route::get('/assign-orders', [DeliveryManagementController::class, 'ordersForAdminAssignVP'])
@@ -146,7 +145,7 @@ Route::group(
             ->middleware(['authorizerole:ROLE_ADMIN']);
 
         //post process for creating new meal post
-        Route::post('/new-order',[DeliveryManagementController::class, 'orderForMeal'])
+        Route::post('/new-order', [DeliveryManagementController::class, 'orderForMeal'])
             ->name('new-order')
             ->middleware(['anyrole:ROLE_CAREGIVER,ROLE_MEMBER']);
 
@@ -182,7 +181,7 @@ Route::group(
 
         //for ajax call retrieving list of available users
         Route::get('/get-available-users/{mealOrder}', [DeliveryManagementController::class, 'availableVolunteerAndPartner'])
-        ->name('partners-and-volunteers')
-        ->middleware(['authorizerole:ROLE_ADMIN']);
+            ->name('partners-and-volunteers')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
     }
 );

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->decimal("latitude");
             $table->string("status");
             $table->string("reason_of_rejection")->nullable();
+            $table->boolean('email_verified')->default(false);
+            $table->boolean('authenticatable')->default(false);
             $table->timestamps();
         });
     }

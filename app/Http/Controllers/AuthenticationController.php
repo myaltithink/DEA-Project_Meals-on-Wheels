@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CaregiverDetails;
+use App\Models\EmailVerification;
 use App\Models\MemberDetails;
 use App\Models\PartnerDetails;
 use App\Models\Profile;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class AuthenticationController extends Controller
 {
@@ -55,8 +57,80 @@ class AuthenticationController extends Controller
         Log::info('saved dir ' . $uploaded_dir);
     }
 
+    public function send_registration_email_verification($email)
+    {
+        $verification_type = 'registration';
+        $verification_code = MailController::create_verification_code('registration');
+
+        $duplicate = EmailVerification::where([
+            ['email', '=', $email],
+            ['verification_type', '=', $verification_type]
+        ])->get();
+
+        Log::info("duplicate " . print_r($duplicate, true));
+
+        if ($duplicate->count() != 0) {
+            $duplicate[0]->delete();
+        }
+
+        $verification_entity = new EmailVerification([
+            'email' => $email,
+            'verification_type' => $verification_type,
+            'verification_code' => $verification_code
+        ]);
+        $verification_entity->save();
+
+        MailController::send_email('tarucisaac@gmail.com', 'Isaac Taruc', 'Registration Verification', $verification_type, $verification_code);
+    }
+
+    private function get_registration_profile(Request $request)
+    {
+        return array(
+            'first_name' => $request['first-name'],
+            'last_name' => $request['last-name'],
+            'age' => $request['age'],
+            'gender' => $request['gender'],
+            'birthday' => $request['birthday'],
+            'contact_number' => $request['contact-num'],
+            'address' => $request['address'],
+            'valid_id' => FileUploadController::upload_file($request['valid-id'], $request['email'] . '-valid-id', 'valid_ids'),
+        );
+    }
+
+    private function get_registration_acc_data(Request $request)
+    {
+        return array(
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'longtitude' => $request['longtitude'],
+            'latitude' => $request['latitude'],
+            'status' => 'Waiting for Email Verification from User'
+        );
+    }
+
     public function member_registration(Request $request)
     {
+        $user = new User();
+        $user->fill($this->get_registration_acc_data($request))->save();
+        $user->roles()->attach(Role::where('role_name', 'ROLE_MEMBER')->get()[0]['id']);
+
+        $member_details = new MemberDetails();
+        $member_details->fill([
+            'proof_of_eligebility' => FileUploadController::upload_file($request->file('member-eligibility'), $request['email'] . '-proof', 'member_eligibilities'),
+            'needs' => $request['needs'],
+            'allergies' => $request['allergies']
+        ]);
+
+        $profile = new Profile();
+        $profile->fill($this->get_registration_profile($request));
+
+        $user
+            ->member_details()->save($member_details)
+            ->profile()->save($profile);
+
+        $this->send_registration_email_verification($user->getAttribute('email'));
+
+        return redirect('/register-member');
     }
 
     public function caregiver_registration(Request $request)
