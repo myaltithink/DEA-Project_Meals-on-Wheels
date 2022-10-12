@@ -74,6 +74,9 @@
                                 class="btn btn-primary w-100 disabled">Submit</button>
                         </div>
                     </div>
+
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longtitude" id="longtitude">
                     @csrf
                 </form>
             </div>
