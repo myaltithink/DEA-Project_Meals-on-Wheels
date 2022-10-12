@@ -21,7 +21,8 @@ class MealProposalController extends Controller
     //viewing meal proposal lists page
     public function index(){
         $proposals = MealPlan::where('user_id', Auth::id())->latest('updated_at')->paginate(3);
-        return view('MealManagement.MealProposal.MealProposalContents.meal-proposal-list')->with('plans', $proposals);
+        return view('MealManagement.MealProposal.MealProposalContents.meal-proposal-list')
+            ->with('plans', $proposals);
     }
 
     //viewing meal proposal add page
