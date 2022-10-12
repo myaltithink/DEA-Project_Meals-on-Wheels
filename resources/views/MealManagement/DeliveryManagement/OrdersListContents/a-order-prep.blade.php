@@ -63,32 +63,10 @@
                     <h5 class="modal-title">Select Personnel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-select-remove = "#select-to-prepare"></button>
                 </div>
-                <div class="modal-body row gy-2">
-                    @foreach ($personels as $personel)
-                        <div class ="card">
-                            <div class="card-body">
-                                <h1 class = "fw-bold">
-                                    @if ($personel->hasPermission('ROLE_PARTNER'))
-                                        {{ $personel->partner_details->partner_name }}
-                                    @elseif($personel->hasPermission('ROLE_VOLUNTEER_COOK'))
-                                        {{ $personel->volunteer_details->volunteer_name }}
-                                    @endif
-                                </h1>
-                                <div class="d-flex">
-                                    @if($personel->hasPermission('ROLE_VOLUNTEER_COOK'))
-                                        <strong>Volunteer Organization:</strong>
-                                        <span class = "ms-2"> {{ $personel->volunteer_details->organization_name }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class ="card-footer bg-transparent border-0">
-                                <button class = "categ-link border border-0 bg-transparent"
-                                    style = "width:0; height:0%;"
-                                    data-select-personel = "{{ $personel->user_id }}"
-                                ></button>
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="modal-body modal-dialog-scrollable row gy-2" id = "personnel-display">
+
+                </div>
+                <div class = 'modal-footer'>
                     <form method="POST" action="{{ route('assign-meal-preparation') }}" id = "assign-order">
                         @csrf
                         @method('PUT')

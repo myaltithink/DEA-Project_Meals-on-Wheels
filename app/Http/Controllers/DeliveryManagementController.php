@@ -55,13 +55,9 @@ class DeliveryManagementController extends Controller
     //rendering order page for admin for assigning orders to partner and volunteer GET
     public function ordersForAdminAssignVP(){
         $pendingOrders = MealOrder::where('meal_order_status', 'pending')->get();
-        $assignTo = User::whereHas('roles', function(Builder $query){
-            $query->where('role_name','ROLE_PARTNER')->orWhere('role_name','ROLE_VOLUNTEER_COOK');
-        })->get();
 
         return view('MealManagement.DeliveryManagement.OrdersListContents.a-order-prep')
-            ->with('pendingOrders', $pendingOrders)
-            ->with('personels', $assignTo);
+            ->with('pendingOrders', $pendingOrders);
     }
 
     //rendering order page for admin assigning orders to riders GET
@@ -107,8 +103,10 @@ class DeliveryManagementController extends Controller
     //for volunteers/parnters to update status to prepared PATCH
     public function updateOrderToPrepared(MealOrder $mealOrder){
 
+        $distance = calculateDistance($mealOrder->ordered_by_id, $mealOrder->prepared_by_id);
         $mealOrder->update([
             'meal_order_status' => 'Packing',
+            'meal_order_type' => $distance > 10 ? 'FROZEN' :'HOT',
         ]);
 
         return redirect(route('vp-pack-orders'));
@@ -200,5 +198,21 @@ class DeliveryManagementController extends Controller
         ]);
 
         return redirect(route('a-del-orders'));
+    }
+
+    //return a json response for list of volunteer/partner available with the calculated distance
+    public function availableVolunteerAndPartner(MealOrder $mealOrder){
+        #$orderedBy = User::find($mealOrder->ordered_by_id);
+        $assignTo = User::whereHas('roles', function(Builder $query){
+            $query->where('role_name','ROLE_PARTNER')->orWhere('role_name','ROLE_VOLUNTEER_COOK');
+        })->get();
+
+        foreach ($assignTo as $user){
+            $user['role'] = $user->hasPermission('ROLE_VOLUNTEER') ? 'ROLE_VOLUNTEER' : 'ROLE_PARTNER';
+            $user['details'] = $user->hasPermission('ROLE_VOLUNTEER') ? $user->volunteer_details : $user->partner_details ;
+            $user['distance'] = calculateDistance($mealOrder->ordered_by_id, $user->user_id);
+        }
+
+        return response()->json($assignTo, 200);
     }
 }

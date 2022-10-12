@@ -29,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         //the section to be rendered is only for specific roles pass argument as string
+        /**
+         *
+         * Usage: @role('ROLE_PARTNER')
+         *             <to render here>
+         *        @endrole
+         */
         Blade::directive('role', function ($expression) {
             return "<?php
                         if(Auth::user()->hasPermission($expression)){
@@ -40,6 +46,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //use this if you require them to have multiple roles (all of them) pass argument as array
+        /**
+         * Usage: @hasRoles(['ROLE_ADMIN', 'ROLE_MEMBER'])
+         *          <to render here>
+         *        @endHasRoles
+         */
         Blade::directive('hasRoles', function ($expression) {
             return "<?php
                         if(Auth::user()->hasRoles($expression)){
@@ -51,6 +62,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //this is for has any roles, usage is @HasAnyRole(['roles']) in form of array
+        /**
+         * Usage: @hasAnyRole(['ROLE_ADMIN', 'ROLE_MEMBER'])
+         *          <to render here>
+         *        @EndHasAnyRoles
+         */
         Blade::directive('HasAnyRole', function ($expression) {
             return "<?php
                         if(Auth::user()->hasAnyRole($expression)){
@@ -62,6 +78,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //render but excluding particular roles, better to use array of roles than string but string can also be used if only one role.
+        /**
+         * Usage: @ExcludeRole('ROLE_MEMBER')
+         *          <to render here>
+         *        @EndExcludeRole
+         */
         Blade::directive('ExcludeRole', function($expression){
             return
                 "

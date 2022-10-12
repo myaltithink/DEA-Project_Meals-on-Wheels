@@ -68,7 +68,7 @@
                     <h5 class="modal-title">Select Personnel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-select-remove = "#select-to-deliver"></button>
                 </div>
-                <div class="modal-body row gy-2">
+                <div class="modal-body modal-dialog-scrollable row gy-2">
                     @foreach ($personels as $personel)
                         <div class ="card">
                             <div class="card-body">
@@ -88,6 +88,8 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+                <div class= "modal-footer">
                     <form method="POST" action="{{ route('assign-meal-delivery') }}" id = "assign-order-deliver">
                         @csrf
                         @method('PUT')
