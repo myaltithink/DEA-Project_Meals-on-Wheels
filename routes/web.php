@@ -165,7 +165,6 @@ Route::group(
             ->name('packed-and-assign-delivery')
             ->middleware(['authorizerole:ROLE_PARTNER']);
 
-
         //put process to assign partner or volunteer for preparing the order (pending to preparing)
         Route::put('/assign-meal', [DeliveryManagementController::class, 'assignMealToPrepare'])
             ->name('assign-meal-preparation')
@@ -180,5 +179,10 @@ Route::group(
         Route::patch('/update-order-delivered/{mealOrder}', [DeliveryManagementController::class, 'updateOrderToDelivered'])
             ->name('delivered')
             ->middleware(['anyrole:ROLE_VOLUNTEER_RIDER,ROLE_PARTNER']);
+
+        //for ajax call retrieving list of available users
+        Route::get('/get-available-users/{mealOrder}', [DeliveryManagementController::class, 'availableVolunteerAndPartner'])
+        ->name('partners-and-volunteers')
+        ->middleware(['authorizerole:ROLE_ADMIN']);
     }
 );

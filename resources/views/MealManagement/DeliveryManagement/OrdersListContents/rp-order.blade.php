@@ -39,7 +39,7 @@
                         </div>
                         <div class ="col-12 d-flex">
                             <strong>Meal Type: </strong>
-                            <span class="ms-2">{{ 'pending' }}</span>
+                            <span class="ms-2">{{ $order->meal_order_type }}</span>
                         </div>
 
                         @role('ROLE_VOLUNTEER_RIDER')

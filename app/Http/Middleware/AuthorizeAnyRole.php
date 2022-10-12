@@ -14,10 +14,11 @@ class AuthorizeAnyRole
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response|\Illuminate\Http\
+     *
+     * NOTE: Usage will be by ->middleware('anyrole:ROLE_ADMIN,ROLE_MEMBER')
+     * make sure that roles are separated by comma and no space is present
      */
-
-    //still not working
     public function handle(Request $request, Closure $next, ...$roles)
     {
         if($request->user() === null){

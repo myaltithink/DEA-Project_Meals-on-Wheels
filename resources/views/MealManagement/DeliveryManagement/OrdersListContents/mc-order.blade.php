@@ -42,7 +42,7 @@
                         </div>
                         <div class ="col-12 d-flex">
                             <strong>Meal Type: </strong>
-                            <span class="ms-2">{{ 'frozen or hot' }}</span>
+                            <span class="ms-2">{{ $order->meal_order_type != null ? $order->meal_order_type: 'PENDING' }}</span>
                         </div>
                         <div class ="col-12 d-flex">
                             <strong>Delivery Date: </strong>

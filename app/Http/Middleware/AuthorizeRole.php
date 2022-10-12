@@ -14,6 +14,9 @@ class AuthorizeRole
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     *
+     * NOTE: Usage will be by ->middleware('anuthorizerole:ROLE_ADMIN')
+     * make sure that only one role is accepted
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
