@@ -14,22 +14,30 @@
                     </div>
                     <div class= "card-footer bg-transparent border border-0 p-2">
                         @HasAnyRole(['ROLE_MEMBER', 'ROLE_CARETAKER'])
-                            <button class="btn btn-primary w-100 meal-select-prompt"
-                                data-bs-toggle="modal" data-bs-target="#meal-select-confirmation"
-                                data-meal-value = "{{ $plan->meal_plan_id }}"
 
-                                @if ($hasOrdered == true)
-                                    disabled
-                                @endif
-                            >
-                                @if ($hasOrdered != null)
+                            @IsAvailable(strtotime(date('h:i A', time())))
+                                <button class="btn btn-primary w-100 meal-select-prompt"
+                                    data-bs-toggle="modal" data-bs-target="#meal-select-confirmation"
+                                    data-meal-value = "{{ $plan->meal_plan_id }}"
+
                                     @if ($hasOrdered == true)
-                                        Ordered
+                                        disabled
                                     @endif
-                                @else
-                                    Order
-                                @endif
-                            </button>
+                                >
+                                    @if ($hasOrdered != null)
+                                        @if ($hasOrdered == true)
+                                            Ordered
+                                        @endif
+                                    @else
+                                        Order
+                                    @endif
+                                </button>
+                            @ElseIsAvailable
+                                <button class = "btn btn-primary w-100 text-uppercase" disabled>
+                                    Service unavailable
+                                </button>
+                            @EndIsAvailable
+
                         @EndHasAnyRoles
                         @ExcludeRole(['ROLE_MEMBER', 'ROLE_CARETAKER'])
                             <button class="btn btn-outline-success w-100" @disabled(true)>
