@@ -106,7 +106,7 @@ class DeliveryManagementController extends Controller
         $distance = calculateDistance($mealOrder->ordered_by_id, $mealOrder->prepared_by_id);
         $mealOrder->update([
             'meal_order_status' => 'Packing',
-            'meal_order_type' => $distance > 10 ? 'FROZEN' :'HOT',
+            'meal_order_type' =>  date('N') < 5 ? 'FROZEN' : ($distance > 10 ? 'FROZEN' :'HOT'),
         ]);
 
         return redirect(route('vp-pack-orders'));

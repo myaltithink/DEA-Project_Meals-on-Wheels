@@ -72,6 +72,7 @@ class MealProposalController extends Controller
             'organization' => $volunteer->volunteer_details->organization_name,
             'user_id' => $volunteer->user_id,
         );
+
         $meal_plan_3_test_data = array(
             'meal_name' => 'tite',
             'meal_ingredients' => 'titeee',

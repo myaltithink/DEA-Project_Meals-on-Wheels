@@ -95,5 +95,23 @@ class AppServiceProvider extends ServiceProvider
             return "<?php } ?>";
         });
 
+        //for checking timezone if the service is available
+        Blade::directive('IsAvailable', function($expression){
+            return
+                "
+                <?php
+
+                    if($expression > strtotime('10:00AM') && $expression < strtotime('4:00PM')){
+                ?>";
+        });
+
+
+        Blade::directive('ElseIsAvailable', function(){
+            return "<?php }else{ ?>";
+        });
+
+        Blade::directive('EndIsAvailable', function(){
+            return "<?php } ?>";
+        });
     }
 }
