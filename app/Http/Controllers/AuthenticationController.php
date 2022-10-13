@@ -81,11 +81,13 @@ class AuthenticationController extends Controller
         $verification_entity->save();
 
         MailController::send_email('tarucisaac@gmail.com', 'Isaac Taruc', 'Registration Verification', $verification_type, $verification_code);
+
+        return redirect(route('email_verification'))->with('email', $email);
     }
 
     private function get_registration_profile(Request $request)
     {
-        return array(
+        return new Profile([
             'first_name' => $request['first-name'],
             'last_name' => $request['last-name'],
             'age' => $request['age'],
@@ -94,7 +96,7 @@ class AuthenticationController extends Controller
             'contact_number' => $request['contact-num'],
             'address' => $request['address'],
             'valid_id' => FileUploadController::upload_file($request['valid-id'], $request['email'] . '-valid-id', 'valid_ids'),
-        );
+        ]);
     }
 
     private function get_registration_acc_data(Request $request)
@@ -114,41 +116,90 @@ class AuthenticationController extends Controller
         $user->fill($this->get_registration_acc_data($request))->save();
         $user->roles()->attach(Role::where('role_name', 'ROLE_MEMBER')->get()[0]['id']);
 
-        $member_details = new MemberDetails();
-        $member_details->fill([
+        $member_details = new MemberDetails([
             'proof_of_eligebility' => FileUploadController::upload_file($request->file('member-eligibility'), $request['email'] . '-proof', 'member_eligibilities'),
             'needs' => $request['needs'],
             'allergies' => $request['allergies']
         ]);
 
-        $profile = new Profile();
-        $profile->fill($this->get_registration_profile($request));
-
         $user
             ->member_details()->save($member_details)
-            ->profile()->save($profile);
+            ->profile()->save($this->get_registration_profile($request));
 
         $this->send_registration_email_verification($user->getAttribute('email'));
-
-        return redirect('/register-member');
     }
 
     public function caregiver_registration(Request $request)
     {
+        $user = new User();
+        $user->fill($this->get_registration_acc_data($request))->save();
+        $user->roles()->attach(Role::where('role_name', 'ROLE_CAREGIVER')->get()[0]['id']);
+
+        $caregiver_data = new CaregiverDetails([
+            'assigned_member_name' => $request['member-name'],
+            'assigned_member_email' => $request['member-email']
+        ]);
+
+        $user
+            ->caregiver_details()->save($caregiver_data)
+            ->profile()->save($this->get_registration_profile($request));
+
+        $this->send_registration_email_verification($user->getAttribute('email'));
     }
 
     public function partner_registration(Request $request)
     {
+        $user = new User();
+        $user->fill($this->get_registration_acc_data($request))->save();
+        $user->roles()->attach(Role::where('role_name', 'ROLE_PARTNER')->get()[0]['id']);
+
+        $partner_data = new PartnerDetails([
+            'partner_name' => $request['company-name'],
+            'partner_registered_by' => $request['registered-by'],
+            'partner_address' => $request['partner-address'],
+            'partner_business_license' => FileUploadController::upload_file($request->file('business-license'), $request['company-name'] . 'business-license', 'partner_business_license')
+        ]);
+
+        $user->partner_details()->save($partner_data);
+
+        $this->send_registration_email_verification($user->getAttribute('email'));
     }
     public function volunteer_registration(Request $request)
     {
-    }
+        $empty_regex = "/^\s*$/i";
 
-    public function register(Request $request)
-    {
-        $this->save_image($request);
+        $user = new User();
+        $user->fill($this->get_registration_acc_data($request))->save();
+        $user->roles()->attach(Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id']);
 
-        //return redirect('/');
+        $volunteer_role = '';
+
+        if (!preg_match($empty_regex, $request['volunteer-rider'])) {
+            $user->roles()->attach(Role::where('role_name', 'ROLE_VOLUNTEER_RIDER')->get()[0]['id']);
+            $volunteer_role = 'Rider';
+        }
+
+        if (!preg_match($empty_regex, $request['volunteer-kitchen'])) {
+            $user->roles()->attach(Role::where('role_name', 'ROLE_VOLUNTEER_COOK')->get()[0]['id']);
+            if (strlen($volunteer_role) == 0) {
+                $volunteer_role = 'Outsource Kitchen';
+            } else {
+                $volunteer_role = ' and Outsource Kitchen';
+            }
+        }
+
+        $volunteer_data = new VolunteerDetails([
+            'volunteer_name' => $request['first-name'] . ' ' . $request['last-name'],
+            'volunteer_role' => $volunteer_role,
+            'organization_name' => $request['organization-name'],
+            'organization_address' => $request['organization-address']
+        ]);
+
+        $user
+            ->volunteer_details()->save($volunteer_data)
+            ->profile()->save($this->get_registration_profile($request));
+
+        $this->send_registration_email_verification($user->getAttribute('email'));
     }
 
     public function create_auth_test_data()
@@ -267,6 +318,8 @@ class AuthenticationController extends Controller
 
         //member registration
         $member_account = new User();
+        $member_account->setAttribute('email_verified', true);
+        $member_account->setAttribute('authenticatable', true);
         $member_account->fill($member_test_data)->save();
         $member_account->roles()->attach(Role::where('role_name', 'ROLE_MEMBER')->get()[0]['id']);
         $member_data = new MemberDetails();
@@ -279,6 +332,8 @@ class AuthenticationController extends Controller
 
         //caregiver registration
         $caregiver_account = new User();
+        $caregiver_account->setAttribute('email_verified', true);
+        $caregiver_account->setAttribute('authenticatable', true);
         $caregiver_account->fill($caregiver_test_data)->save();
         $caregiver_account->roles()->attach(Role::where('role_name', 'ROLE_CAREGIVER')->get()[0]['id']);
         $caregiver_data = new CaregiverDetails();
@@ -291,6 +346,8 @@ class AuthenticationController extends Controller
 
         //volunteer registration
         $volunteer_account = new User();
+        $volunteer_account->setAttribute('email_verified', true);
+        $volunteer_account->setAttribute('authenticatable', true);
         $volunteer_account->fill($volunteer_test_data)->save();
         $volunteer_account->roles()->attach([
             Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id'],
@@ -306,6 +363,8 @@ class AuthenticationController extends Controller
 
         //rider registration
         $rider_account = new User();
+        $rider_account->setAttribute('email_verified', true);
+        $rider_account->setAttribute('authenticatable', true);
         $rider_account->fill($rider_test_data)->save();
         $rider_account->roles()->attach([
             Role::where('role_name', 'ROLE_VOLUNTEER')->get()[0]['id'],
@@ -323,6 +382,8 @@ class AuthenticationController extends Controller
 
         //partner registration
         $partner_account = new User();
+        $partner_account->setAttribute('email_verified', true);
+        $partner_account->setAttribute('authenticatable', true);
         $partner_account->fill($partner_test_data)->save();
         $partner_account->roles()->attach(Role::where('role_name', 'ROLE_PARTNER')->get()[0]['id']);
         $partner_data = new PartnerDetails();

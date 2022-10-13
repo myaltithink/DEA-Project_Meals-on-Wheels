@@ -28,5 +28,21 @@
     <hr>
     @include('registration.components.identity')
     <hr>
+    <div class="form-control border-0 left-padding">
+        <h4 class="mb-0">Organization</h4>
+        <p>
+            You may leave this section blank if you do not belong to any organization
+        </p>
+
+        <div>
+            <label for="organization-name">Organization Name</label>
+            <input type="text" name="organization-name" id="organization-name" class="form-control nullable">
+        </div>
+        <div>
+            <label for="organization-address">Organization Address</label>
+            <input type="text" name="organization-address" id="organization-address" class="form-control nullable">
+        </div>
+    </div>
+    <hr>
     @include('registration.components.account')
 @endsection

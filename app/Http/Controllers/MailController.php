@@ -12,7 +12,7 @@ class MailController extends Controller
     public static function send_email($recipient, $recipient_name, $subject, $verification_type, $verification_code)
     {
         Mail::send(
-            'email_verification',
+            'verification_email_content',
             [
                 'is_registration' => $verification_type == 'registration',
                 'is_forget_pass' => $verification_type == 'forget-password',

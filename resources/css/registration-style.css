@@ -8,7 +8,6 @@
 }
 
 .form-borders {
-    border-right: solid 2px #c8c9ca;
     border-bottom: solid 2px #c8c9ca;
 }
 
@@ -19,7 +18,7 @@
 
 #registration-container #form-content {
     overflow: auto;
-    height: 70vh;
+    height: 700px;
     padding-bottom: 20px;
 }
 

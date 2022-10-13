@@ -56,8 +56,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $user = new User();
-        $user->fill([
+        $admin = new User();
+        $admin->setAttribute('email_verified', true);
+        $admin->setAttribute('authenticatable', true);
+        $admin->fill([
             'email' => 'admin@gmail.com',
             'password' => bcrypt('wasdwasd'),
             'longtitude' => '0.0',
@@ -65,6 +67,6 @@ class DatabaseSeeder extends Seeder
             'status' => 'REGISTERED'
         ])->save();
 
-        $user->roles()->attach(Role::where('role_name', 'ROLE_ADMIN')->get()[0]);
+        $admin->roles()->attach(Role::where('role_name', 'ROLE_ADMIN')->get()[0]);
     }
 }

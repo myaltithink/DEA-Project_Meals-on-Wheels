@@ -1,0 +1,16 @@
+#verification-container, #message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#message-container #container-child {
+    width: 30vw;
+}
+
+@media screen and (max-width: 767px) {
+    #message-container div {
+        width: 80vw;
+    }
+}

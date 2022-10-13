@@ -16,15 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-
-// Route::get('/register', function () {
-//     return view('register');
-// });
 
 Route::group(['middleware' => ['guest']], function () {
+
+    Route::get('/', function () {
+        return view('index');
+    })->name('home');
 
     Route::get('register-member', function () {
         return view('registration.member');
@@ -41,11 +38,42 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('register-caregiver', function () {
         return view('registration.caregiver');
     });
+
+    Route::get('/login', function () {
+        return view('login');
+    })->name('login');
+
+    Route::get('/email-verification', function () {
+        return view('registration.email_verification');
+    })->name('email_verification');
+
+    Route::get('/forgot-password', function () {
+        return view('registration.forgot_pass');
+    })->name('forgot_password');
+
+    Route::get('/new-password', function () {
+        return view('registration.new_password');
+    })->name('new_password');
+
+    Route::get('/registered', function () {
+        return view('registration.action_done');
+    })->name('registered');
+
+    Route::get('/password-changed', function () {
+        return view('registration.action_done');
+    })->name('password_changed');
+
+    Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');
+
+    Route::get('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member');
+
+    Route::post('/caregiver-registration', [AuthenticationController::class, 'caregiver_registration'])->name('register.caregiver');
+
+    Route::post('/partner-registration', [AuthenticationController::class, 'partner_registration'])->name('register.partner');
+
+    Route::post('/volunteer-registration', [AuthenticationController::class, 'volunteer_registration'])->name('register.volunteer');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->middleware(['guest'])->name('login');
 
 Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
 
@@ -54,16 +82,6 @@ Route::get('/dashboard', ['middleware' => 'auth', function () {
 }])->name('dashboard');
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
-
-Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user')->middleware(['guest']);
-
-Route::post('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member')->middleware(['guest']);
-
-Route::post('/caregiver-registration', [AuthenticationController::class, 'caregiver_registration'])->name('register.caregiver')->middleware(['guest']);
-
-Route::post('/partner-registration', [AuthenticationController::class, 'partner_registration'])->name('register.partner')->middleware(['guest']);
-
-Route::post('/volunteer-registration', [AuthenticationController::class, 'volunteer_registration'])->name('register.volunteer')->middleware(['guest']);
 
 //meal management module for meal proposal
 Route::group(
