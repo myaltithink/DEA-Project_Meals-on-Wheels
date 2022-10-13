@@ -40,7 +40,7 @@
                             <div class ="col-12 d-flex flex-column">
                                 <strong>Reason For Rejection: </strong>
                                 <p>
-                                    Tite
+                                    {{ $plan->reason_for_rejection }}
                                 </p>
                             </div>
                         @endif
