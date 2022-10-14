@@ -1,15 +1,6 @@
-<style>
-    #email-verification {
-        margin-left: 20px;
-    }
-
-    #email-verification #verification-code {
-        font-size: 20px;
-    }
-</style>
-
 <div id="email-verification">
     <h3>Meals on Wheels Email Verification</h3>
+
 
     @if ($is_registration)
         <p>Welcome to Meals on Wheels brought you by MerryMeals</p>

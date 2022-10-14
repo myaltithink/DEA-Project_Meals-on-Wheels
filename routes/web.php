@@ -65,13 +65,17 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');
 
-    Route::get('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member');
+    Route::post('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member');
 
     Route::post('/caregiver-registration', [AuthenticationController::class, 'caregiver_registration'])->name('register.caregiver');
 
     Route::post('/partner-registration', [AuthenticationController::class, 'partner_registration'])->name('register.partner');
 
     Route::post('/volunteer-registration', [AuthenticationController::class, 'volunteer_registration'])->name('register.volunteer');
+
+    Route::post('/verify-registration', [AuthenticationController::class, 'register_verification'])->name('verify.register');
+
+    Route::post('/verify-forgot-pass', [AuthenticationController::class, 'forgot_pass_verification'])->name('verify.forgot_pass');
 });
 
 

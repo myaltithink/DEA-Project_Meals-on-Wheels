@@ -2,11 +2,20 @@ const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const numberRegex = /^[0-9]*$/;
 const emptyRegex = /^\s*$/;
 
-const form = document.getElementById('registration-form');
+let form = document.getElementById('registration-form');
+
+if (window.location.pathname.includes('new-pass')) {
+    form = document.getElementById('new-password-form')
+}
+
+if (window.location.pathname.includes('register-')) {
+    window.addEventListener('load', getLocation);
+}
 
 form.addEventListener('input', validateForm);
 
-window.addEventListener('load', getLocation);
+
+console.log(document.getElementsByClassName('show-pass'))
 
 for (const showPassBtn of document.getElementsByClassName('show-pass')) {
     showPassBtn.addEventListener('click', showPass);
@@ -51,7 +60,12 @@ function showError(error) {
 
 function validateForm(e) {
     const input = e.target;
-    const button = document.getElementById('submit-registration')
+    let button = document.getElementById('submit-registration')
+
+    if (window.location.pathname.includes('new-pass')) {
+        button = document.getElementById('submit-new-pass')
+    }
+
     let valid = true;
 
     for (const className of input.classList) {
@@ -178,13 +192,8 @@ function validateForm(e) {
 
     }
 
+    (valid)? button.classList.remove('disabled') : button.classList.add('disabled');
 
-    if (valid) {
-        button.classList.remove('disabled');
-        return;
-    }
-
-    button.classList.add('disabled');
 }
 
 function setErrorMessage(input, message) {

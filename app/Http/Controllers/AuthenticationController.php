@@ -50,14 +50,7 @@ class AuthenticationController extends Controller
         return redirect('/');
     }
 
-    public function save_image(Request $request)
-    {
-        $uploaded_dir = FileUploadController::upload_file($request->file('file_input'), 'test new uploade', 'new destination');
-
-        Log::info('saved dir ' . $uploaded_dir);
-    }
-
-    public function send_registration_email_verification($email)
+    public function send_registration_email_verification($email, $name)
     {
         $verification_type = 'registration';
         $verification_code = MailController::create_verification_code('registration');
@@ -66,8 +59,6 @@ class AuthenticationController extends Controller
             ['email', '=', $email],
             ['verification_type', '=', $verification_type]
         ])->get();
-
-        Log::info("duplicate " . print_r($duplicate, true));
 
         if ($duplicate->count() != 0) {
             $duplicate[0]->delete();
@@ -80,9 +71,9 @@ class AuthenticationController extends Controller
         ]);
         $verification_entity->save();
 
-        MailController::send_email('tarucisaac@gmail.com', 'Isaac Taruc', 'Registration Verification', $verification_type, $verification_code);
+        MailController::send_email($email, $name, 'Registration Verification', $verification_type, $verification_code);
 
-        return redirect(route('email_verification'))->with('email', $email);
+        return redirect(route('email_verification'))->with('email', $email)->with('caller', 'registration');
     }
 
     private function get_registration_profile(Request $request)
@@ -126,7 +117,7 @@ class AuthenticationController extends Controller
             ->member_details()->save($member_details)
             ->profile()->save($this->get_registration_profile($request));
 
-        $this->send_registration_email_verification($user->getAttribute('email'));
+        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
     }
 
     public function caregiver_registration(Request $request)
@@ -144,7 +135,7 @@ class AuthenticationController extends Controller
             ->caregiver_details()->save($caregiver_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        $this->send_registration_email_verification($user->getAttribute('email'));
+        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
     }
 
     public function partner_registration(Request $request)
@@ -162,7 +153,7 @@ class AuthenticationController extends Controller
 
         $user->partner_details()->save($partner_data);
 
-        $this->send_registration_email_verification($user->getAttribute('email'));
+        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
     }
     public function volunteer_registration(Request $request)
     {
@@ -199,7 +190,43 @@ class AuthenticationController extends Controller
             ->volunteer_details()->save($volunteer_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        $this->send_registration_email_verification($user->getAttribute('email'));
+        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
+    }
+
+    public function register_verification(Request $request)
+    {
+        return $this->verify_email($request, 'registration', 'registered');
+    }
+
+    public function forgot_pass_verification(Request $request)
+    {
+        return $this->verify_email($request, 'forget-password', 'new_password');
+    }
+
+    public function verify_email(Request $request, $verification_type, $redirect)
+    {
+        $verification_data = EmailVerification::where([
+            ['email', '=', $request['email']],
+            ['verification_type', '=', $verification_type],
+        ])->get();
+
+        Log::info("verification data " . print_r($verification_data, true));
+
+        $has_verification_data = ($verification_data->count() != 0);
+
+        if ($has_verification_data) {
+            if ($request['verification-code'] == $verification_data[0]->getAttribute('verification_code')) {
+
+                $verification_data[0]->delete();
+
+                return redirect(route($redirect))->with('email', $request['email']);
+            }
+        }
+
+        return redirect(route('email_verification'))
+            ->with('email', $request['email'])
+            ->with('verification_error', ($has_verification_data) ? 'Invalid Code' : 'There is no email verification for ' . $request['email'])
+            ->with('caller', ($redirect == 'registered') ? 'registration' : 'forgot-pass');
     }
 
     public function create_auth_test_data()
