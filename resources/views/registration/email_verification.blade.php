@@ -4,7 +4,8 @@
         <div class="m-5">
             <h3>Email Verification</h3>
             <p>We've sent a email verification code to the email address you provided</p>
-            <p>Did not received any? <a href="">Resend</a></p>
+            <p>Did not received any? <a
+                    href="{{ route('resend.code', session('email') . '-' . session('caller')) }}">Resend</a></p>
             <form
                 action="
                 @if (session('caller') == 'registration') {{ route('verify.register') }}

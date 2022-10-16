@@ -50,10 +50,9 @@ class AuthenticationController extends Controller
         return redirect('/');
     }
 
-    public function send_registration_email_verification($email, $name)
+    public function send_email_verification($email, $name, $verification_type)
     {
-        $verification_type = 'registration';
-        $verification_code = MailController::create_verification_code('registration');
+        $verification_code = MailController::create_verification_code($verification_type);
 
         $duplicate = EmailVerification::where([
             ['email', '=', $email],
@@ -73,7 +72,7 @@ class AuthenticationController extends Controller
 
         MailController::send_email($email, $name, 'Registration Verification', $verification_type, $verification_code);
 
-        return redirect(route('email_verification'))->with('email', $email)->with('caller', 'registration');
+        return redirect(route('email_verification'))->with('email', $email)->with('caller', $verification_type);
     }
 
     private function get_registration_profile(Request $request)
@@ -92,13 +91,20 @@ class AuthenticationController extends Controller
 
     private function get_registration_acc_data(Request $request)
     {
+
         return array(
             'email' => $request['email'],
-            'password' => $request['password'],
+            'password' => bcrypt($request['password']),
             'longtitude' => $request['longtitude'],
             'latitude' => $request['latitude'],
             'status' => 'Waiting for Email Verification from User'
         );
+    }
+
+    private function is_email_registered($email)
+    {
+        $user = User::where('email', $email)->get();
+        return $user->count() != 0;
     }
 
     public function member_registration(Request $request)
@@ -117,7 +123,7 @@ class AuthenticationController extends Controller
             ->member_details()->save($member_details)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
+        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
     }
 
     public function caregiver_registration(Request $request)
@@ -135,7 +141,7 @@ class AuthenticationController extends Controller
             ->caregiver_details()->save($caregiver_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
+        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
     }
 
     public function partner_registration(Request $request)
@@ -153,7 +159,7 @@ class AuthenticationController extends Controller
 
         $user->partner_details()->save($partner_data);
 
-        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
+        return $this->send_email_verification($user->getAttribute('email'), '', 'registration');
     }
     public function volunteer_registration(Request $request)
     {
@@ -190,7 +196,7 @@ class AuthenticationController extends Controller
             ->volunteer_details()->save($volunteer_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_registration_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name']);
+        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
     }
 
     public function register_verification(Request $request)
@@ -200,7 +206,13 @@ class AuthenticationController extends Controller
 
     public function forgot_pass_verification(Request $request)
     {
-        return $this->verify_email($request, 'forget-password', 'new_password');
+        return $this->verify_email($request, 'forget-pass', 'new_password');
+    }
+
+    public function resend_code(string $to)
+    {
+        $resend_to = explode('-', $to);
+        return $this->send_email_verification($resend_to[0], '', $resend_to[1]);
     }
 
     public function verify_email(Request $request, $verification_type, $redirect)
@@ -210,12 +222,13 @@ class AuthenticationController extends Controller
             ['verification_type', '=', $verification_type],
         ])->get();
 
-        Log::info("verification data " . print_r($verification_data, true));
-
         $has_verification_data = ($verification_data->count() != 0);
 
         if ($has_verification_data) {
             if ($request['verification-code'] == $verification_data[0]->getAttribute('verification_code')) {
+
+                $user = User::where('email', $verification_data[0]->getAttribute('email'))->get()[0];
+                $user->setAttribute('email_verified', true)->save();
 
                 $verification_data[0]->delete();
 

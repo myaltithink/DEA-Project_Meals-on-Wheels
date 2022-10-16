@@ -63,6 +63,8 @@ Route::group(['middleware' => ['guest']], function () {
         return view('registration.action_done');
     })->name('password_changed');
 
+    Route::get('/resend-code/{to}', [AuthenticationController::class, 'resend_code'])->name('resend.code');
+
     Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');
 
     Route::post('/member-registration', [AuthenticationController::class, 'member_registration'])->name('register.member');
@@ -228,6 +230,6 @@ Route::post('/reject-meal-proposal', [MealProposalController::class, 'rejectMeal
     ->middleware(['authorizerole:ROLE_ADMIN']);
 
 //User Eligibility Management Page
-Route::get('/user-eligibility-management', function (){
+Route::get('/user-eligibility-management', function () {
     return view('MealManagement.UserEligibilityAssessment.user-assessment');
 })->middleware(['authorizerole:ROLE_ADMIN']);
