@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\MealPlan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\user_roles;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +18,7 @@ class MealProposalController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER');
+        $this->middleware('anyrole:ROLE_VOLUNTEER_COOK,ROLE_PARTNER,ROLE_ADMIN');
     }
     //viewing meal proposal lists page
     public function index(){
@@ -272,6 +274,50 @@ class MealProposalController extends Controller
 
         $mealPlan->delete();
         return redirect(route('my-proposal-list'));
+    }
+
+    //viewing of all pending meal proposals
+    public function pendingProposals(){
+        $pending_proposals = MealPlan::where('status', "Pending")->get();
+        return view('MealManagement.FoodSafetyManagement.food-safety')->with('proposals', $pending_proposals);
+    }
+
+    //viewing of a specific meal proposal to approve or reject
+    public function showProposal($mealPlan){
+        Log::info(print_r($mealPlan, true));
+        $meal = MealPlan::find($mealPlan);
+        return $meal->meal_plan_id = null ? abort(404) : view('MealManagement.FoodSafetyManagement.view-meal-approval')
+        ->with('proposal', $meal)
+        ->with('meal_id', $meal->meal_plan_id);
+    }
+
+    //approving meal proposal
+    public function approveMealProposal(Request $mealPlan){
+
+        // if(Auth::id() != $user_role->role_id = 1){
+        //     return abort(403);
+        // }
+        
+        //$mealPlan->update(['status' => "Approve"]);
+        $meal = MealPlan::find($mealPlan['meal-id']);
+
+        $meal->status = "Approved";
+        $meal->save();
+        return redirect('/food-safety-management');
+    }
+
+    //rejecting meal proposal
+    public function rejectMealProposal(Request $mealPlan){
+        // if(Auth::id() != $user_role->role_id = 1){
+        //     return abort(403);
+        // }
+
+        $meal = MealPlan::find($mealPlan['meal-id']);
+        //$reason = MealPlan::find($mealPlan['reason']);
+        $meal->reason_for_rejection = $mealPlan['reason'];
+        $meal->status = "Rejected";
+        $meal->save();
+        return redirect('/food-safety-management');
     }
 
 }

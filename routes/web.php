@@ -207,3 +207,27 @@ Route::group(
             ->middleware(['authorizerole:ROLE_ADMIN']);
     }
 );
+
+//Food Safety Management Page - list of all pending meal plan proposals
+Route::get('/food-safety-management', [MealProposalController::class, 'pendingProposals'])
+    ->middleware(['authorizerole:ROLE_ADMIN']);
+
+//Page for viewing a specific meal proposal to approve or reject
+Route::get('/view-meal-proposal/{mealPlan}', [MealProposalController::class, 'showProposal'])
+    ->name('meal-proposal-approval')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
+
+//Approve meal
+Route::post('/approve-meal-proposal', [MealProposalController::class, 'approveMealProposal'])
+    ->name('approve-meal-proposal')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
+
+//Reject meal
+Route::post('/reject-meal-proposal', [MealProposalController::class, 'rejectMealProposal'])
+    ->name('reject-meal-proposal')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
+
+//User Eligibility Management Page
+Route::get('/user-eligibility-management', function (){
+    return view('MealManagement.UserEligibilityAssessment.user-assessment');
+})->middleware(['authorizerole:ROLE_ADMIN']);
