@@ -9,7 +9,7 @@
             <form
                 action="
                 @if (session('caller') == 'registration') {{ route('verify.register') }}
-                @elseif (session('caller') == 'forgot-pass')
+                @elseif (session('caller') == 'forget_pass')
                     {{ route('verify.forgot_pass') }} @endif
             "
                 method="POST">

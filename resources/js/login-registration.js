@@ -3,18 +3,18 @@ const numberRegex = /^[0-9]*$/;
 const emptyRegex = /^\s*$/;
 
 let form = document.getElementById('registration-form');
+if (window.location.pathname != '/login') {
 
-if (window.location.pathname.includes('new-pass')) {
-    form = document.getElementById('new-password-form')
+    if (window.location.pathname.includes('new-pass')) {
+        form = document.getElementById('new-password-form')
+    }
+
+    if (window.location.pathname.includes('register-')) {
+        window.addEventListener('load', getLocation);
+    }
+
+    form.addEventListener('input', validateForm);
 }
-
-if (window.location.pathname.includes('register-')) {
-    window.addEventListener('load', getLocation);
-}
-
-form.addEventListener('input', validateForm);
-
-
 console.log(document.getElementsByClassName('show-pass'))
 
 for (const showPassBtn of document.getElementsByClassName('show-pass')) {

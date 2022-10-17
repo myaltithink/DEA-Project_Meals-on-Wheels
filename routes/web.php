@@ -25,19 +25,19 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::get('register-member', function () {
         return view('registration.member');
-    });
+    })->name('registration.member');
 
     Route::get('register-volunteer', function () {
         return view('registration.volunteer');
-    });
+    })->name('registration.volunteer');
 
     Route::get('register-partner', function () {
         return view('registration.partner');
-    });
+    })->name('registration.partner');
 
     Route::get('register-caregiver', function () {
         return view('registration.caregiver');
-    });
+    })->name('registration.caregiver');
 
     Route::get('/login', function () {
         return view('login');
@@ -63,7 +63,11 @@ Route::group(['middleware' => ['guest']], function () {
         return view('registration.action_done');
     })->name('password_changed');
 
+    Route::post('/reset-password', [AuthenticationController::class, 'reset_password'])->name('reset.password');
+
     Route::get('/resend-code/{to}', [AuthenticationController::class, 'resend_code'])->name('resend.code');
+
+    Route::post('/create-forgot-pass', [AuthenticationController::class, 'create_forgot_pass'])->name('create.forgot.pass');
 
     Route::post('/perform-login', [AuthenticationController::class, 'login'])->name('login.user');
 

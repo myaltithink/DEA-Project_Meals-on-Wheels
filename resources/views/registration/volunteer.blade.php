@@ -6,9 +6,11 @@
     <div class="form-control border-0 left-padding">
         <h4>Role <i class="required"><small>(required)</small></i></h4>
 
-        <input type="checkbox" name="volunteer-kitchen" id="volunteer-kitchen" value="Outsource Kitchen">
+        <input type="checkbox" name="volunteer-kitchen" id="volunteer-kitchen" value="Outsource Kitchen"
+            {{ old('volunteer-kitchen') == 'Outsource Kitchen' ? 'checked' : '' }}>
         <label for="volunteer-kitchen">Outsource Kitchen</label><br>
-        <input type="checkbox" name="volunteer-rider" id="volunteer-rider" value="Rider">
+        <input type="checkbox" name="volunteer-rider" id="volunteer-rider" value="Rider"
+            {{ old('volunteer-rider') == 'Rider' ? 'checked' : '' }}>
         <label for="volunteer-rider">Rider</label><br>
 
         <p style="font-size: 14px">
@@ -36,11 +38,13 @@
 
         <div>
             <label for="organization-name">Organization Name</label>
-            <input type="text" name="organization-name" id="organization-name" class="form-control nullable">
+            <input type="text" name="organization-name" id="organization-name" class="form-control nullable"
+                value="{{ old('organization-name', '') }}">
         </div>
         <div>
             <label for="organization-address">Organization Address</label>
-            <input type="text" name="organization-address" id="organization-address" class="form-control nullable">
+            <input type="text" name="organization-address" id="organization-address" class="form-control nullable"
+                value="{{ old('organization-address', '') }}">
         </div>
     </div>
     <hr>

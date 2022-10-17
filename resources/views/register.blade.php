@@ -56,6 +56,21 @@
                             @endif
                         </p>
                     </div>
+
+                    <small class="error-message mb-2">
+                        @if ($errors->any())
+                            <p class="error-message mb-0">Registration Failed</p>
+                            <ul class="mb-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="error-message">Please fill out the <a href="#identity-section">Identity</a> and
+                                <a href="#account-section">Account</a> section again as these sections does not retain the
+                                submitted information due to sensitivity of the information
+                            </p>
+                        @endif
+                    </small>
                 </div>
             @endif
             <div id="form-content" class="form-borders border-bottom-0 pb-4">
@@ -69,6 +84,8 @@
                     @yield('forgot-pass-content')
                 @elseif (Request::is('new-password'))
                     @yield('new-pass-content')
+                @elseif (Request::is('login'))
+                    @yield('login-content')
                 @endif
             </div>
 
@@ -89,7 +106,9 @@
             @elseif (Request::is('registered') || Request::is('password-changed'))
                 background-image: url('{{ Vite::asset('resources/images/action-complete.jpg') }}')
             @elseif (Request::is('forgot-password') || Request::is('new-password'))
-                background-image: url('{{ Vite::asset('resources/images/forgot-pass.jpg') }}') @endif
+                background-image: url('{{ Vite::asset('resources/images/forgot-pass.jpg') }}')
+            @elseif (Request::is('login'))
+                background-image: url('{{ Vite::asset('resources/images/login-banner.jpg') }}') @endif
 
                 ">
         </div>

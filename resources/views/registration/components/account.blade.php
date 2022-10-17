@@ -1,5 +1,8 @@
-<div class="left-padding">
-    <h4 class="m-0">Account</h4>
+<div id='account-section' class=" @if (!Request::is('login')) left-padding @endif">
+
+    @if (!Request::is('login'))
+        <h4 class="m-0">Account</h4>
+    @endif
 
     <div class="form-control border-0 mb-2 p-0">
         <label for="email">Email
@@ -7,7 +10,7 @@
                 <i class="required"><small>(required)</small></i>
             @endif
         </label>
-        <input type="email" name="email" id="email" class="form-control mb-0" />
+        <input type="email" name="email" id="email" class="form-control mb-0" value="{{ old('email', '') }}" />
         <small class="error-message"></small>
     </div>
 

@@ -6,11 +6,11 @@
         <h4 class="m-0">Needs</h4>
 
         <label for="needs">What do you need? and Why <i class="required"><small>(required)</small></i></label>
-        <textarea name="needs" id="needs" class="form-control mb-0 rounded-0" cols="30" rows="5"></textarea>
+        <textarea name="needs" id="needs" class="form-control mb-0 rounded-0" cols="30" rows="5">{{ old('needs', '') }}</textarea>
         <small class="error-message"></small><br>
 
         <label for="allergies">Food Allergies <i>if any otherwise leave blank</i></label>
-        <textarea name="allergies" id="allergies" class="form-control rounded-0 nullable" cols="30" rows="5"></textarea>
+        <textarea name="allergies" id="allergies" class="form-control rounded-0 nullable" cols="30" rows="5">{{ old('allergies', '') }}</textarea>
     </div>
 
     <hr>

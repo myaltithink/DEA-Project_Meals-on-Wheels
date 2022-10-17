@@ -70,7 +70,7 @@ class AuthenticationController extends Controller
         ]);
         $verification_entity->save();
 
-        MailController::send_email($email, $name, 'Registration Verification', $verification_type, $verification_code);
+        MailController::send_email($email, $name, ($verification_type == 'registration') ? 'Registration Verification' : 'Password Reset', $verification_type, $verification_code);
 
         return redirect(route('email_verification'))->with('email', $email)->with('caller', $verification_type);
     }
@@ -101,14 +101,12 @@ class AuthenticationController extends Controller
         );
     }
 
-    private function is_email_registered($email)
-    {
-        $user = User::where('email', $email)->get();
-        return $user->count() != 0;
-    }
-
     public function member_registration(Request $request)
     {
+        $request->validate([
+            'email' => 'unique:users,email'
+        ]);
+
         $user = new User();
         $user->fill($this->get_registration_acc_data($request))->save();
         $user->roles()->attach(Role::where('role_name', 'ROLE_MEMBER')->get()[0]['id']);
@@ -128,6 +126,9 @@ class AuthenticationController extends Controller
 
     public function caregiver_registration(Request $request)
     {
+        $request->validate([
+            'email' => 'unique:users,email'
+        ]);
         $user = new User();
         $user->fill($this->get_registration_acc_data($request))->save();
         $user->roles()->attach(Role::where('role_name', 'ROLE_CAREGIVER')->get()[0]['id']);
@@ -146,6 +147,9 @@ class AuthenticationController extends Controller
 
     public function partner_registration(Request $request)
     {
+        $request->validate([
+            'email' => 'unique:users,email'
+        ]);
         $user = new User();
         $user->fill($this->get_registration_acc_data($request))->save();
         $user->roles()->attach(Role::where('role_name', 'ROLE_PARTNER')->get()[0]['id']);
@@ -163,6 +167,9 @@ class AuthenticationController extends Controller
     }
     public function volunteer_registration(Request $request)
     {
+        $request->validate([
+            'email' => 'unique:users,email'
+        ]);
         $empty_regex = "/^\s*$/i";
 
         $user = new User();
@@ -199,6 +206,17 @@ class AuthenticationController extends Controller
         return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
     }
 
+    public function create_forgot_pass(Request $request)
+    {
+        $user = User::where('email', $request['email'])->get();
+
+        if ($user->count() == 0) {
+            return redirect(route('forgot_password'))->with('email_error', 'Email Address is not registered');
+        }
+
+        return $this->send_email_verification($request['email'], '', 'forget_pass');
+    }
+
     public function register_verification(Request $request)
     {
         return $this->verify_email($request, 'registration', 'registered');
@@ -206,12 +224,13 @@ class AuthenticationController extends Controller
 
     public function forgot_pass_verification(Request $request)
     {
-        return $this->verify_email($request, 'forget-pass', 'new_password');
+        return $this->verify_email($request, 'forget_pass', 'new_password');
     }
 
     public function resend_code(string $to)
     {
         $resend_to = explode('-', $to);
+        Log::info(print_r($resend_to, true));
         return $this->send_email_verification($resend_to[0], '', $resend_to[1]);
     }
 
@@ -228,6 +247,7 @@ class AuthenticationController extends Controller
             if ($request['verification-code'] == $verification_data[0]->getAttribute('verification_code')) {
 
                 $user = User::where('email', $verification_data[0]->getAttribute('email'))->get()[0];
+                $user->setAttribute('status', 'Email verified, Waiting for registration approval from MerryMeal');
                 $user->setAttribute('email_verified', true)->save();
 
                 $verification_data[0]->delete();
@@ -239,7 +259,14 @@ class AuthenticationController extends Controller
         return redirect(route('email_verification'))
             ->with('email', $request['email'])
             ->with('verification_error', ($has_verification_data) ? 'Invalid Code' : 'There is no email verification for ' . $request['email'])
-            ->with('caller', ($redirect == 'registered') ? 'registration' : 'forgot-pass');
+            ->with('caller', ($redirect == 'registered') ? 'registration' : 'forget_pass');
+    }
+
+    public function reset_password(Request $request)
+    {
+        $user = User::where('email', $request['email'])->get()[0];
+        $user->setAttribute('password', bcrypt($request['password']))->save();
+        return redirect(route('password_changed'));
     }
 
     public function create_auth_test_data()
