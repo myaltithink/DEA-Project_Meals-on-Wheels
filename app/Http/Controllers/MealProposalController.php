@@ -42,103 +42,6 @@ class MealProposalController extends Controller
     }
 
     //post mappings
-    //create sample data
-    public function testMealPlanData(){
-
-        //userid 6 is partner
-        $partner = User::where('user_id', 6)->first();
-
-        //userid 4 is volunteer cook
-        $volunteer = User::where('user_id', 4)->first();
-
-        $meal_plan_1_test_data = array(
-            'meal_name' => 'wasdwasd',
-            'meal_ingredients' => 'wasdwasd',
-            'meal_image_path' => 'wasdwasd',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => $volunteer->volunteer_details->volunteer_name,
-            'proposed_by_role' => str_replace('ROLE_', '', $volunteer->roles()->where('role_name', 'role_volunteer')->first()->role_name),
-            'organization' => $volunteer->volunteer_details->organization_name,
-            'user_id' => $volunteer->user_id,
-        );
-
-        $meal_plan_2_test_data = array(
-            'meal_name' => 'isdaaa',
-            'meal_ingredients' => 'wasdwasd, tonila daw tangina, tite',
-            'meal_image_path' => 'somewhere',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => $volunteer->volunteer_details->volunteer_name,
-            'proposed_by_role' => str_replace('ROLE_', '', $volunteer->roles()->where('role_name', 'role_volunteer')->first()->role_name),
-            'organization' => $volunteer->volunteer_details->organization_name,
-            'user_id' => $volunteer->user_id,
-        );
-
-        $meal_plan_3_test_data = array(
-            'meal_name' => 'tite',
-            'meal_ingredients' => 'titeee',
-            'meal_image_path' => 'tite',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => $volunteer->volunteer_details->volunteer_name,
-            'proposed_by_role' => str_replace('ROLE_', '', $volunteer->roles()->where('role_name', 'role_volunteer')->first()->role_name),
-            'organization' => $volunteer->volunteer_details->organization_name,
-            'user_id' => $volunteer->user_id,
-        );
-
-        $meal_plan_4_test_data = array(
-            'meal_name' => 'titeee',
-            'meal_ingredients' => 'etites',
-            'meal_image_path' =>'titeee',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => 'some employee',
-            'proposed_by_role' => str_replace('ROLE_', '', $partner->roles()->where('role_name', 'role_partner')->first()->role_name),
-            'organization' => $partner->partner_details->partner_name,
-            'user_id' => $partner->user_id,
-        );
-
-        $meal_plan_5_test_data = array(
-            'meal_name' => 'eitits',
-            'meal_ingredients' => 'titee',
-            'meal_image_path' =>'eeeeirt',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => 'some employee',
-            'proposed_by_role' => str_replace('ROLE_', '', $partner->roles()->where('role_name', 'role_partner')->first()->role_name),
-            'organization' => $partner->partner_details->partner_name,
-            'user_id' => $partner->user_id,
-        );
-
-        $meal_plan_6_test_data = array(
-            'meal_name' => 'aaaa',
-            'meal_ingredients' => 'aaaa',
-            'meal_image_path' =>'aaaaa',
-            'reason_for_rejection' => null,
-            'status' => 'Pending',
-            'proposed_by' => 'some employee',
-            'proposed_by_role' => str_replace('ROLE_', '', $partner->roles()->where('role_name', 'role_partner')->first()->role_name),
-            'organization' => $partner->partner_details->partner_name,
-            'user_id' => $partner->user_id,
-        );
-
-        $mealplan1 = new MealPlan();
-        $mealplan2 = new MealPlan();
-        $mealplan3 = new MealPlan();
-        $mealplan4 = new MealPlan();
-        $mealplan5 = new MealPlan();
-        $mealplan6 = new MealPlan();
-
-        $mealplan1->fill($meal_plan_1_test_data)->save();
-        $mealplan2->fill($meal_plan_2_test_data)->save();
-        $mealplan3->fill($meal_plan_3_test_data)->save();
-        $mealplan4->fill($meal_plan_4_test_data)->save();
-        $mealplan5->fill($meal_plan_5_test_data)->save();
-        $mealplan6->fill($meal_plan_6_test_data)->save();
-
-        dd(MealPlan::all());
-    }
 
     //adding new meal proposal information
     public function store(Request $request){
@@ -297,7 +200,7 @@ class MealProposalController extends Controller
         // if(Auth::id() != $user_role->role_id = 1){
         //     return abort(403);
         // }
-        
+
         //$mealPlan->update(['status' => "Approve"]);
         $meal = MealPlan::find($mealPlan['meal-id']);
 

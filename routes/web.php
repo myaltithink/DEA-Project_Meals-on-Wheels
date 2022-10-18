@@ -111,9 +111,6 @@ Route::group(
         Route::get('/view-proposal/{mealPlan}', [MealProposalController::class, 'show'])
             ->name('view-meal-proposal');
 
-        //sample data
-        Route::get('/sample-meal-data', [MealProposalController::class, 'testMealPlanData']);
-
         //post mapping
         Route::post('/create-meal-proposal', [MealProposalController::class, 'store'])
             ->name('add-meal');
