@@ -37,10 +37,24 @@ class AuthenticationController extends Controller
                 Log::info('user role ' . print_r($role['role_name'], true));
             }
 
-            return redirect('/dashboard');
+            return redirect(route('dashboard'));
         }
 
-        return redirect('/login');
+        $user = User::where('email', $credentials['email'])->get();
+
+        $email_error = '';
+        $password_error = '';
+
+        if ($user->count() == 0) {
+            $email_error = 'email address is not registered';
+        } else if (!Hash::check($credentials['password'], $user[0]['password'])) {
+            $password_error = 'Wrong Password';
+        }
+
+
+        return redirect(route('login'))
+            ->with('email_error', $email_error)
+            ->with('password_error', $password_error);
     }
 
     public function logout(Request $request)

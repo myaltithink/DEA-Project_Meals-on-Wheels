@@ -11,7 +11,11 @@
             @endif
         </label>
         <input type="email" name="email" id="email" class="form-control mb-0" value="{{ old('email', '') }}" />
-        <small class="error-message"></small>
+        <small class="error-message">
+            @if (Request::is('login'))
+                {{ session('email_error') }}
+            @endif
+        </small>
     </div>
 
     <div class="form-control border-0 mb-2 p-0">
@@ -24,7 +28,11 @@
             <input type="password" name="password" id="password" class="form-control border-0 mb-0" />
             <button type="button" class="btn show-pass"><i class="pass-state-icon fa fa-eye-slash"></i></button>
         </div>
-        <small class="error-message"></small>
+        <small class="error-message">
+            @if (Request::is('login'))
+                {{ session('password_error') }}
+            @endif
+        </small>
     </div>
 
     @if (!Request::is('login'))
