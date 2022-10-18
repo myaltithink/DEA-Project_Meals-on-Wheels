@@ -84,7 +84,13 @@ class AuthenticationController extends Controller
         ]);
         $verification_entity->save();
 
-        MailController::send_email($email, $name, ($verification_type == 'registration') ? 'Registration Verification' : 'Password Reset', $verification_type, $verification_code);
+        MailController::send_email(
+            $email,
+            $name,
+            ($verification_type == 'registration') ? 'Registration Verification' : 'Password Reset',
+            $verification_type,
+            $verification_code
+        );
 
         return redirect(route('email_verification'))->with('email', $email)->with('caller', $verification_type);
     }
@@ -126,7 +132,11 @@ class AuthenticationController extends Controller
         $user->roles()->attach(Role::where('role_name', 'ROLE_MEMBER')->get()[0]['id']);
 
         $member_details = new MemberDetails([
-            'proof_of_eligebility' => FileUploadController::upload_file($request->file('member-eligibility'), $request['email'] . '-proof', 'member_eligibilities'),
+            'proof_of_eligebility' => FileUploadController::upload_file(
+                $request->file('member-eligibility'),
+                $request['email'] . '-proof',
+                'member_eligibilities'
+            ),
             'needs' => $request['needs'],
             'allergies' => $request['allergies']
         ]);
@@ -135,7 +145,11 @@ class AuthenticationController extends Controller
             ->member_details()->save($member_details)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
+        return $this->send_email_verification(
+            $user->getAttribute('email'),
+            $request['first-name'] . ' ' . $request['last-name'],
+            'registration'
+        );
     }
 
     public function caregiver_registration(Request $request)
@@ -156,7 +170,11 @@ class AuthenticationController extends Controller
             ->caregiver_details()->save($caregiver_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
+        return $this->send_email_verification(
+            $user->getAttribute('email'),
+            $request['first-name'] . ' ' . $request['last-name'],
+            'registration'
+        );
     }
 
     public function partner_registration(Request $request)
@@ -172,13 +190,22 @@ class AuthenticationController extends Controller
             'partner_name' => $request['company-name'],
             'partner_registered_by' => $request['registered-by'],
             'partner_address' => $request['partner-address'],
-            'partner_business_license' => FileUploadController::upload_file($request->file('business-license'), $request['company-name'] . 'business-license', 'partner_business_license')
+            'partner_business_license' => FileUploadController::upload_file(
+                $request->file('business-license'),
+                $request['company-name'] . 'business-license',
+                'partner_business_license'
+            )
         ]);
 
         $user->partner_details()->save($partner_data);
 
-        return $this->send_email_verification($user->getAttribute('email'), '', 'registration');
+        return $this->send_email_verification(
+            $user->getAttribute('email'),
+            '',
+            'registration'
+        );
     }
+
     public function volunteer_registration(Request $request)
     {
         $request->validate([
@@ -217,7 +244,11 @@ class AuthenticationController extends Controller
             ->volunteer_details()->save($volunteer_data)
             ->profile()->save($this->get_registration_profile($request));
 
-        return $this->send_email_verification($user->getAttribute('email'), $request['first-name'] . ' ' . $request['last-name'], 'registration');
+        return $this->send_email_verification(
+            $user->getAttribute('email'),
+            $request['first-name'] . ' ' . $request['last-name'],
+            'registration'
+        );
     }
 
     public function create_forgot_pass(Request $request)
