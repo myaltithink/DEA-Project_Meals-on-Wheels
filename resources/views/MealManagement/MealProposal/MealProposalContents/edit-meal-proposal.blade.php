@@ -49,7 +49,9 @@
                     </div>
                     <div class = "col-12">
                         <label  class = "fw-bold" for = "ingredients">Ingredients</label>
-                        <textarea class="form-control w-100 @error('ingredients') is-invalid @enderror" name = "ingredients" style="height: 10rem"></textarea>
+                        <textarea class="form-control w-100 @error('ingredients') is-invalid @enderror" name = "ingredients" style="height: 10rem">
+                            {{old('ingredients', $plan->meal_ingredients) }}
+                        </textarea>
                         <div class = "invalid-feedback">
                             @error('ingredients')
                                 {{ $message }}

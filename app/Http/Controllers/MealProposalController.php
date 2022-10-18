@@ -139,7 +139,7 @@ class MealProposalController extends Controller
             ]);
 
             //redirect
-            return redirect(route('my-proposal-list'))->with('success','your meal proposal is submitted for review');
+            return redirect(route('my-proposal-list'))->with('success', 'your meal proposal is edited and submitted for review');
         }elseif($request->user()->hasAnyRole('ROLE_PARTNER')){
 
             Validator::make($request->all(),

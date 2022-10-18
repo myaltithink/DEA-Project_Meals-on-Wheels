@@ -22,7 +22,8 @@ class DeliveryManagementController extends Controller
     //rendering meals list all roles GET
     public function meals(Request $request){
         $plans = MealPlan::where('status','Approved')->get();
-        $hasOrdered = $request->user()->hasAnyRole(['ROLE_CARETAKER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
+        $hasOrdered = $request->user()->hasAnyRole(['ROLE_CARETAKER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)
+            ->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
         return view('MealManagement.DeliveryManagement.meals-available')->with('plans', $plans)->with('hasOrdered', $hasOrdered);
     }
 
