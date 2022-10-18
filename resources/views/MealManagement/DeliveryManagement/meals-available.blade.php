@@ -7,7 +7,7 @@
             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="card" style="height:20rem;">
                     <div class = "card-header overflow-hidden p-0 bg-transparent" style="height: 10rem;">
-                        <img src = "{{ asset('storage/foods/ayanokojik.jpg') }}" class="card-img-top"/>
+                        <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="card-img-top"/>
                     </div>
                     <div class="card-body">
                         <span class="text-center text-uppercase h3 d-block">{{ $plan->meal_name }}</span>
