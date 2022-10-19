@@ -26,7 +26,7 @@ class MailController extends Controller
                     ->to($recipient, $recipient_name)
                     ->subject($subject);
 
-                $message->from('baun006cpjemail@gmail.com', 'Meals on Wheels');
+                $message->from(env('MAIL_USERNAME'), 'Meals on Wheels');
             }
         );
     }
