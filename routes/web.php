@@ -5,6 +5,8 @@ use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -95,6 +97,7 @@ Route::get('/contact-us', function () {
 })->name('contact_us');
 
 Route::post('/send-message', function (Request $request) {
+
     $message =
         '====================
 ' .
@@ -110,7 +113,7 @@ MESSAGE:
         'text' => $message
     ];
 
-    $url = 'https://hooks.slack.com/services/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';
+    $url = base64_decode('aHR0cHM6Ly9ob29rcy5zbGFjay5jb20vc2VydmljZXMvVDA0MEdEOTZSVU4vQjA0N0RHSEQxNlkvRlhUa3ZXWDJZS3BHcnRvcGJWQkpBT0JO');
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
