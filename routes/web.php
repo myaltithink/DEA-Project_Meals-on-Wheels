@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +86,15 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::post('/verify-forgot-pass', [AuthenticationController::class, 'forgot_pass_verification'])->name('verify.forgot_pass');
 });
+
+Route::get('/contact-us', function () {
+    return view('contact_us');
+})->name('contact_us');
+
+Route::post('/send-message', function () {
+    Log::info('dwafwa');
+    return redirect(route('contact_us'));
+})->name('send.message');
 
 
 Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
@@ -278,18 +289,18 @@ Route::get('/partner-eligibility-assessment', [UserAssesmentController::class, '
 
 //Page for viewing a specific partner to approve or reject
 Route::get('/view-partner/{email}', [UserAssesmentController::class, 'viewPendingPartner'])
-->name('view-partner')
-->middleware(['authorizerole:ROLE_ADMIN']);
+    ->name('view-partner')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
 
 //Approve partner
 Route::post('/approve-partner', [UserAssesmentController::class, 'approvePendingPartner'])
-->name('approve-partner')
-->middleware(['authorizerole:ROLE_ADMIN']);
+    ->name('approve-partner')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
 
 //Reject partner
 Route::post('/reject-partner', [UserAssesmentController::class, 'rejectPendingPartner'])
-->name('reject-partner')
-->middleware(['authorizerole:ROLE_ADMIN']);
+    ->name('reject-partner')
+    ->middleware(['authorizerole:ROLE_ADMIN']);
 
 //List of all pending volunteers to approve or reject with verified email
 Route::get('/volunteer-eligibility-assessment', [UserAssesmentController::class, 'pendingVolunteers'])
@@ -310,4 +321,3 @@ Route::post('/approve-volunteer', [UserAssesmentController::class, 'approvePendi
 Route::post('/reject-volunteer', [UserAssesmentController::class, 'rejectPendingVolunteer'])
     ->name('reject-volunteer')
     ->middleware(['authorizerole:ROLE_ADMIN']);
-
