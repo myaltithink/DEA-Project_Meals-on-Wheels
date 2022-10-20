@@ -14,6 +14,9 @@
             {{-- terms and conditions, about us pages missing --}}
             <li><a href="/" class="nav-item-link">Home</a></li>
             <li><a href="/contact-us" class="nav-item-link">Contact Us</a></li>
+            <li>
+                <a href="{{route('about_us')}}" class="nav-item-link">About Us</a>
+            </li>
             <li><a href="" class="nav-item-link">Donation</a></li>
             <li><a href="/login" class="nav-item-link">Login</a></li>
             <li><a href="/register-member" class="nav-item-link">Register</a></li>
@@ -40,7 +43,7 @@
                                         <a href="" class="d-block nav-item-link">Donation</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="" class="d-block nav-item-link">About Us</a>
+                                        <a href="{{route('about_us')}}" class="d-block nav-item-link">About Us</a>
                                     </li>
                                 </ul>
                             </div>

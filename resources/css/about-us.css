@@ -1,0 +1,100 @@
+.nav-tabs-wrapper .nav-tab-selector{
+    border: none !important;
+    cursor: pointer;
+    margin: 0 0.23rem;
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    background-color:transparent;
+}
+
+.nav-tab-selector[data-navtabs-selected]::before{
+    content: "";
+    background-color: black;
+    position: absolute;
+    height: 10%;
+    border-radius: 3rem;
+    top:80%;
+    transition: all 500ms ease-in-out;
+}
+.nav-tab-selector[data-navtabs-selected='false']::before{
+    width: 0%;
+}
+
+.nav-tab-selector[data-navtabs-selected='true']::before{
+    width: 100%;
+}
+
+.nav-tab-container{
+    border-top: 1px black solid;
+}
+.nav-tab-container .nav-tab-content{
+    display: none;
+    transition: all 500ms ease-in-out;
+}
+
+.nav-tab-content[data-navtab-toggled = "true"]{
+    display: block;
+}
+
+.nav-tab-content[data-fp-toggled = "true"]{
+    display: block;
+}
+
+.tab-animation-fade{
+    transition: opacity .15s ease-in-out;
+}
+
+.tab-animation-fade:not(.tab-active){
+    opacity: 0;
+}
+
+/*forget password*/
+.nav-tabs-wrapper.forget-password-nav{
+    display: flex;
+    justify-content: center;
+    z-index: 1020;
+    position: relative;
+}
+.nav-tabs-wrapper.forget-password-nav
+.nav-forget-password-selector{
+    display: inline-block;
+    font-weight: bold;
+    color:white;
+    margin:0 2vw;
+    height:2rem;
+    width: 2rem;
+    background-color: gray;
+    border: none;
+    border-radius: 50%;
+    z-index: 1020;
+}
+
+.nav-tabs-wrapper.forget-password-nav
+.nav-forget-password-selector[data-fp-enabled="false"]{
+    cursor: default;
+}
+.nav-tabs-wrapper.forget-password-nav
+.nav-forget-password-selector[data-fp-enabled="true"]{
+    cursor: pointer;
+}
+
+.nav-tabs-wrapper.forget-password-nav::before{
+    content:"";
+    z-index: 1;
+    position:absolute;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+}
+
+.nav-tabs-wrapper.forget-password-nav
+.nav-forget-password-selector[data-fp-active = "true"]{
+    color: black;
+    background-color: rgb(13, 255, 0);
+    transition: all 500ms ease-in-out;
+}
