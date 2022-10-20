@@ -22,7 +22,7 @@ class DeliveryManagementController extends Controller
     //rendering meals list all roles GET
     public function meals(Request $request){
         $plans = MealPlan::where('status','Approved')->get();
-        $hasOrdered = $request->user()->hasAnyRole(['ROLE_CARETAKER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)
+        $hasOrdered = $request->user()->hasAnyRole(['ROLE_CAREGIVER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)
             ->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
         return view('MealManagement.DeliveryManagement.meals-available')->with('plans', $plans)->with('hasOrdered', $hasOrdered);
     }
@@ -81,7 +81,7 @@ class DeliveryManagementController extends Controller
 
         $user = $request->user();
         $userHadOrdered = MealOrder::where('ordered_by_id', $user->user_id)->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null;
-        $userProfile = $user->hasPermission('ROLE_CARETAKER') ? $user->caregiver_details->profile : $user->member_details->profile;
+        $userProfile = $user->hasPermission('ROLE_CAREGIVER') ? $user->caregiver_details->profile : $user->member_details->profile;
 
         if($userHadOrdered) return abort(403, 'The user can only order meal once per day');
 
@@ -91,7 +91,7 @@ class DeliveryManagementController extends Controller
             'ordered_by_id' => $user->user_id,
             'meal_order_ordered_at' => date('Y-m-d H:i:s'),
             'ordered_by' => $userProfile->first_name." ".$userProfile->last_name,
-            'ordered_by_role' => $user->hasPermission('ROLE_CARETAKER') ? 'ROLE_CARETAKER' : 'ROLE_MEMBER',
+            'ordered_by_role' => $user->hasPermission('ROLE_CAREGIVER') ? 'ROLE_CAREGIVER' : 'ROLE_MEMBER',
             'ordered_by_address' => $userProfile->address,
         );
 

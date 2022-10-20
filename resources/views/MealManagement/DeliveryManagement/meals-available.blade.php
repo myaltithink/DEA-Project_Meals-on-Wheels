@@ -12,8 +12,9 @@
                     <div class="card-body">
                         <span class="text-center text-uppercase h3 d-block">{{ $plan->meal_name }}</span>
                     </div>
-                    <div class="card-footer bg-transparent border border-0 p-2">
+                    <div class= "card-footer bg-transparent border border-0 p-2">
                         @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
+
                             @IsAvailable(strtotime(date('h:i A', time())))
                                 <button class="btn btn-primary w-100 meal-select-prompt" data-bs-toggle="modal"
                                     data-bs-target="#meal-select-confirmation" data-meal-value="{{ $plan->meal_plan_id }}"

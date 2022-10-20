@@ -121,7 +121,7 @@ class MealManagementTest extends TestCase
             'ordered_by_id' => $member->user_id,
             'meal_order_ordered_at' => date('Y-m-d H:i:s'),
             'ordered_by' => $member->member_details->profile->first_name." ".$member->member_details->profile->last_name,
-            'ordered_by_role' => $member->hasPermission('ROLE_CARETAKER') ? 'ROLE_CARETAKER' : 'ROLE_MEMBER',
+            'ordered_by_role' => 'ROLE_MEMBER',
             'ordered_by_address' => $member->member_details->profile->address,
         );
 
