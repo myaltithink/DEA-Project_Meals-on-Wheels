@@ -62,7 +62,7 @@
                                 <div class="card-body p-0 m-0">
                                     <ul class="list-group m-0 p-0">
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="/user-eligibility-management" class="nav-item-link">Eligibility Assessment</a>
+                                            <a href="/member-eligibility-assessment" class="nav-item-link">Eligibility Assessment</a>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
                                             <a href="/food-safety-management" class="nav-item-link">Food Safety</a>
