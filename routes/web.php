@@ -251,104 +251,107 @@ Route::group(
         Route::get('/get-available-users/{mealOrder}', [DeliveryManagementController::class, 'availableVolunteerAndPartner'])
             ->name('partners-and-volunteers')
             ->middleware(['authorizerole:ROLE_ADMIN']);
+
+
+        //Food Safety Management Page - list of all pending meal plan proposals
+        Route::get('/food-safety-management', [MealProposalController::class, 'pendingProposals'])
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Page for viewing a specific meal proposal to approve or reject
+        Route::get('/view-meal-proposal/{mealPlan}', [MealProposalController::class, 'showProposal'])
+            ->name('meal-proposal-approval')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Approve meal
+        Route::post('/approve-meal-proposal', [MealProposalController::class, 'approveMealProposal'])
+            ->name('approve-meal-proposal')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Reject meal
+        Route::post('/reject-meal-proposal', [MealProposalController::class, 'rejectMealProposal'])
+            ->name('reject-meal-proposal')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //List of all pending members to approve or reject with verified email
+        Route::get('/member-eligibility-assessment', [UserAssesmentController::class, 'pendingMembers'])
+            ->name('member-assessment')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Page for viewing a specific member to approve or reject
+        Route::get('/view-member/{email}', [UserAssesmentController::class, 'viewPendingMember'])
+            ->name('view-member')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Approve member
+        Route::post('/approve-member', [UserAssesmentController::class, 'approvePendingMember'])
+            ->name('approve-member')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Reject member
+        Route::post('/reject-member', [UserAssesmentController::class, 'rejectPendingMember'])
+            ->name('reject-member')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //List of all pending caregivers to approve or reject with verified email
+        Route::get('/caregiver-eligibility-assessment', [UserAssesmentController::class, 'pendingCaregivers'])
+            ->name('caregiver-assessment')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Page for viewing a specific caregiver to approve or reject
+        Route::get('/view-caregiver/{email}', [UserAssesmentController::class, 'viewPendingCaregiver'])
+            ->name('view-caregiver')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Approve caregiver
+        Route::post('/approve-caregiver', [UserAssesmentController::class, 'approvePendingCaregiver'])
+            ->name('approve-caregiver')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Reject caregiver
+        Route::post('/reject-caregiver', [UserAssesmentController::class, 'rejectPendingCaregiver'])
+            ->name('reject-caregiver')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //List of all pending partners to approve or reject with verified email
+        Route::get('/partner-eligibility-assessment', [UserAssesmentController::class, 'pendingPartners'])
+            ->name('partner-assessment')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Page for viewing a specific partner to approve or reject
+        Route::get('/view-partner/{email}', [UserAssesmentController::class, 'viewPendingPartner'])
+            ->name('view-partner')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Approve partner
+        Route::post('/approve-partner', [UserAssesmentController::class, 'approvePendingPartner'])
+            ->name('approve-partner')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Reject partner
+        Route::post('/reject-partner', [UserAssesmentController::class, 'rejectPendingPartner'])
+            ->name('reject-partner')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //List of all pending volunteers to approve or reject with verified email
+        Route::get('/volunteer-eligibility-assessment', [UserAssesmentController::class, 'pendingVolunteers'])
+            ->name('volunteer-assessment')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Page for viewing a specific volunteer to approve or reject
+        Route::get('/view-volunteer/{email}', [UserAssesmentController::class, 'viewPendingVolunteer'])
+            ->name('view-volunteer')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Approve volunteer
+        Route::post('/approve-volunteer', [UserAssesmentController::class, 'approvePendingVolunteer'])
+            ->name('approve-volunteer')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
+
+        //Reject volunteer
+        Route::post('/reject-volunteer', [UserAssesmentController::class, 'rejectPendingVolunteer'])
+            ->name('reject-volunteer')
+            ->middleware(['authorizerole:ROLE_ADMIN']);
     }
+
+
 );
-
-//Food Safety Management Page - list of all pending meal plan proposals
-Route::get('/food-safety-management', [MealProposalController::class, 'pendingProposals'])
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Page for viewing a specific meal proposal to approve or reject
-Route::get('/view-meal-proposal/{mealPlan}', [MealProposalController::class, 'showProposal'])
-    ->name('meal-proposal-approval')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Approve meal
-Route::post('/approve-meal-proposal', [MealProposalController::class, 'approveMealProposal'])
-    ->name('approve-meal-proposal')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Reject meal
-Route::post('/reject-meal-proposal', [MealProposalController::class, 'rejectMealProposal'])
-    ->name('reject-meal-proposal')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//List of all pending members to approve or reject with verified email
-Route::get('/member-eligibility-assessment', [UserAssesmentController::class, 'pendingMembers'])
-    ->name('member-assessment')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Page for viewing a specific member to approve or reject
-Route::get('/view-member/{email}', [UserAssesmentController::class, 'viewPendingMember'])
-    ->name('view-member')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Approve member
-Route::post('/approve-member', [UserAssesmentController::class, 'approvePendingMember'])
-    ->name('approve-member')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Reject member
-Route::post('/reject-member', [UserAssesmentController::class, 'rejectPendingMember'])
-    ->name('reject-member')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//List of all pending caregivers to approve or reject with verified email
-Route::get('/caregiver-eligibility-assessment', [UserAssesmentController::class, 'pendingCaregivers'])
-    ->name('caregiver-assessment')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Page for viewing a specific caregiver to approve or reject
-Route::get('/view-caregiver/{email}', [UserAssesmentController::class, 'viewPendingCaregiver'])
-    ->name('view-caregiver')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Approve caregiver
-Route::post('/approve-caregiver', [UserAssesmentController::class, 'approvePendingCaregiver'])
-    ->name('approve-caregiver')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Reject caregiver
-Route::post('/reject-caregiver', [UserAssesmentController::class, 'rejectPendingCaregiver'])
-    ->name('reject-caregiver')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//List of all pending partners to approve or reject with verified email
-Route::get('/partner-eligibility-assessment', [UserAssesmentController::class, 'pendingPartners'])
-    ->name('partner-assessment')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Page for viewing a specific partner to approve or reject
-Route::get('/view-partner/{email}', [UserAssesmentController::class, 'viewPendingPartner'])
-    ->name('view-partner')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Approve partner
-Route::post('/approve-partner', [UserAssesmentController::class, 'approvePendingPartner'])
-    ->name('approve-partner')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Reject partner
-Route::post('/reject-partner', [UserAssesmentController::class, 'rejectPendingPartner'])
-    ->name('reject-partner')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//List of all pending volunteers to approve or reject with verified email
-Route::get('/volunteer-eligibility-assessment', [UserAssesmentController::class, 'pendingVolunteers'])
-    ->name('volunteer-assessment')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Page for viewing a specific volunteer to approve or reject
-Route::get('/view-volunteer/{email}', [UserAssesmentController::class, 'viewPendingVolunteer'])
-    ->name('view-volunteer')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Approve volunteer
-Route::post('/approve-volunteer', [UserAssesmentController::class, 'approvePendingVolunteer'])
-    ->name('approve-volunteer')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
-
-//Reject volunteer
-Route::post('/reject-volunteer', [UserAssesmentController::class, 'rejectPendingVolunteer'])
-    ->name('reject-volunteer')
-    ->middleware(['authorizerole:ROLE_ADMIN']);
