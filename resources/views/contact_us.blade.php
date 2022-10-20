@@ -19,7 +19,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 mt-2">Send</button>
-
+                @csrf
             </form>
         </div>
     </div>

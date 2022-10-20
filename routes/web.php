@@ -4,8 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,8 +90,33 @@ Route::get('/contact-us', function () {
     return view('contact_us');
 })->name('contact_us');
 
-Route::post('/send-message', function () {
-    Log::info('dwafwa');
+Route::post('/send-message', function (Request $request) {
+    $message =
+        '====================
+' .
+        $request['email'] . ' sent a message
+
+
+MESSAGE:
+' . $request['message'] .
+        '
+====================';
+
+    $data = [
+        'text' => $message
+    ];
+
+    $url = 'https://hooks.slack.com/services/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';
+
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
+
+    curl_exec($curl);
+
     return redirect(route('contact_us'));
 })->name('send.message');
 
