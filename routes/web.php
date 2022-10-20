@@ -136,6 +136,10 @@ Route::get('/dashboard', ['middleware' => 'auth', function () {
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
+Route::get('/about-us', function(){
+    return view('about-us');
+})->name('about_us');
+
 //meal management module for meal proposal
 Route::group(
     [],
