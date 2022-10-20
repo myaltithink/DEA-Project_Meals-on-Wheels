@@ -86,6 +86,10 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('/verify-forgot-pass', [AuthenticationController::class, 'forgot_pass_verification'])->name('verify.forgot_pass');
 });
 
+Route::get('/terms-and-condition', function () {
+    return view('terms_and_condition');
+})->name('terms_and_condition');
+
 Route::get('/contact-us', function () {
     return view('contact_us');
 })->name('contact_us');
