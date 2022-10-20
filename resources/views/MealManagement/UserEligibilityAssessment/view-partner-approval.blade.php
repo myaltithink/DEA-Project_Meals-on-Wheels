@@ -2,36 +2,52 @@
 
 @section('subcontent')
     <div class="container my-5">
-        <h1 class="text-center fw-bold">Meal Approval</h1>
+        <h1 class="text-center fw-bold">Partner Approval</h1>
         <div class="row my-3 justify-content-center">
           <div class="col-md-6 bg-white shadow rounded mx-2 my-2 border border-dark">
-            <div class="thumbnail mt-2">
-                <div class="text-center mt-5">
-                    <img src="{{ asset('storage/foods/'.$proposal->meal_image_path) }}" alt="Meal Proposal" class="w-50 h-50">
+            <div class="mx-3 my-4">
+                {{-- partner's profile information --}}
+                <div class="">
+                    <h4><strong>Profile</strong></h4>
+                    <div class="mx-2">
+                        <div class="row" style="font-size: 18px">
+                            <div class="col-md-6">
+                                <p><strong>Name:</strong> {{ ucwords($details->partner_name) }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Registered By:</strong> {{ $details->partner_registered_by }} </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Address:</strong> {{ ucwords($details->partner_address) }} </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Email:</strong> {{ $partner->email }} </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <h2 class = "tetxt-center fw-bold text-center mt-2"> {{ ucwords($proposal->meal_name )}} </h2>
-
-                <div class="mt-3 mx-5" style="font-size: 18px">
-                    <p class="mb-0 mt-2"><strong>Proposed By:</strong> {{ ucwords($proposal->proposed_by )}} </p>
-                    <p class="mb-0 mt-2"><strong>Organization:</strong> {{ ucwords($proposal->organization )}} </p>
-                    <p class="mb-0 mt-2"><strong>Ingredients:</strong>
-                        <ul>
-                            @foreach (explode(',', $proposal->meal_ingredients) as $ingredient)
-                                <li>{{ $ingredient }}</li>
-                            @endforeach
-                        </ul>  </p>
+                {{-- partner's proof of identity --}}
+                <div>
+                    <h4><strong>Identity</strong></h4>
+                    <div class="mx-2">
+                        <div class="row" style="font-size: 18px">
+                            <div class="col-md-6">
+                                <p><strong>Business License:</strong></p>
+                            </div>
+                        </div>
+                        <img src="{{ Vite::asset($details->partner_business_license) }}" alt="Valid ID" class="w-100 h-100 mb-3">
+                    </div>
                 </div>
+
                 <div style="float: right;" class="mb-4 mx-3">
-                    <button class = "btn btn-outline-danger mx-1" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                    <button class = "btn btn-outline-danger mx-1 " type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                         <strong>REJECT</strong>
                     </button>
                     <button class = "btn btn-primary mx-1" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         APPROVE
                     </button>
-
                </div>
-
             </div>
           </div>
 
@@ -44,13 +60,13 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <i class="fa fa-check-circle mt-2" aria-hidden="true" style="color: green; font-size: 50px"></i>
-          <h3 class="mt-3"><strong> Approve this meal proposal? </strong></h3>
+          <h3 class="mt-3"><strong> Approve this partner? </strong></h3>
         </div>
         <div class="d-flex justify-content-center mb-4">
           <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">CLOSE</button>
-          <form method="POST" action ="{{ route('approve-meal-proposal') }}">
+          <form method="POST" action ="{{ route('approve-partner') }}">
             @csrf
-              <input type="hidden" name="meal-id" value="{{ $meal_id }}"/>
+              <input type="hidden" name="user-id" value="{{ $user_id }}"/>
               <button type="submit" class="btn btn-primary mx-2">YES</button>
           </form>
         </div>
@@ -64,9 +80,9 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red; font-size: 50px"></i>
-          <h3 class="mt-3"><strong> Reject this meal proposal? </strong></h3>
+          <h3 class="mt-3"><strong> Reject this partner? </strong></h3>
         </div>
-        <form method="POST" action ="{{ route('reject-meal-proposal') }}">
+        <form method="POST" action ="{{ route('reject-partner') }}">
           @csrf
 
           <div class="mb-3 mx-auto col col-lg-10" >
@@ -76,7 +92,7 @@
 
           <div class="d-flex justify-content-center mb-4">
             <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">CLOSE</button>
-            <input type="hidden" name="meal-id" value="{{ $meal_id }}"/>
+            <input type="hidden" name="user-id" value="{{ $user_id }}"/>
             <button type="submit" class="btn btn-primary mx-2">YES</button>
           </div>
 
