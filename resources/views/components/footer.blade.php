@@ -21,7 +21,7 @@
             </a>
         </li>
         <li class="list-inline-item me-3 ms-3"><a href="/contact-us">Contact Us</a></li>
-        <li class="list-inline-item me-3 ms-3"><a href="#">About Us</a></li>
+        <li class="list-inline-item me-3 ms-3"><a href="/about-us">About Us</a></li>
         <li class="list-inline-item me-3 ms-3"><a href="/terms-and-condition">Terms And Condition</a></li>
     </ul>
     <p class="copyright">Copyright © Reserved for MerryMeals <br />Developed by Unity One Solutions</p>
