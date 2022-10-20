@@ -13,7 +13,7 @@
         @guest
             {{-- terms and conditions, about us pages missing --}}
             <li><a href="/" class="nav-item-link">Home</a></li>
-            <li><a href="" class="nav-item-link">Contact Us</a></li>
+            <li><a href="/contact-us" class="nav-item-link">Contact Us</a></li>
             <li><a href="" class="nav-item-link">Donation</a></li>
             <li><a href="/login" class="nav-item-link">Login</a></li>
             <li><a href="/register-member" class="nav-item-link">Register</a></li>
@@ -34,7 +34,7 @@
                             <div class="card-body p-0 m-0">
                                 <ul class="list-group m-0 p-0">
                                     <li class="list-group-item list-group-item-action">
-                                        <a href="" class="d-block nav-item-link">Contact Us</a>
+                                        <a href="/contact-us" class="d-block nav-item-link">Contact Us</a>
                                     </li>
                                     <li class="list-group-item list-group-item-action">
                                         <a href="" class="d-block nav-item-link">Donation</a>
@@ -62,7 +62,8 @@
                                 <div class="card-body p-0 m-0">
                                     <ul class="list-group m-0 p-0">
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="/user-eligibility-management" class="nav-item-link">Eligibility Assessment</a>
+                                            <a href="/member-eligibility-assessment" class="nav-item-link">Eligibility
+                                                Assessment</a>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
                                             <a href="/food-safety-management" class="nav-item-link">Food Safety</a>
@@ -95,42 +96,38 @@
                                     </li>
                                     @HasAnyRole(['ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="{{ route('my-proposal-list') }}"
-                                                class="nav-item-link">
+                                            <a href="{{ route('my-proposal-list') }}" class="nav-item-link">
                                                 Meals Proposal
                                             </a>
                                         </li>
-                                    @EndHasAnyRoles
-                                    <li class="list-group-item list-group-item-action">
-                                        <a href =
-                                            "
-                                                @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
+                                        @EndHasAnyRoles
+                                        <li class="list-group-item list-group-item-action">
+                                            <a href="
+                                                        @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
                                                     {{ route('mc-orders') }}
                                                 @EndHasAnyRoles
 
-                                                @role('ROLE_VOLUNTEER_RIDER')
+                                                        @role('ROLE_VOLUNTEER_RIDER')
                                                     {{ route('rp-del-orders') }}
                                                 @endrole
 
-                                                @role('ROLE_ADMIN')
+                                                        @role('ROLE_ADMIN')
                                                     {{ route('a-prep-orders') }}
                                                 @endrole
 
-                                                @HasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER'])
+                                                        @HasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER'])
                                                     {{ route('vp-prep-orders') }}
                                                 @EndHasAnyRoles
-                                            "
-                                            class =
-                                                "
-                                                    nav-item-link
-                                                "
-                                        >
-                                            Orders
-                                        </a>
-                                    </li>
-                                </ul>
+                                                    "
+                                                class="
+                                                            nav-item-link
+                                                        ">
+                                                Orders
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
                     </label>
                 </li>
                 <li><a href="/logout" class="nav-item-link">Logout</a></li>

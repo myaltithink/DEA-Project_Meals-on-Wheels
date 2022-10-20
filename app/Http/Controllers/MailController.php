@@ -47,4 +47,25 @@ class MailController extends Controller
 
         return $code;
     }
+
+    public static function updateUser($recipient, $subject, $reason, $approve=false)
+    {
+
+
+        Mail::send(
+            'email-user-update',
+            [
+                'approve' => $approve,
+                'reason' => $reason
+            ],
+
+            function ($message) use ($recipient,  $subject) {
+                $message
+                    ->to($recipient, '')
+                    ->subject($subject);
+
+                $message->from(env('MAIL_USERNAME'), 'Meals on Wheels');
+            }
+        );
+    }
 }
