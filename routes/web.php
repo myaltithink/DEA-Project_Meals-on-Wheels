@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
+use App\Models\MealPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -130,8 +131,11 @@ MESSAGE:
 
 Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
 
-Route::get('/dashboard', ['middleware' => 'auth', function () {
-    return view('dashboard');
+Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
+    $meals = $request->user()->hasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER']) ? MealPlan::where('status','Approved')->take(5)->get() : null;
+
+    return view('dashboard')
+        ->with('plans', $meals);
 }])->name('dashboard');
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
