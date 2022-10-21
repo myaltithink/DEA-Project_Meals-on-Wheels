@@ -152,15 +152,14 @@ Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
     } elseif (($request->user()->hasPermission('ROLE_VOLUNTEER_RIDER'))) {
 
         $meals = MealOrder::where('meal_order_status', 'Packed')->where('delivered_by_id', $request->user()->user_id)->take(3)->get();
-
-        if ($request->user()->hasAnyRole(['ROLE_CAREGIVER'])) {
-            $caregiver_member = User::where('email', $request->user()->caregiver_details->assigned_member_email)->get();
-            if ($caregiver_member->count() != 0) {
-                $member_details = $caregiver_member[0]->member_details;
-            }
-        }
     }
 
+    if ($request->user()->hasAnyRole(['ROLE_CAREGIVER'])) {
+        $caregiver_member = User::where('email', $request->user()->caregiver_details->assigned_member_email)->get();
+        if ($caregiver_member->count() != 0) {
+            $member_details = $caregiver_member[0]->member_details;
+        }
+    }
     return view('dashboard')
         ->with('plans', $meals)
         ->with('proposals', $proposals)

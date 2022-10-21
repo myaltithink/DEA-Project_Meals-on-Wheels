@@ -80,11 +80,11 @@
                     <a href="{{ route('meals-list') }}" class="text-center d-block w-100 link-info">View All Available Meals</a>
                 </div>
             @ElseIsAvailable
-                <div style="height: 50rem;">
-                    <div class="position-absolute start-50 top-50 translate-middle">
-                        <h1 class="text-center">Available Meals</h1>
+                <h1 class="text-center">Available Meals</h1>
+                <div style="height: 30vh" class="d-flex align-items-center justify-content-center">
+                    <div>
                         <div class="d-flex align-items-center justify-content-center flex-column">
-                            <h1 class="display-1 text-muted">
+                            <h1 class="display-1 text-muted d-block text-center">
                                 Service is unavailable
                             </h1>
                             <span class="text-center">
