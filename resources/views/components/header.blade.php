@@ -81,7 +81,6 @@
                     </label>
                 </li>
             @endrole
-            <li><a href="{{ route('dashboard') }}" class="nav-item-link">Profile</a></li>
             <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
                 <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
                 <label for="meals" class="nav-toggler nav-item-link">
