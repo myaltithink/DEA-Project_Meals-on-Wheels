@@ -197,11 +197,6 @@ class MealProposalController extends Controller
     //approving meal proposal
     public function approveMealProposal(Request $mealPlan){
 
-        // if(Auth::id() != $user_role->role_id = 1){
-        //     return abort(403);
-        // }
-
-        //$mealPlan->update(['status' => "Approve"]);
         $meal = MealPlan::find($mealPlan['meal-id']);
 
         $meal->status = "Approved";
@@ -211,12 +206,8 @@ class MealProposalController extends Controller
 
     //rejecting meal proposal
     public function rejectMealProposal(Request $mealPlan){
-        // if(Auth::id() != $user_role->role_id = 1){
-        //     return abort(403);
-        // }
 
         $meal = MealPlan::find($mealPlan['meal-id']);
-        //$reason = MealPlan::find($mealPlan['reason']);
         $meal->reason_for_rejection = $mealPlan['reason'];
         $meal->status = "Rejected";
         $meal->save();

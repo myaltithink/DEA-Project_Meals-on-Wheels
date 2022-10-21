@@ -1,6 +1,6 @@
 @extends('layouts.userassessment')
 @section('subcontent')
-    
+
     <div class="mt-5 text-center">
         <div class="col-lg-12">
         <h2 class="display-12 fw-bold">Pending Users</h2>
@@ -63,9 +63,6 @@
             <div class="card-body border border-dark  rounded-3 overflow-auto position-relative" style="height: 50rem; overflow-x:hidden;">
                 @yield('main')
             </div>
-            {{-- <div class = "card-footer bg-transparent border border-1 border-top-0">
-                @yield('paginations')
-            </div> --}}
         </div>
     </div>
 @endsection
