@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
+use App\Models\MealOrder;
 use App\Models\MealPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -132,10 +133,27 @@ MESSAGE:
 Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 'logout']);
 
 Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
-    $meals = $request->user()->hasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER']) ? MealPlan::where('status','Approved')->take(5)->get() : null;
+    $meals = null;
+    $proposals = null;
+    if ($request->user()->hasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])){
+
+        $meals = MealPlan::where('status','Approved')->take(4)->get();
+
+    }elseif(($request->user()->hasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER']))){
+
+        $meals = MealOrder::where('meal_order_status', 'Preparing')->where('prepared_by_id', $request->user()->user_id)->take(3)->get();
+        $proposals = MealPlan::where('status','pending')->where('user_id', $request->user()->user_id)->latest('updated_at')->take(3)->get();
+
+    }elseif(($request->user()->hasPermission('ROLE_VOLUNTEER_RIDER'))){
+
+        $meals = MealOrder::where('meal_order_status', 'Packed')->where('delivered_by_id', $request->user()->user_id)->take(3)->get();
+
+    }
 
     return view('dashboard')
-        ->with('plans', $meals);
+        ->with('plans', $meals)
+        ->with('proposals', $proposals);
+
 }])->name('dashboard');
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
