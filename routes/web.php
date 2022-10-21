@@ -6,8 +6,10 @@ use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
 use App\Models\MealOrder;
 use App\Models\MealPlan;
+use App\Models\MemberDetails;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -135,30 +137,40 @@ Route::get('/logout', ['middleware' => 'auth', AuthenticationController::class, 
 Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
     $meals = null;
     $proposals = null;
-    if ($request->user()->hasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])){
+    $hasOrdered = false;
+    $member_details = null;
+    if ($request->user()->hasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])) {
 
-        $meals = MealPlan::where('status','Approved')->take(4)->get();
+        $meals = MealPlan::where('status', 'Approved')->take(4)->get();
 
-    }elseif(($request->user()->hasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER']))){
+        $hasOrdered = $request->user()->hasAnyRole(['ROLE_CAREGIVER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)
+            ->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
+    } elseif (($request->user()->hasAnyRole(['ROLE_VOLUNTEER_COOK', 'ROLE_PARTNER']))) {
 
         $meals = MealOrder::where('meal_order_status', 'Preparing')->where('prepared_by_id', $request->user()->user_id)->take(3)->get();
-        $proposals = MealPlan::where('status','pending')->where('user_id', $request->user()->user_id)->latest('updated_at')->take(3)->get();
-
-    }elseif(($request->user()->hasPermission('ROLE_VOLUNTEER_RIDER'))){
+        $proposals = MealPlan::where('status', 'pending')->where('user_id', $request->user()->user_id)->latest('updated_at')->take(3)->get();
+    } elseif (($request->user()->hasPermission('ROLE_VOLUNTEER_RIDER'))) {
 
         $meals = MealOrder::where('meal_order_status', 'Packed')->where('delivered_by_id', $request->user()->user_id)->take(3)->get();
 
+        if ($request->user()->hasAnyRole(['ROLE_CAREGIVER'])) {
+            $caregiver_member = User::where('email', $request->user()->caregiver_details->assigned_member_email)->get();
+            if ($caregiver_member->count() != 0) {
+                $member_details = $caregiver_member[0]->member_details;
+            }
+        }
     }
 
     return view('dashboard')
         ->with('plans', $meals)
-        ->with('proposals', $proposals);
-
+        ->with('proposals', $proposals)
+        ->with('hasOrdered', $hasOrdered)
+        ->with('member', $member_details);
 }])->name('dashboard');
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
-Route::get('/about-us', function(){
+Route::get('/about-us', function () {
     return view('about-us');
 })->name('about_us');
 

@@ -6,15 +6,15 @@
             {{-- do a for loop here later --}}
             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="card" style="height:20rem;">
-                    <div class = "card-header overflow-hidden p-0 bg-transparent" style="height: 10rem;">
-                        <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="card-img-top" alt = "{{$plan->meal_name}}"/>
+                    <div class="card-header overflow-hidden p-0 bg-transparent" style="height: 10rem;">
+                        <img src="{{ asset('storage/foods/' . $plan->meal_image_path) }}" class="card-img-top"
+                            alt="{{ $plan->meal_name }}" />
                     </div>
                     <div class="card-body">
                         <span class="text-center text-uppercase h3 d-block">{{ $plan->meal_name }}</span>
                     </div>
-                    <div class= "card-footer bg-transparent border border-0 p-2">
+                    <div class="card-footer bg-transparent border border-0 p-2">
                         @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
-
                             @IsAvailable(strtotime(date('h:i A', time())))
                                 <button class="btn btn-primary w-100 meal-select-prompt" data-bs-toggle="modal"
                                     data-bs-target="#meal-select-confirmation" data-meal-value="{{ $plan->meal_plan_id }}"
@@ -27,6 +27,11 @@
                                         Order
                                     @endif
                                 </button>
+                                @if ($hasOrdered)
+                                    <small class="text-center d-block">
+                                        You may only order once a day
+                                    </small>
+                                @endif
                             @ElseIsAvailable
                                 <button class="btn btn-primary w-100 text-uppercase" disabled>
                                     Service unavailable
