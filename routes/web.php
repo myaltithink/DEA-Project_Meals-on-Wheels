@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\DeliveryManagementController;
+use App\Models\User;
+use App\Models\MealPlan;
+use App\Models\MealOrder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
-use App\Models\MealOrder;
-use App\Models\MealPlan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\DeliveryManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -155,6 +157,31 @@ Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
         ->with('proposals', $proposals);
 
 }])->name('dashboard');
+
+//admin dashboard data
+Route::get('/total-entities', function(){
+    return response()->json([
+        'member' => count(User::whereHas('roles', function(Builder $query){
+                        $query->where('role_name','ROLE_MEMBER');
+                    })->where('status', 'REGISTERED')->get()),
+
+        'caregiver' => count(User::whereHas('roles', function(Builder $query){
+                        $query->where('role_name','ROLE_CAREGIVER');
+                    })->where('status', 'REGISTERED')->get()),
+
+        'partner' => count(User::whereHas('roles', function(Builder $query){
+                        $query->where('role_name','ROLE_PARTNER');
+                    })->where('status', 'REGISTERED')->get()),
+
+        'volunteer' => count(User::whereHas('roles', function(Builder $query){
+                        $query->where('role_name','ROLE_PARTNER');
+                    })->where('status', 'REGISTERED')->get()),
+
+        'registration' => count(User::where('status', 'Waiting For Approval')->get()),
+        'food_assessment' => count(MealPlan::where('status', 'pending')->get()),
+        'orders' => count(MealOrder::where('meal_order_status', 'pending')->get()),
+    ]);
+})->middleware(['auth','authorizerole:ROLE_ADMIN']);
 
 Route::get('/create-test-data', [AuthenticationController::class, 'create_auth_test_data']);
 
