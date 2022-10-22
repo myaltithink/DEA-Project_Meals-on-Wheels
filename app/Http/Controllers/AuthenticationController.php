@@ -30,13 +30,7 @@ class AuthenticationController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             $user = Auth::user();
-
-            foreach ($user->roles as $role) {
-                Log::info('user role ' . print_r($role['role_name'], true));
-            }
-
             return redirect(route('dashboard'));
         }
 

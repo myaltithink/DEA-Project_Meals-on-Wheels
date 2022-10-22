@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                {{-- caregiver's organization information --}}
+                {{-- caregiver's member information --}}
                 <div>
                     <h4><strong>Member Details</strong></h4>
                     <div class="mx-2">

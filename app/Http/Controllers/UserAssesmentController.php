@@ -27,7 +27,6 @@ class UserAssesmentController extends Controller
         }
         return view('MealManagement.UserEligibilityAssessment.pending-member-list')
             ->with('users', $members);
-            // ->with('profile', $members->member_details()->get()[0]);
     }
 
     //view specific member
