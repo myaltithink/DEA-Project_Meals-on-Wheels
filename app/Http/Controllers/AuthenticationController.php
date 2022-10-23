@@ -99,7 +99,7 @@ class AuthenticationController extends Controller
             'birthday' => $request['birthday'],
             'contact_number' => $request['contact-num'],
             'address' => $request['address'],
-            'valid_id' => FileUploadController::upload_file($request['valid-id'], $request['email'] . '-valid-id', 'valid_ids'),
+            'valid_id' => FileUploadController::upload_file($request->file('valid-id'), $request['email'] . '-valid-id', 'valid_ids'),
         ]);
     }
 
@@ -483,8 +483,6 @@ class AuthenticationController extends Controller
         $rider_account
             ->volunteer_details()->save($rider_data)
             ->profile()->save($rider_profile);
-
-
 
         //partner registration
         $partner_account = new User();

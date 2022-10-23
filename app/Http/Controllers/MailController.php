@@ -13,7 +13,7 @@ class MailController extends Controller
     {
 
         Log::info('verification type ' . $verification_type);
-        Mail::send(
+        return Mail::send(
             'verification_email_content',
             [
                 'is_registration' => $verification_type == 'registration',
@@ -48,7 +48,7 @@ class MailController extends Controller
         return $code;
     }
 
-    public static function updateUser($recipient, $subject, $reason, $approve=false)
+    public static function updateUser($recipient, $subject, $reason, $approve = false)
     {
 
 
