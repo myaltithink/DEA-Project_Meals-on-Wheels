@@ -3,19 +3,21 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+
+use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertNotNull;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_the_application_returns_a_successful_response()
+    public function test_email_sending()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        //MailController will return a \Illuminate\Mail\SentMessage if email was sent successfully
+        //otherwise return null
+        $test_mail = MailController::send_email('tarucisaac@gmail.com', 'test', 'Email Test', 'forget_pass', 123123);
+        Log::info(print_r($test_mail->toIterable(), true));
+        assertNotNull($test_mail);
     }
 }

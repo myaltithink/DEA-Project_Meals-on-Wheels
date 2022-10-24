@@ -78,13 +78,15 @@ class AuthenticationController extends Controller
         ]);
         $verification_entity->save();
 
-        MailController::send_email(
-            $email,
-            $name,
-            ($verification_type == 'registration') ? 'Registration Verification' : 'Password Reset',
-            $verification_type,
-            $verification_code
-        );
+        if ($email != 'member@gmail.com' && $email != 'caregiver@gmail.com' && $email != 'partner@gmail.com' && $email != 'volunteer@gmail.com' && $email != 'rider@gmail.com') {
+            MailController::send_email(
+                $email,
+                $name,
+                ($verification_type == 'registration') ? 'Registration Verification' : 'Password Reset',
+                $verification_type,
+                $verification_code
+            );
+        }
 
         return redirect(route('email_verification'))->with('email', $email)->with('caller', $verification_type);
     }

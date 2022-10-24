@@ -47,9 +47,16 @@ class RegistrationTest extends TestCase
 
     public function test_email_sending()
     {
-        //MailController will return a \Illuminate\Mail\SentMessage if email was sent successfully
-        //otherwise return null
-        $test_mail = MailController::send_email('tarucisaac@gmail.com', '', 'Email Test', 'forget_pass', 123123);
+        // MailController will return a
+        // \Illuminate\Mail\SentMessage if email
+        // was sent successfullyotherwise return null
+        $test_mail = MailController::send_email(
+            'tarucisaac@gmail.com',
+            '',
+            'Email Test',
+            'forget_pass',
+            123123
+        );
         assertNotNull($test_mail);
     }
 
@@ -66,7 +73,7 @@ class RegistrationTest extends TestCase
         assertNotNull($verification_data);
     }
 
-    //mail sending has been comment out for this test as the following email address are not a valid ones
+    //mail sending has been disabled for this test as the following email address are not a valid ones
     public function test_user_registrations()
     {
         $register_as_member = $this->post('/member-registration', $this->getMemberTestData());
@@ -108,7 +115,7 @@ class RegistrationTest extends TestCase
 
             //account data
             'email' => 'member@gmail.com',
-            'password' => bcrypt('wasdwasd'),
+            'password' => 'wasdwasd',
             'longtitude' => '12.2345',
             'latitude' => '8.2146',
             'status' => 'Waiting For Approval'
@@ -134,7 +141,7 @@ class RegistrationTest extends TestCase
 
             //account info
             'email' => 'caregiver@gmail.com',
-            'password' => bcrypt('wasdwasd'),
+            'password' => 'wasdwasd',
             'longtitude' => '11.2345',
             'latitude' => '9.2146',
             'status' => 'Waiting For Approval'
@@ -152,7 +159,7 @@ class RegistrationTest extends TestCase
 
             //account info
             'email' => 'partner@gmail.com',
-            'password' => bcrypt('wasdwasd'),
+            'password' => 'wasdwasd',
             'longtitude' => '9.2345',
             'latitude' => '8.2146',
             'status' => 'Waiting For Approval'
@@ -180,7 +187,7 @@ class RegistrationTest extends TestCase
 
             //account info
             'email' => 'volunteer@gmail.com',
-            'password' => bcrypt('wasdwasd'),
+            'password' => 'wasdwasd',
             'longtitude' => '16.2345',
             'latitude' => '8.2146',
             'status' => 'Waiting For Approval'
@@ -208,7 +215,7 @@ class RegistrationTest extends TestCase
 
             //account info
             'email' => 'rider@gmail.com',
-            'password' => bcrypt('wasdwasd'),
+            'password' => 'wasdwasd',
             'longtitude' => '6.2345',
             'latitude' => '8.2146',
             'status' => 'Waiting For Approval'
