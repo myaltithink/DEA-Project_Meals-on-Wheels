@@ -28,9 +28,9 @@ return new class extends Migration
             $table->bigInteger('caregiver_id')->nullable()->unsigned();
             $table->bigInteger('volunteer_id')->nullable()->unsigned();
 
-            $table->foreign('member_id')->references('member_id')->on('member_details');
-            $table->foreign('caregiver_id')->references('caregiver_id')->on('caregiver_details');
-            $table->foreign('volunteer_id')->references('volunteer_id')->on('volunteer_details');
+            $table->foreign('member_id')->references('member_id')->on('member_details')->cascadeOnDelete();
+            $table->foreign('caregiver_id')->references('caregiver_id')->on('caregiver_details')->cascadeOnDelete();
+            $table->foreign('volunteer_id')->references('volunteer_id')->on('volunteer_details')->cascadeOnDelete();
 
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('assigned_member_email')->nullable();
 
             $table->bigInteger('user_id')->nullable()->unsigned();
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnDelete();
 
             $table->timestamps();
         });

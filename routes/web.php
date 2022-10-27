@@ -171,24 +171,37 @@ Route::get('/dashboard', ['middleware' => 'auth', function (Request $request) {
 
 //admin dashboard data
 Route::get('/total-entities', function () {
+
     return response()->json([
         'member' => count(User::whereHas('roles', function (Builder $query) {
             $query->where('role_name', 'ROLE_MEMBER');
-        })->where('status', 'REGISTERED')->get()),
+        })->where([
+            ['email_verified', '=', true],
+            ['authenticatable', '=', true]
+        ])->get()),
 
         'caregiver' => count(User::whereHas('roles', function (Builder $query) {
             $query->where('role_name', 'ROLE_CAREGIVER');
-        })->where('status', 'REGISTERED')->get()),
+        })->where([
+            ['email_verified', '=', true],
+            ['authenticatable', '=', true]
+        ])->get()),
 
         'partner' => count(User::whereHas('roles', function (Builder $query) {
             $query->where('role_name', 'ROLE_PARTNER');
-        })->where('status', 'REGISTERED')->get()),
+        })->where([
+            ['email_verified', '=', true],
+            ['authenticatable', '=', true]
+        ])->get()),
 
         'volunteer' => count(User::whereHas('roles', function (Builder $query) {
-            $query->where('role_name', 'ROLE_PARTNER');
-        })->where('status', 'REGISTERED')->get()),
+            $query->where('role_name', 'ROLE_VOLUNTEER');
+        })->where([
+            ['email_verified', '=', true],
+            ['authenticatable', '=', true]
+        ])->get()),
 
-        'registration' => count(User::where('status', 'Waiting For Approval')->get()),
+        'registration' => count(User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get()),
         'food_assessment' => count(MealPlan::where('status', 'pending')->get()),
         'orders' => count(MealOrder::where('meal_order_status', 'pending')->get()),
     ]);
@@ -319,6 +332,7 @@ Route::group(
 
         //Food Safety Management Page - list of all pending meal plan proposals
         Route::get('/food-safety-management', [MealProposalController::class, 'pendingProposals'])
+            ->name('food-assessment')
             ->middleware(['authorizerole:ROLE_ADMIN']);
 
         //Page for viewing a specific meal proposal to approve or reject
