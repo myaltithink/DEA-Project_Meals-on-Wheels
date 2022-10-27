@@ -15,12 +15,13 @@ class UserAssesmentController extends Controller
 {
 
     //viewing of all pending members for approval
-    public function pendingMembers(){
+    public function pendingMembers()
+    {
         $pending_users = User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get();
         $members = array();
-        foreach ($pending_users as $member){
-            foreach($member->roles as $role){
-                if($role['role_name'] == 'ROLE_MEMBER'){
+        foreach ($pending_users as $member) {
+            foreach ($member->roles as $role) {
+                if ($role['role_name'] == 'ROLE_MEMBER') {
                     array_push($members, $member);
                 }
             }
@@ -30,17 +31,19 @@ class UserAssesmentController extends Controller
     }
 
     //view specific member
-    public function viewPendingMember($email){
+    public function viewPendingMember($email)
+    {
         $member = User::where('email', $email)->get()[0];
         return view('MealManagement.UserEligibilityAssessment.view-member-approval')
-        ->with('member', $member)
-        ->with('details', $member->member_details()->get()[0])
-        ->with('profile', $member->member_details()->get()[0]->profile()->get()[0])
-        ->with('user_id', $member->user_id);
+            ->with('member', $member)
+            ->with('details', $member->member_details()->get()[0])
+            ->with('profile', $member->member_details()->get()[0]->profile()->get()[0])
+            ->with('user_id', $member->user_id);
     }
 
     //approving pending member
-    public function approvePendingMember(Request $email){
+    public function approvePendingMember(Request $email)
+    {
 
         $member = User::find($email['user-id']);
 
@@ -54,7 +57,8 @@ class UserAssesmentController extends Controller
     }
 
     //rejecting pending member
-    public function rejectPendingMember(Request $email){
+    public function rejectPendingMember(Request $email)
+    {
 
         $member = User::where('user_id', $email['user-id'])->get()[0];
         $member_details = $member->member_details;
@@ -75,12 +79,13 @@ class UserAssesmentController extends Controller
     }
 
     //viewing of all pending caregivers for approval
-    public function pendingCaregivers(){
+    public function pendingCaregivers()
+    {
         $pending_users = User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get();
         $caregivers = array();
-        foreach ($pending_users as $caregiver){
-            foreach($caregiver->roles as $role){
-                if($role['role_name'] == 'ROLE_CAREGIVER'){
+        foreach ($pending_users as $caregiver) {
+            foreach ($caregiver->roles as $role) {
+                if ($role['role_name'] == 'ROLE_CAREGIVER') {
                     array_push($caregivers, $caregiver);
                 }
             }
@@ -90,17 +95,19 @@ class UserAssesmentController extends Controller
     }
 
     //view specific caregiver
-    public function viewPendingCaregiver($email){
+    public function viewPendingCaregiver($email)
+    {
         $caregiver = User::where('email', $email)->get()[0];
         return view('MealManagement.UserEligibilityAssessment.view-caregiver-approval')
-        ->with('caregiver', $caregiver)
-        ->with('details', $caregiver->caregiver_details()->get()[0])
-        ->with('profile', $caregiver->caregiver_details()->get()[0]->profile()->get()[0])
-        ->with('user_id', $caregiver->user_id);
+            ->with('caregiver', $caregiver)
+            ->with('details', $caregiver->caregiver_details()->get()[0])
+            ->with('profile', $caregiver->caregiver_details()->get()[0]->profile()->get()[0])
+            ->with('user_id', $caregiver->user_id);
     }
 
     //approving pending caregiver
-    public function approvePendingCaregiver(Request $email){
+    public function approvePendingCaregiver(Request $email)
+    {
 
         $caregiver = User::find($email['user-id']);
 
@@ -114,7 +121,8 @@ class UserAssesmentController extends Controller
     }
 
     //rejecting pending caregiver
-    public function rejectPendingCaregiver(Request $email){
+    public function rejectPendingCaregiver(Request $email)
+    {
 
         $caregiver = User::where('user_id', $email['user-id'])->get()[0];
         $caregiver_details = $caregiver->caregiver_details;
@@ -135,12 +143,13 @@ class UserAssesmentController extends Controller
     }
 
     //viewing of all pending partners for approval
-    public function pendingPartners(){
+    public function pendingPartners()
+    {
         $pending_users = User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get();
         $partners = array();
-        foreach ($pending_users as $partner){
-            foreach($partner->roles as $role){
-                if($role['role_name'] == 'ROLE_PARTNER'){
+        foreach ($pending_users as $partner) {
+            foreach ($partner->roles as $role) {
+                if ($role['role_name'] == 'ROLE_PARTNER') {
                     array_push($partners, $partner);
                 }
             }
@@ -150,17 +159,19 @@ class UserAssesmentController extends Controller
     }
 
     //view specific partner
-    public function viewPendingPartner($email){
+    public function viewPendingPartner($email)
+    {
 
         $partner = User::where('email', $email)->get()[0];
         return view('MealManagement.UserEligibilityAssessment.view-partner-approval')
-        ->with('partner', $partner)
-        ->with('details', $partner->partner_details()->get()[0])
-        ->with('user_id', $partner->user_id);
+            ->with('partner', $partner)
+            ->with('details', $partner->partner_details()->get()[0])
+            ->with('user_id', $partner->user_id);
     }
 
     //approving pending partner
-    public function approvePendingPartner(Request $email){
+    public function approvePendingPartner(Request $email)
+    {
 
         $partner = User::find($email['user-id']);
 
@@ -174,7 +185,8 @@ class UserAssesmentController extends Controller
     }
 
     //rejecting pending partner
-    public function rejectPendingPartner(Request $email){
+    public function rejectPendingPartner(Request $email)
+    {
 
         $partner = User::where('user_id', $email['user-id'])->get()[0];
         $partner_details = $partner->partner_details;
@@ -194,13 +206,13 @@ class UserAssesmentController extends Controller
 
 
     //viewing of all pending volunteers for approval
-    public function pendingVolunteers(){
-        Log::info(print_r(User::where('email', 'member@gmail.com')->get()[0], true));
+    public function pendingVolunteers()
+    {
         $pending_users = User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get();
         $volunteers = array();
-        foreach ($pending_users as $volunteer){
-            foreach($volunteer->roles as $role){
-                if($role['role_name'] == 'ROLE_VOLUNTEER'){
+        foreach ($pending_users as $volunteer) {
+            foreach ($volunteer->roles as $role) {
+                if ($role['role_name'] == 'ROLE_VOLUNTEER') {
                     array_push($volunteers, $volunteer);
                 }
             }
@@ -210,17 +222,19 @@ class UserAssesmentController extends Controller
     }
 
     //view specific volunteer
-    public function viewPendingVolunteer($email){
+    public function viewPendingVolunteer($email)
+    {
         $volunteer = User::where('email', $email)->get()[0];
         return view('MealManagement.UserEligibilityAssessment.view-volunteer-approval')
-        ->with('volunteer', $volunteer)
-        ->with('details', $volunteer->volunteer_details()->get()[0])
-        ->with('profile', $volunteer->volunteer_details()->get()[0]->profile()->get()[0])
-        ->with('user_id', $volunteer->user_id);
+            ->with('volunteer', $volunteer)
+            ->with('details', $volunteer->volunteer_details()->get()[0])
+            ->with('profile', $volunteer->volunteer_details()->get()[0]->profile()->get()[0])
+            ->with('user_id', $volunteer->user_id);
     }
 
     //approving pending volunteer
-    public function approvePendingVolunteer(Request $email){
+    public function approvePendingVolunteer(Request $email)
+    {
 
         $volunteer = User::find($email['user-id']);
 
@@ -234,7 +248,8 @@ class UserAssesmentController extends Controller
     }
 
     //rejecting pending volunteer
-    public function rejectPendingVolunteer(Request $email){
+    public function rejectPendingVolunteer(Request $email)
+    {
 
         $volunteer = User::where('user_id', $email['user-id'])->get()[0];
         $volunteer_details = $volunteer->volunteer_details;
@@ -253,5 +268,4 @@ class UserAssesmentController extends Controller
 
         return redirect('/volunteer-eligibility-assessment');
     }
-
 }

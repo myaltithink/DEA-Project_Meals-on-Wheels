@@ -28,23 +28,30 @@ class AuthenticationController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            return redirect(route('dashboard'));
-        }
-
         $user = User::where('email', $credentials['email'])->get();
 
         $email_error = '';
         $password_error = '';
+        $email_verified = ($user->count() != 0) ? $user[0]->email_verified : false;
+        $authenticateable = ($user->count() != 0) ? $user[0]->authenticatable : false;
 
-        if ($user->count() == 0) {
+        if ($authenticateable && $email_verified) {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                $user = Auth::user();
+                return redirect(route('dashboard'));
+            }
+        }
+
+        if (!$email_verified) {
+            $email_error = 'Sorry but it seems your email address has not been verified';
+        } else if (!$authenticateable) {
+            $email_error = 'Sorry but it seems your registration still hasn\'t been approved by the administrator';
+        } else if ($user->count() == 0) {
             $email_error = 'email address is not registered';
         } else if (!Hash::check($credentials['password'], $user[0]['password'])) {
             $password_error = 'Wrong Password';
         }
-
 
         return redirect(route('login'))
             ->with('email_error', $email_error)
