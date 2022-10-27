@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     @empty
-                        <div class="position-absolute start-50 top-50 translate-middle">
+                        <div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <h1 class="display-1 text-muted">
                                     No Available Meals Yet
