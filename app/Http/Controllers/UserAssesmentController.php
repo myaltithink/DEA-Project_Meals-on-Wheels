@@ -61,8 +61,6 @@ class UserAssesmentController extends Controller
     {
 
         $member = User::where('user_id', $email['user-id'])->get()[0];
-        $member_details = $member->member_details;
-        $member_profile = $member->member_details->profile;
 
         $rejected_user = new RejectedUsers;
         $rejected_user->email = $member->email;
@@ -71,8 +69,6 @@ class UserAssesmentController extends Controller
 
         MailController::updateUser($member->email, "Registration Update", $rejected_user->reason_of_rejection);
 
-        $member_profile->delete();
-        $member_details->delete();
         $member->delete();
 
         return redirect('/member-eligibility-assessment');
@@ -125,8 +121,6 @@ class UserAssesmentController extends Controller
     {
 
         $caregiver = User::where('user_id', $email['user-id'])->get()[0];
-        $caregiver_details = $caregiver->caregiver_details;
-        $caregiver_profile = $caregiver->caregiver_details->profile;
 
         $rejected_user = new RejectedUsers;
         $rejected_user->email = $caregiver->email;
@@ -135,8 +129,6 @@ class UserAssesmentController extends Controller
 
         MailController::updateUser($caregiver->email, "Registration Update", $rejected_user->reason_of_rejection);
 
-        $caregiver_profile->delete();
-        $caregiver_details->delete();
         $caregiver->delete();
 
         return redirect('/caregiver-eligibility-assessment');
@@ -187,18 +179,14 @@ class UserAssesmentController extends Controller
     //rejecting pending partner
     public function rejectPendingPartner(Request $email)
     {
-
         $partner = User::where('user_id', $email['user-id'])->get()[0];
-        $partner_details = $partner->partner_details;
 
         $rejected_user = new RejectedUsers;
         $rejected_user->email = $partner->email;
         $rejected_user->reason_of_rejection = $email['reason'];
         $rejected_user->save();
-
         MailController::updateUser($partner->email, "Registration Update", $rejected_user->reason_of_rejection);
 
-        $partner_details->delete();
         $partner->delete();
 
         return redirect('/partner-eligibility-assessment');
@@ -252,8 +240,6 @@ class UserAssesmentController extends Controller
     {
 
         $volunteer = User::where('user_id', $email['user-id'])->get()[0];
-        $volunteer_details = $volunteer->volunteer_details;
-        $volunteer_profile = $volunteer->volunteer_details->profile;
 
         $rejected_user = new RejectedUsers;
         $rejected_user->email = $volunteer->email;
@@ -262,8 +248,6 @@ class UserAssesmentController extends Controller
 
         MailController::updateUser($volunteer->email, "Registration Update", $rejected_user->reason_of_rejection);
 
-        $volunteer_profile->delete();
-        $volunteer_details->delete();
         $volunteer->delete();
 
         return redirect('/volunteer-eligibility-assessment');

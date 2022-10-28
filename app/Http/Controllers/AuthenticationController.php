@@ -124,8 +124,22 @@ class AuthenticationController extends Controller
         );
     }
 
+    private function overwrite_unverified_email(string $email)
+    {
+        $user = User::where([
+            ['email', '=', $email],
+            ['email_verified', '=', false],
+            ['authenticatable', '=', false]
+        ])->get();
+
+        if ($user->count() != 0) {
+            $user[0]->delete();
+        }
+    }
+
     public function member_registration(Request $request)
     {
+        $this->overwrite_unverified_email($request['email']);
         $request->validate([
             'email' => 'unique:users,email'
         ]);

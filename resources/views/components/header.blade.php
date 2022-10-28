@@ -24,52 +24,24 @@
 
         @auth
             <li><a href="/dashboard" class="nav-item-link">Home</a></li>
-            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
-                <input type="checkbox" name="support" id="support" class="nav-button-toggle">
-                <label for="support" class="nav-toggler nav-item-link">
-                    <div class="d-flex align-items-center">
-                        <i class="fa-solid fa-caret-down"></i>
-                        &nbsp;&nbsp;
-                        <p class="m-0">Support</p>
-                    </div>
-                    <div class="popup pointer">
-                        <div class="card border p-0 m-0 border-0 bg-transparent">
-                            <div class="card-body p-0 m-0">
-                                <ul class="list-group m-0 p-0">
-                                    <li class="list-group-item list-group-item-action">
-                                        <a href="/contact-us" class="d-block nav-item-link">Contact Us</a>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action">
-                                        <a href="" class="d-block nav-item-link">Donation</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </label>
-            </li>
-            @role('ROLE_ADMIN')
+            @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER', 'ROLE_PARTNER', 'ROLE_VOLUNTEER'])
                 <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
-                    <input type="checkbox" name="management" id="management" class="nav-button-toggle">
-                    <label for="management" class="nav-toggler nav-item-link">
+                    <input type="checkbox" name="support" id="support" class="nav-button-toggle">
+                    <label for="support" class="nav-toggler nav-item-link">
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-caret-down"></i>
                             &nbsp;&nbsp;
-                            <p class="m-0">Management</p>
+                            <p class="m-0">Support</p>
                         </div>
-                        <div id="management-popup" class="popup pointer">
-                            <div class="card border border-0 p-0 m-0 bg-transparent">
+                        <div class="popup pointer">
+                            <div class="card border p-0 m-0 border-0 bg-transparent">
                                 <div class="card-body p-0 m-0">
                                     <ul class="list-group m-0 p-0">
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="/member-eligibility-assessment" class="nav-item-link">Eligibility
-                                                Assessment</a>
+                                            <a href="/contact-us" class="d-block nav-item-link">Contact Us</a>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="/food-safety-management" class="nav-item-link">Food Safety</a>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <a href="" class="nav-item-link">General Management</a>
+                                            <a href="" class="d-block nav-item-link">Donation</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -77,31 +49,61 @@
                         </div>
                     </label>
                 </li>
-            @endrole
-            <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
-                <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
-                <label for="meals" class="nav-toggler nav-item-link">
-                    <div class="d-flex align-items-center">
-                        <i class="fa-solid fa-caret-down"></i>
-                        &nbsp;&nbsp;
-                        <p class="m-0">Meals</p>
-                    </div>
-                    <div class="popup pointer">
-                        <div class="card border border-0 p-0 m-0 bg-transparent">
-                            <div class="card-body p-0 m-0">
-                                <ul class="list-group m-0 p-0">
-                                    <li class="list-group-item list-group-item-action">
-                                        <a href="{{ route('meals-list') }}" class="nav-item-link">Meals List</a>
-                                    </li>
-                                    @HasAnyRole(['ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
+                @EndHasAnyRoles
+                @role('ROLE_ADMIN')
+                    <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                        <input type="checkbox" name="management" id="management" class="nav-button-toggle">
+                        <label for="management" class="nav-toggler nav-item-link">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-caret-down"></i>
+                                &nbsp;&nbsp;
+                                <p class="m-0">Management</p>
+                            </div>
+                            <div id="management-popup" class="popup pointer">
+                                <div class="card border border-0 p-0 m-0 bg-transparent">
+                                    <div class="card-body p-0 m-0">
+                                        <ul class="list-group m-0 p-0">
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="/member-eligibility-assessment" class="nav-item-link">Eligibility
+                                                    Assessment</a>
+                                            </li>
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="/food-safety-management" class="nav-item-link">Food Safety</a>
+                                            </li>
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="" class="nav-item-link">General Management</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                @endrole
+                <li onmouseout="closeAllPopUp()" onmouseover='togglePopup(this)' onclick="togglePopup(this)">
+                    <input type="checkbox" name="meals" id="meals" class="nav-button-toggle">
+                    <label for="meals" class="nav-toggler nav-item-link">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-caret-down"></i>
+                            &nbsp;&nbsp;
+                            <p class="m-0">Meals</p>
+                        </div>
+                        <div class="popup pointer">
+                            <div class="card border border-0 p-0 m-0 bg-transparent">
+                                <div class="card-body p-0 m-0">
+                                    <ul class="list-group m-0 p-0">
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="{{ route('my-proposal-list') }}" class="nav-item-link">
-                                                Meals Proposal
-                                            </a>
+                                            <a href="{{ route('meals-list') }}" class="nav-item-link">Meals List</a>
                                         </li>
-                                        @EndHasAnyRoles
-                                        <li class="list-group-item list-group-item-action">
-                                            <a href="
+                                        @HasAnyRole(['ROLE_PARTNER', 'ROLE_VOLUNTEER_COOK'])
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="{{ route('my-proposal-list') }}" class="nav-item-link">
+                                                    Meals Proposal
+                                                </a>
+                                            </li>
+                                            @EndHasAnyRoles
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="
                                                         @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
                                                     {{ route('mc-orders') }}
                                                 @EndHasAnyRoles
@@ -118,71 +120,71 @@
                                                     {{ route('vp-prep-orders') }}
                                                 @EndHasAnyRoles
                                                     "
-                                                class="
+                                                    class="
                                                             nav-item-link
                                                         ">
-                                                Orders
-                                            </a>
-                                        </li>
-                                    </ul>
+                                                    Orders
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                    </label>
-                </li>
-                <li><a href="/logout" class="nav-item-link">Logout</a></li>
-            @endauth
-        </ul>
-    </header>
-    <div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
+                        </label>
+                    </li>
+                    <li><a href="/logout" class="nav-item-link">Logout</a></li>
+                @endauth
+            </ul>
+        </header>
+        <div id="nav-bg" class="d-none" onclick="handleNavigation('close')"></div>
 
-    <script>
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 767) {
-                const navigation = document.getElementById("navigation-links");
-                const bg = document.getElementById("nav-bg");
+        <script>
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 767) {
+                    const navigation = document.getElementById("navigation-links");
+                    const bg = document.getElementById("nav-bg");
 
-                bg.classList.remove('d-block')
-                bg.classList.add('d-none')
-                navigation.classList.remove("show-m-nav")
-                navigation.classList.remove("close-m-nav")
-            }
-            closeAllPopUp()
-        })
-
-        function handleNavigation(action) {
-            const navigation = document.getElementById("navigation-links");
-            const bg = document.getElementById("nav-bg");
-            switch (action) {
-                case "open":
-                    console.log("open navigation")
-                    bg.classList.remove('d-none')
-                    bg.classList.add('d-block')
-                    navigation.classList.remove("close-m-nav")
-                    navigation.classList.add("show-m-nav")
-                    break;
-
-                case "close":
-                    console.log("close navigation")
                     bg.classList.remove('d-block')
                     bg.classList.add('d-none')
                     navigation.classList.remove("show-m-nav")
-                    navigation.classList.add("close-m-nav")
-                    break;
-            }
-        }
+                    navigation.classList.remove("close-m-nav")
+                }
+                closeAllPopUp()
+            })
 
-        //script for toggling popups
-        function togglePopup(caller) {
-            let navbox = caller.firstElementChild;
-            navbox.nextElementSibling.firstElementChild.classList.add("fade");
-            navbox.checked = true;
-            navbox.nextElementSibling.firstElementChild.classList.remove('fade');
-        }
+            function handleNavigation(action) {
+                const navigation = document.getElementById("navigation-links");
+                const bg = document.getElementById("nav-bg");
+                switch (action) {
+                    case "open":
+                        console.log("open navigation")
+                        bg.classList.remove('d-none')
+                        bg.classList.add('d-block')
+                        navigation.classList.remove("close-m-nav")
+                        navigation.classList.add("show-m-nav")
+                        break;
 
-        function closeAllPopUp() {
-            const navButtons = document.getElementsByClassName("nav-button-toggle");
-            for (const nav of navButtons) {
-                nav.checked = false;
+                    case "close":
+                        console.log("close navigation")
+                        bg.classList.remove('d-block')
+                        bg.classList.add('d-none')
+                        navigation.classList.remove("show-m-nav")
+                        navigation.classList.add("close-m-nav")
+                        break;
+                }
             }
-        }
-    </script>
+
+            //script for toggling popups
+            function togglePopup(caller) {
+                let navbox = caller.firstElementChild;
+                navbox.nextElementSibling.firstElementChild.classList.add("fade");
+                navbox.checked = true;
+                navbox.nextElementSibling.firstElementChild.classList.remove('fade');
+            }
+
+            function closeAllPopUp() {
+                const navButtons = document.getElementsByClassName("nav-button-toggle");
+                for (const nav of navButtons) {
+                    nav.checked = false;
+                }
+            }
+        </script>
