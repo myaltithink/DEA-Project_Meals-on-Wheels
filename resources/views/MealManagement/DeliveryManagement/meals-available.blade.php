@@ -8,7 +8,7 @@
                 <div class="card" style="height:20rem;">
                     <div class="card-header overflow-hidden p-0 bg-transparent" style="height: 10rem;">
                         <img src="{{ asset('storage/foods/' . $plan->meal_image_path) }}" class="card-img-top"
-                            alt="{{ $plan->meal_name }}" />
+                            alt="{{ $plan->meal_name }}" loading="lazy"/>
                     </div>
                     <div class="card-body">
                         <span class="text-center text-uppercase h3 d-block">{{ $plan->meal_name }}</span>

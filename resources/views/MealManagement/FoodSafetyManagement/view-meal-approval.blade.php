@@ -7,7 +7,7 @@
           <div class="col-md-6 bg-white shadow rounded mx-2 my-2 border border-dark">
             <div class="thumbnail mt-2">
                 <div class="text-center mt-5">
-                    <img src="{{ asset('storage/foods/'.$proposal->meal_image_path) }}" alt="Meal Proposal" class="w-50 h-50">
+                    <img src="{{ asset('storage/foods/'.$proposal->meal_image_path) }}" alt="Meal Proposal" class="w-50 h-50" loading="lazy">
                 </div>
 
                 <h2 class = "tetxt-center fw-bold text-center mt-2"> {{ ucwords($proposal->meal_name )}} </h2>
