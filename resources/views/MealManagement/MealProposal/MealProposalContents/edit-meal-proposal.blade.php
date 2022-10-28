@@ -13,7 +13,7 @@
                     @method('PUT')
                     <div class = "col-12 d-flex justify-content-center">
                         <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
-                            <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}"/>
+                            <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}" loading="lazy"/>
                         </div>
                     </div>
 

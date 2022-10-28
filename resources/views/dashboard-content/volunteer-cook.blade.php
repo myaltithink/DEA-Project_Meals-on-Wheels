@@ -31,7 +31,7 @@
                             <div class ="card-body row">
                                 <div class = "col-12 col-lg-2 col-md-4 d-flex justify-content-lg-start justify-content-center">
                                     <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
-                                        <img src = "{{ asset('storage/foods/'.$plan->mealPlan->meal_image_path) }}" class="w-100 h-100"/>
+                                        <img src = "{{ asset('storage/foods/'.$plan->mealPlan->meal_image_path) }}" class="w-100 h-100" loading="lazy"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-12 col-md-8 row gy-0">
@@ -90,7 +90,7 @@
                                 <div class ="card-body row">
                                     <div class = "col-12 col-lg-2 col-md-4 d-flex justify-content-lg-start justify-content-center">
                                         <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
-                                            <img src = "{{ asset('storage/foods/'.$plan->mealPlan->meal_image_path) }}" class="w-100 h-100"/>
+                                            <img src = "{{ asset('storage/foods/'.$plan->mealPlan->meal_image_path) }}" class="w-100 h-100" loading="lazy"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-10 col-12 col-md-8 row gy-0">
@@ -162,7 +162,7 @@
                         <div class ="card-body row">
                             <div class = "col-12 col-lg-2 d-flex justify-content-lg-start justify-content-center">
                                 <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
-                                    <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}"/>
+                                    <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}" loading="lazy"/>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-12 row gy-0">
@@ -234,7 +234,7 @@
                             <div class ="card-body row">
                                 <div class = "col-12 col-lg-2 d-flex justify-content-lg-start justify-content-center">
                                     <div style="height: 15rem; width:15rem;" class="overflow-hidden border border-1 rounded-2">
-                                        <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}"/>
+                                        <img src = "{{ asset('storage/foods/'.$plan->meal_image_path) }}" class="w-100 h-100" alt = "{{$plan->meal_name}}" loading="lazy"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-12 row gy-0">

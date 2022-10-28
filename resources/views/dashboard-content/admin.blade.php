@@ -9,7 +9,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/user icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Total Members</span>
@@ -24,7 +24,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/user icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Total Caregivers</span>
@@ -39,7 +39,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/user icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Total Partners</span>
@@ -54,7 +54,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/user icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Total Volunteers</span>
@@ -69,7 +69,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/pending icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Pending Registrations</span>
@@ -84,7 +84,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/food icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Pending Food Assessment</span>
@@ -99,7 +99,7 @@
         <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
             <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
                 <img src="{{ Vite::asset('resources/images/icons/Order icon.png') }}" class="p-2 m-2" alt="user icon"
-                    style="height:10rem; width:10rem;" />
+                    style="height:10rem; width:10rem;" loading="lazy"/>
             </div>
             <div class="card-body d-flex flex-column">
                 <span class="d-block text-center">Pending Orders</span>

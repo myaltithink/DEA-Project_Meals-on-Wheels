@@ -3,17 +3,13 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\MealPlan;
 use App\Models\MealOrder;
 use App\Models\VolunteerDetails;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MealManagementTest extends TestCase
 {
@@ -103,7 +99,7 @@ class MealManagementTest extends TestCase
     }
 
     //test assign meal to volunteer/partner by admin
-    public function test_assign_meal_to_parnter_or_volunteer(){
+    public function test_assign_meal_to_partner_or_volunteer(){
          //retrieve a member user
          $member = User::whereHas('roles', function(Builder $query){
             $query->where('role_name','ROLE_MEMBER');
