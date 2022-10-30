@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('wasdwasd'),
             'longtitude' => '0.0',
             'latitude' => '0.0',
-            'status' => 'REGISTERED'
+            'status' => 'Approved'
         ])->save();
 
         $admin->roles()->attach(Role::where('role_name', 'ROLE_ADMIN')->get()[0]);
