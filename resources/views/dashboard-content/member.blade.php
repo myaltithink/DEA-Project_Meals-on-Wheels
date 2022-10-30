@@ -26,10 +26,10 @@
     @EndIsAvailable
 
 </div>
-<div class="container border border-1 border-start-0 border-end-0 p-3">
+<div class="container border border-1 border-start-0 border-end-0 p-3 position-relative" style="min-height: 30rem;">
     @IsAvailable(strtotime(date('h:i A', time())))
         <div class="row g-4">
-            <div class="d-flex justify-content-center position-relative">
+            <div class="d-flex justify-content-center">
                 <h1>Available Meals</h1>
             </div>
             @forelse ($plans as $plan)
