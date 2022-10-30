@@ -18,7 +18,7 @@
                     <p class="mb-0 mt-2"><strong>Ingredients:</strong>
                         <ul>
                             @foreach (explode(',', $proposal->meal_ingredients) as $ingredient)
-                                <li>{{ $ingredient }}</li>
+                                <li>{{ ucwords($ingredient) }}</li>
                             @endforeach
                         </ul>  </p>
                 </div>
