@@ -1,6 +1,6 @@
 <nav>
     <ul class="nav nav-tabs border border-0">
-        @HasAnyRole(['ROLE_MEMBER', 'ROLE_CARETAKER'])
+        @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
         <li class="nav-item">
             <a class="
                 nav-link

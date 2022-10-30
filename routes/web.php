@@ -204,6 +204,7 @@ Route::get('/total-entities', function () {
         'registration' => count(User::where([['email_verified', '=', true], ['authenticatable', '=', false]])->get()),
         'food_assessment' => count(MealPlan::where('status', 'pending')->get()),
         'orders' => count(MealOrder::where('meal_order_status', 'pending')->get()),
+        'delivery' => count(MealOrder::where('meal_order_status', 'packed')->get()),
     ]);
 })->middleware(['auth', 'authorizerole:ROLE_ADMIN']);
 
