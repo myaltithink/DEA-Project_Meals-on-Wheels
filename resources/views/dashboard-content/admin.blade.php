@@ -111,21 +111,34 @@
                 </a>
             </div>
         </div>
+        <div class='mx-2 col-lg-2 col-md-4 col-sm-6 col-12 card' style="height: 21rem">
+            <div class='card-header p-0 bg-transparent d-flex justify-content-center'>
+                <img src="{{ Vite::asset('resources/images/icons/pending delivery.png') }}" class="p-2 m-2" alt="user icon"
+                    style="height:10rem; width:10rem;" loading="lazy"/>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <span class="d-block text-center">Pending Delivery</span>
+                <span id="delivery" class="d-block text-center"></span>
+            </div>
+            <div class="card-footer border border-0 bg-transparent">
+                <a href="{{ route('a-del-orders') }}" class="btn btn-primary w-100">
+                    View All
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('http://localhost:8000/total-entities')
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                document.querySelector('#member').innerHTML = data.member;
-                document.querySelector('#caregiver').innerHTML = data.caregiver;
-                document.querySelector('#partner').innerHTML = data.partner;
-                document.querySelector('#volunteer').innerHTML = data.volunteer;
-                document.querySelector('#registration').innerHTML = data.registration;
-                document.querySelector('#food_assessment').innerHTML = data.food_assessment;
-                document.querySelector('#orders').innerHTML = data.orders;
-            });
+    document.addEventListener('DOMContentLoaded', async () => {
+        const details = await fetch('http://localhost:8000/total-entities')
+        const apply = await details.json();
+        Object.entries(apply).forEach(([key, value]) => {
+            assignValues(key,value);
+        });
     });
+
+    function assignValues(targetElement, data){
+        document.querySelector('#'+ targetElement).innerHTML = data;
+    }
+
 </script>

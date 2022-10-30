@@ -1,3 +1,5 @@
+import  generateElement  from './element-factory';
+
 document.addEventListener('DOMContentLoaded', ()=>{
 
     //for popping up modal and selecting meal order
@@ -32,70 +34,46 @@ document.addEventListener('DOMContentLoaded', ()=>{
                             }
 
                             data.forEach( p => {
+                                const card = generateElement('div', ['card']);
 
-                                const card = document.createElement('div');
-                                card.classList.add('card');
-
-                                const cardBody = document.createElement('div');
-                                cardBody.classList.add('card-body');
+                                const cardBody = generateElement('div', ['card-body']);
                                 card.append(cardBody);
 
-                                const header = document.createElement('h1');
-                                header.classList.add('fw-bold');
-                                header.innerHTML = p.role == "ROLE_VOLUNTEER" ? p.volunteer_details.volunteer_name : p.partner_details.partner_name;
+                                const header = generateElement('h1', ['fw-bold'], p.role == "ROLE_VOLUNTEER" ? p.volunteer_details.volunteer_name : p.partner_details.partner_name);
                                 cardBody.append(header);
 
                                 //distance
-                                const mainbody1 = document.createElement('div');
-                                mainbody1.classList.add('d-flex');
-                                cardBody.append(mainbody1);
+                                const distanceContainer = generateElement('div', ['div-flex']);
+                                cardBody.append(distanceContainer);
 
-                                const strong1 = document.createElement('span');
-                                strong1.classList.add('fw-bold');
-                                strong1.innerHTML = 'Distance: ';
-                                mainbody1.append(strong1);
+                                const distanceText = generateElement('span', ['fw-bold'], 'Distance: ');
+                                distanceContainer.append(distanceText);
 
-                                const span1 = document.createElement('span');
-                                span1.classList.add('ms-2');
-                                span1.innerHTML = p.distance + "km";
-                                mainbody1.append(span1);
+                                const distanceValue = generateElement('span', ['ms-2', 'text-muted'], p.distance + "km");
+                                distanceContainer.append(distanceValue);
 
-                                //volunteer name thingy if applicable
+                                //volunteer name if applicable
                                 if (p.role == "ROLE_VOLUNTEER"){
-                                    const mainbody2 = document.createElement('div');
-                                    mainbody2.classList.add('d-flex');
-                                    cardBody.append(mainbody2);
+                                    const volunteerContainer = generateElement('div', ['d-flex']);
+                                    cardBody.append(volunteerContainer);
 
-                                    const strong2 = document.createElement('span');
-                                    strong2.classList.add('fw-bold');
-                                    strong2.innerHTML = 'Volunteer Organization: ';
-                                    mainbody2.append(strong2);
+                                    const volunteerText = generateElement('span', ['fw-bold'], 'Volunteer Organization: ');
+                                    volunteerContainer.append(volunteerText);
 
-                                    const span2 = document.createElement('span');
-                                    span2.classList.add('ms-2');
-                                    span2.innerHTML = p.volunteer_details.organization_name;
-                                    mainbody2.append(span2);
+                                    const volunteerValue = generateElement('span', ['ms-2'], p.volunteer_details.organization_name);
+                                    volunteerContainer.append(volunteerValue);
                                 }
 
-                                const cardFooter = document.createElement('div');
-                                cardFooter.classList.add('card-footer');
-                                cardFooter.classList.add('bg-transparent');
-                                cardFooter.classList.add('border-0');
+                                const cardFooter = generateElement('div', ['card-footer', 'bg-transparent', 'border-0']);
                                 card.append(cardFooter);
 
-                                const button = document.createElement('button');
-                                button.classList.add('categ-link');
-                                button.classList.add('border');
-                                button.classList.add('border-0');
-                                button.classList.add('bg-transparent');
+                                const button = generateElement('button', ['categ-link', 'border', 'border-0', 'bg-transparent'], null, {'data-select-personel': p.user_id});
                                 button.style.height = 0;
                                 button.style.width = 0;
-                                button.setAttribute('data-select-personel', p.user_id);
                                 cardFooter.append(button);
 
                                 cards.append(card);
                             });
-
 
                             //for selecting a partner/volunteer for preparing order(admin)
                             document.querySelectorAll('[data-select-personel]').forEach(element => {
