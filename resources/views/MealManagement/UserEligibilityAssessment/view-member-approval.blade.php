@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <h4><strong>Needs:</strong></h4>
                                 <div class="mx-2">
-                                    <p> {{ ucwords($details->needs) }}</p>
+                                    <p> {{ ucfirst($details->needs) }}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <h4><strong>Allergies:</strong></h4>
                                 <div class="mx-2">
-                                    <p> {{ ucwords($details->allergies) }} </p>
+                                    <p> {{ ucfirst($details->allergies) }} </p>
                                 </div>
                             </div>
                         </div>

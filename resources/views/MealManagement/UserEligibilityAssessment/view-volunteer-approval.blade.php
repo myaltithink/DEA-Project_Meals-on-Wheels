@@ -15,7 +15,7 @@
                                 <p><strong>Name:</strong> {{ ucwords($details->volunteer_name) }}</p>
                             </div>
                             <div class="col-md-4">
-                                <p><strong>Gender:</strong> {{ ucwords($profile->gender) }} </p>
+                                <p><strong>Gender:</strong> {{ ucfirst($profile->gender) }} </p>
                             </div>
                             <div class="col-md-2">
                                 <p><strong>Age:</strong> {{ $profile->age }} </p>
@@ -33,7 +33,7 @@
                                 <p><strong>Email:</strong> {{ $volunteer->email }} </p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Role:</strong> {{ $details->volunteer_role }} </p>
+                                <p><strong>Role:</strong> {{ ucwords($details->volunteer_role) }} </p>
                             </div>
                         </div>
                     </div>

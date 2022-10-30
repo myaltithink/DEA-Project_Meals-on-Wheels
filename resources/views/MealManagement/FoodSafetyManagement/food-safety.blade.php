@@ -16,7 +16,13 @@
                 <div class="bg-white rounded shadow-sm pt-5 px-4 border border-dark">
                     <img src="{{ asset('storage/foods/'.$proposal->meal_image_path) }}" alt="Meal Image" width="100" class="img-fluid mb-3 img-thumbnail shadow-sm" loading="lazy">
                     <h5 class="">{{ ucwords($proposal->meal_name) }}</h5>
-                    <span>{{ ucwords($proposal->organization) }}</span><br/>
+
+                    @if ( $proposal->organization != null)
+                        <span>{{ ucwords($proposal->organization) }}</span><br/>
+                    @else
+                        <span>{{ ucwords($proposal->proposed_by) }}</span><br/>
+                    @endif
+
                     <a href="{{ route('meal-proposal-approval', $proposal) }}"><button class="btn btn-primary my-4" id="button">VIEW</button></a>
                 </div>
                 </div>
