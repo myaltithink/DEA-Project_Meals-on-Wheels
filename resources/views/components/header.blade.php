@@ -71,7 +71,7 @@
                                                 <a href="/food-safety-management" class="nav-item-link">Food Safety</a>
                                             </li>
                                             <li class="list-group-item list-group-item-action">
-                                                <a href="" class="nav-item-link">General Management</a>
+                                                <a href="/user-management" class="nav-item-link">General Management</a>
                                             </li>
                                         </ul>
                                     </div>

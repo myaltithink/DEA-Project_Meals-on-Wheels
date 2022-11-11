@@ -14,6 +14,7 @@ use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
+use App\Http\Controllers\UserManagement;
 
 /*
 |--------------------------------------------------------------------------
@@ -433,4 +434,15 @@ Route::group(
     }
 
 
+);
+
+//for user management
+Route::group(
+    [
+        ["middleware" => "auth"]
+    ],
+
+    function(){
+        Route::get('/user-management', [UserManagement::class, 'index']);
+    }
 );
