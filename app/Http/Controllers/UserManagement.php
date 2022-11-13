@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
 
 class UserManagement extends Controller
 {
@@ -14,9 +17,46 @@ class UserManagement extends Controller
      */
     public function index()
     {
-        return view ('UserManagement.usermanagement');
+        return view('UserManagement.usermanagement');
     }
 
+    /**
+     * Returns a json object of users based on query.
+     *
+     * @return Response
+     */
+    public function retrieveUserInformation(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'selected' => ['required'],
+        ]);
+
+        if ($validate->fails()) return response()->json([['status' => 'bad request']], 401);
+
+        if($request->selected == "Members"){
+            $user = User::whereHas('roles', function(Builder $query){
+                $query->where('role_name','ROLE_MEMBER');
+            })->with('member_details')->join('individual_profile', 'individual_profile.member_id', 'member_id')->get();
+            return response()->json($user);
+        }else if($request->selected == "Caregivers"){
+            $user = User::whereHas('roles', function(Builder $query){
+                $query->where('role_name','ROLE_CAREGIVER');
+            })->with('caregiver_details')->join('individual_profile', 'individual_profile.caregiver_id', 'caregiver_id')->get();
+            return response()->json($user);
+        }else if ($request->selected == "Volunteers"){
+            $user = User::whereHas('roles', function(Builder $query){
+                $query->where('role_name','ROLE_VOLUNTEER');
+            })->with('volunteer_details')->join('individual_profile', 'individual_profile.volunteer_id', 'volunteer_id')->get();
+            return response()->json($user);
+        }else if($request->selected == "Partner"){
+            $user = User::whereHas('roles', function(Builder $query){
+                $query->where('role_name','ROLE_PARTNER');
+            })->with('partner_details')->get();
+            return response()->json($user);
+        }else{
+            return response()->json([['status' => 'entity does not exist']], 404);
+        }
+    }
 
     /**
      * Store a newly created resource in storage.

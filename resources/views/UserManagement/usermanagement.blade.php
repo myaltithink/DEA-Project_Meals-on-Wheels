@@ -2,23 +2,26 @@
 @section('content')
 
 
-<div class="usermanagement" style=" margin: 40px; margin-left: 50px;">
+<div class="container" id = "table">
 
     <h1 style=" color: #0077b6; font-size: 75px;">MarryMeals</h1>
     <h3  style=" color: #03045e; font-size: 40px;">User Management</h3>
     <div class="alert alert-primary" role="alert">
         This page is aunthorized only for MaryMeals Admin!
-      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <div>
+            <select class="form-select px-4 py-2" id = "select-entity">
+                <option value="Members"><a href="#">Members</a></option>
+                <option value="Caregivers"><a href="#">Caregivers</a></option>
+                <option value="Volunteers"><a href="#">Volunteers</a></option>
+                <option value="Partner"><a href="#">Partner</a></option>
+            </select>
+        </div>
+    </div>
 
-        <select class="form-select" style="width: 200px; margin: 5px; margin-right: 80px; float: right;">
-            <option value="Users"><a href="#">Members</a></option>
-            <option value="Caregivers"><a href="#">Caregivers</a></option>
-            <option value="Volunteers"><a href="#">Volunteers</a></option>
-        </select>
-
-{{-- table for members, caregivers, volunteers user --}}
-
-      <table class="table">
+        {{-- table for members, caregivers, volunteers user --}}
+      <table class="table" id = "entity-table">
         <thead>
           <tr>
             <th scope="col">User ID</th>
@@ -90,7 +93,6 @@
               </tbody>
             </table>
       </div>
-
-
+      @vite(['resources/js/user-management.js'])
 
 @endsection
