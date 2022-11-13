@@ -444,5 +444,6 @@ Route::group(
 
     function(){
         Route::get('/user-management', [UserManagement::class, 'index']);
+        Route::get('/users', [UserManagement::class, 'retrieveUserInformation']);
     }
 );
