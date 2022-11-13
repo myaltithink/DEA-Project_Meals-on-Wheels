@@ -20,9 +20,9 @@
         </div>
     </div>
 
-        {{-- table for members, caregivers, volunteers user --}}
-      <table class="table" id = "entity-table">
-        <thead>
+    <table class="table" id = "entity-table">
+        {{-- commented out the sample table for reference: --}}
+        {{-- <thead>
           <tr>
             <th scope="col">User ID</th>
             <th scope="col">Full Name</th>
@@ -32,7 +32,6 @@
             <th scope="col">Contact</th>
             <th scope="col">Address</th>
             <th scope="col">Functions</th>
-
           </tr>
         </thead>
         <tbody id = 'user-data-display'>
@@ -44,15 +43,16 @@
             <td>12-23-12</td>
             <td>21314132422</td>
             <td>Philippines</td>
-            <td><button type="button" class="btn btn-primary" style="border-radius: 25px; width:120px;">Update</button>
+            <td>
+                <button type="button" class="btn btn-primary" style="border-radius: 25px; width:120px;">Update</button>
                 <button type="button" class="btn btn-secondary" style="border-radius: 25px; width:120px;">Delete</button>
             </td>
           </tr>
 
-        </tbody>
+        </tbody> --}}
       </table>
 </div>
-
+{{--
 <header>
     <h2 style="background-color: #1d3557;
     padding: 30px;
@@ -61,7 +61,7 @@
     color: white;"><i>Meals On Wheels</i><br><i>Meals On Wheels</i><br><i>Meals On Wheels</i></h2>
   </header>
 
-{{-- table for partner user --}}
+{{-- table for partner user
 
 <div class="partners" style=" margin: 30px; margin-left: 50px;">
 
@@ -92,7 +92,7 @@
 
               </tbody>
             </table>
-      </div>
+      </div> --}}
       @vite(['resources/js/user-management.js'])
 
 @endsection

@@ -36,22 +36,32 @@ class UserManagement extends Controller
         if($request->selected == "Members"){
             $user = User::whereHas('roles', function(Builder $query){
                 $query->where('role_name','ROLE_MEMBER');
-            })->with('member_details')->join('individual_profile', 'individual_profile.member_id', 'member_id')->get();
+            })->with(['member_details' => function($query){
+                $query->with('profile')->get();
+            }])->get();
+
             return response()->json($user);
         }else if($request->selected == "Caregivers"){
             $user = User::whereHas('roles', function(Builder $query){
                 $query->where('role_name','ROLE_CAREGIVER');
-            })->with('caregiver_details')->join('individual_profile', 'individual_profile.caregiver_id', 'caregiver_id')->get();
+            })->with(['caregiver_details' => function ($query){
+                $query->with('profile')->get();
+            }])->get();
+
             return response()->json($user);
         }else if ($request->selected == "Volunteers"){
             $user = User::whereHas('roles', function(Builder $query){
-                $query->where('role_name','ROLE_VOLUNTEER');
-            })->with('volunteer_details')->join('individual_profile', 'individual_profile.volunteer_id', 'volunteer_id')->get();
+                $query->where('role_name','=','ROLE_VOLUNTEER');
+            })->with(['volunteer_details' => function($query){
+                $query->with('profile')->get();
+            }])->get();
+
             return response()->json($user);
         }else if($request->selected == "Partner"){
             $user = User::whereHas('roles', function(Builder $query){
                 $query->where('role_name','ROLE_PARTNER');
             })->with('partner_details')->get();
+
             return response()->json($user);
         }else{
             return response()->json([['status' => 'entity does not exist']], 404);
