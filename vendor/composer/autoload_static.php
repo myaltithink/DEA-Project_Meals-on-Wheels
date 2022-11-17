@@ -481,8 +481,8 @@ class ComposerStaticInit3e0c0d33b842aea66476b24b0ca3647f
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-            1 => __DIR__ . '/..' . '/php-http/message/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'Http\\Factory\\Guzzle\\' => 
         array (
@@ -605,19 +605,14 @@ class ComposerStaticInit3e0c0d33b842aea66476b24b0ca3647f
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\AuthenticationController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthenticationController.php',
-        'App\\Http\\Controllers\\CaregiverConroller' => __DIR__ . '/../..' . '/app/Http/Controllers/CaregiverConroller.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DeliveryManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeliveryManagementController.php',
         'App\\Http\\Controllers\\FileUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileUploadController.php',
         'App\\Http\\Controllers\\MailController' => __DIR__ . '/../..' . '/app/Http/Controllers/MailController.php',
         'App\\Http\\Controllers\\MealProposalController' => __DIR__ . '/../..' . '/app/Http/Controllers/MealProposalController.php',
-        'App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/MemberController.php',
-        'App\\Http\\Controllers\\PartnerController' => __DIR__ . '/../..' . '/app/Http/Controllers/PartnerController.php',
         'App\\Http\\Controllers\\UserAssesmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserAssesmentController.php',
         'App\\Http\\Controllers\\UserManagement' => __DIR__ . '/../..' . '/app/Http/Controllers/UserManagement.php',
-        'App\\Http\\Controllers\\VolunteerController' => __DIR__ . '/../..' . '/app/Http/Controllers/VolunteerController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\AuthorizeAnyRole' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthorizeAnyRole.php',

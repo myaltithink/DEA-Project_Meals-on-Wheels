@@ -447,17 +447,7 @@ Route::group(
     function(){
         Route::get('/user-management', [UserManagement::class, 'index']);
         Route::get('/users', [UserManagement::class, 'retrieveUserInformation']);
-    }
-);
-
-//for update user information
-Route::group(
-    [
-        ["middleware" => "auth"]
-    ],
-
-    function(){
-        Route::get('/update_user_profile', [UpdateUser::class, 'index']);
+        Route::get('/update_user_profile/{User}', [UserManagement::class, 'show']);
     }
 );
 

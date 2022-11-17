@@ -4,7 +4,7 @@
     <p>Thank you {{Auth::user()->partner_details->partner_name}} for your support to MerryMeals by helping us with our service.</p>
 </div>
 <div class = "border border-1 px-5 py-3" style="min-height: 30rem;">
-    <span class="fw-bold">Orders to be prepared <a href = "{{route('a-prep-orders')}}" class = "ms-3 text-info fw-normal">View all orders</a></span>
+    <span class="fw-bold">Orders to be prepared <a href = "{{route('vp-prep-orders')}}" class = "ms-3 text-info fw-normal">View all orders</a></span>
     <div class = "my-4">
         <div class="accordion" id="orders">
             @foreach ($plans as $key => $plan)
