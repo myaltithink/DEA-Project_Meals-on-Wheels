@@ -4,12 +4,28 @@ import generateElement from './element-factory';
  * On load initializes the table
  */
 window.addEventListener('DOMContentLoaded', async () => {
+
+    const url = window.location
+    if (url.search.includes('view')){
+        const selectedUser = url.search.split('=')
+        localStorage.setItem('view', selectedUser[1]);
+        return window.location.href = '/user-management';
+    }
+
+    const view = localStorage.getItem('view');
     const entity = document.querySelector("#select-entity");
-    setTable(entity.value, await selectEntity(entity.value));
+    console.log(view)
+    if (view != null || view != undefined) {
+        entity.value = view
+        setTable(view, await selectEntity(view))
+        localStorage.removeItem('view');
+    }else {
+        setTable(entity.value, await selectEntity(entity.value));
+    }
+
     entity.addEventListener('change', async () => {
         setTable(entity.value, await selectEntity(entity.value));
     })
-
 });
 
 /**
