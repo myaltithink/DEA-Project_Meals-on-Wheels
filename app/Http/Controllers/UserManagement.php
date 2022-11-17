@@ -82,12 +82,21 @@ class UserManagement extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        if($user->hasPermission('ROLE_MEMBER')){
+
+        }else if($user->hasPermission('ROLE_CAREGIVER')){
+
+        }else if ($user->hasPermission('ROLE_VOLUNTEER')){
+
+        }else{
+
+        }
+        return view('UserManagement.update_user_profile');
     }
 
     /**
