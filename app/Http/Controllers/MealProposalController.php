@@ -120,21 +120,20 @@ class MealProposalController extends Controller
             Validator::make($request->all(),
                 [
                     'meal_name' => ['required','string','max:255'],
-                    'meal_image' =>['required','image','mimes:jpg,png,gif,jpeg,svg'],
+                    'meal_image' =>['image','mimes:jpg,png,gif,jpeg,svg'],
                     'ingredients' => ['required','string']
                 ]
             )->validate();
 
             //file upload
             $destination = 'public';
-            $file = Storage::disk($destination)->put('foods', $request->file('meal_image'));
-            #dd(basename($file));
+            $file = $request->meal_image != null ? Storage::disk($destination)->put('foods', $request->file('meal_image')) : null;
 
             //crud
             $mealPlan->update([
                 'meal_name' => $request['meal_name'],
                 'meal_ingredients' => $request['ingredients'],
-                'meal_image_path' => basename($file),
+                'meal_image_path' => $request->meal_image != null ? basename($file) : $mealPlan->meal_image_path,
                 'status' => 'Pending',
             ]);
 
@@ -145,7 +144,7 @@ class MealProposalController extends Controller
             Validator::make($request->all(),
                 [
                     'meal_name' => ['required','string','max:255'],
-                    'meal_image' =>['required','image','mimes:jpg,png,gif,jpeg,svg'],
+                    'meal_image' =>['image','mimes:jpg,png,gif,jpeg,svg'],
                     'ingredients' => ['required','string'],
                     'employee_name' => ['required','string','max:255'],
                 ]
@@ -153,12 +152,12 @@ class MealProposalController extends Controller
 
             //file upload
             $destination = 'public';
-            $file = Storage::disk($destination)->put('foods', $request->file('meal_image'));
+            $file = $request->meal_image != null ? Storage::disk($destination)->put('foods', $request->file('meal_image')) : null;
 
             $mealPlan->update([
                 'meal_name' => $request['meal_name'],
                 'meal_ingredients' => $request['ingredients'],
-                'meal_image_path' => basename($file),
+                'meal_image_path' => $request->meal_image != null ? basename($file) : $mealPlan->meal_image_path,
                 'proposed_by' => $request['employee_name'],
                 'status' => 'Pending',
             ]);
