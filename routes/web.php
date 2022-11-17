@@ -14,6 +14,7 @@ use App\Http\Controllers\MealProposalController;
 use App\Http\Controllers\UserAssesmentController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
+use App\Http\Controllers\UpdateUser;
 use App\Http\Controllers\UserManagement;
 
 /*
@@ -445,5 +446,16 @@ Route::group(
     function(){
         Route::get('/user-management', [UserManagement::class, 'index']);
         Route::get('/users', [UserManagement::class, 'retrieveUserInformation']);
+    }
+);
+
+//for update user management
+Route::group(
+    [
+        ["middleware" => "auth"]
+    ],
+
+    function(){
+        Route::get('/update_user_profile', [UpdateUser::class, 'index']);
     }
 );

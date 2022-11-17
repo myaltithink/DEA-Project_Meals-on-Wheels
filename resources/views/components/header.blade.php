@@ -73,6 +73,9 @@
                                             <li class="list-group-item list-group-item-action">
                                                 <a href="/user-management" class="nav-item-link">General Management</a>
                                             </li>
+                                            <li class="list-group-item list-group-item-action">
+                                                <a href="/update_user_profile" class="nav-item-link">UserUpdate</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
