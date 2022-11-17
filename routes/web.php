@@ -16,6 +16,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\UpdateUser;
 use App\Http\Controllers\UserManagement;
+use App\Http\Controllers\UpdatePartner;
 
 /*
 |--------------------------------------------------------------------------
@@ -449,3 +450,19 @@ Route::group(
         Route::get('/update_user_profile/{User}', [UserManagement::class, 'show']);
     }
 );
+
+
+//for update partner information
+Route::group(
+    [
+        ["middleware" => "auth"]
+    ],
+
+    function(){
+        Route::get('/update_partner_profile', [UpdatePartner::class, 'index']);
+
+    }
+);
+
+
+
