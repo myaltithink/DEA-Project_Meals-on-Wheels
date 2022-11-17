@@ -43,12 +43,12 @@ class AuthenticationController extends Controller
             }
         }
 
-        if (!$email_verified) {
+        if ($user->count() == 0) {
+            $email_error = 'email address is not registered';
+        } else if (!$email_verified) {
             $email_error = 'Sorry but it seems your email address has not been verified';
         } else if (!$authenticateable) {
             $email_error = 'Sorry but it seems your registration still hasn\'t been approved by the administrator';
-        } else if ($user->count() == 0) {
-            $email_error = 'email address is not registered';
         } else if (!Hash::check($credentials['password'], $user[0]['password'])) {
             $password_error = 'Wrong Password';
         }
@@ -85,7 +85,13 @@ class AuthenticationController extends Controller
         ]);
         $verification_entity->save();
 
-        if ($email != 'member@gmail.com' && $email != 'caregiver@gmail.com' && $email != 'partner@gmail.com' && $email != 'volunteer@gmail.com' && $email != 'rider@gmail.com') {
+        if (
+            $email != 'member@gmail.com' &&
+            $email != 'caregiver@gmail.com' &&
+            $email != 'partner@gmail.com' &&
+            $email != 'volunteer@gmail.com' &&
+            $email != 'rider@gmail.com'
+        ) {
             MailController::send_email(
                 $email,
                 $name,

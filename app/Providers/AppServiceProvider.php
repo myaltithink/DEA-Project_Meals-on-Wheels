@@ -83,7 +83,7 @@ class AppServiceProvider extends ServiceProvider
          *          <to render here>
          *        @EndExcludeRole
          */
-        Blade::directive('ExcludeRole', function($expression){
+        Blade::directive('ExcludeRole', function ($expression) {
             return
                 "
                 <?php
@@ -91,12 +91,12 @@ class AppServiceProvider extends ServiceProvider
                 ?>";
         });
 
-        Blade::directive('EndExcludeRole', function(){
+        Blade::directive('EndExcludeRole', function () {
             return "<?php } ?>";
         });
 
         //for checking timezone if the service is available
-        Blade::directive('IsAvailable', function($expression){
+        Blade::directive('IsAvailable', function ($expression) {
             return
                 "
                 <?php
@@ -106,11 +106,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
-        Blade::directive('ElseIsAvailable', function(){
+        Blade::directive('ElseIsAvailable', function () {
             return "<?php }else{ ?>";
         });
 
-        Blade::directive('EndIsAvailable', function(){
+        Blade::directive('EndIsAvailable', function () {
             return "<?php } ?>";
         });
     }
