@@ -22,7 +22,7 @@
                         <p>Merry Meals is a charitable organization so a support would be much appreciated</p>
                         <p>You may send us a message at our <a href="#">Contact Us</a> Page or send us a donation
                             through
-                            our <a href="#">Donation Page</a></p>
+                            our <a href="{{ url('/donation') }}">Donation Page</a></p>
                     </div>
                 </div>
             </div>

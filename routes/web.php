@@ -17,6 +17,7 @@ use App\Http\Controllers\DeliveryManagementController;
 use App\Http\Controllers\UpdateUser;
 use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\UpdatePartner;
+use App\Http\Controllers\DonationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -463,6 +464,12 @@ Route::group(
 
     }
 );
+
+//for general donation drive
+Route::get('/donation', [DonationController::class, 'donation']);
+Route::post('/charge', [DonationController::class, 'charge']);
+Route::get('/success', [DonationController::class, 'success']);
+Route::get('/error', [DonationController::class, 'error']);
 
 
 

@@ -1,0 +1,135 @@
+ul.about-content {
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+    min-height: 50vh;
+    text-align: center;
+}
+
+.about-area a.banner-btn {
+	padding: 15px 35px;
+	background: #ee1b5376;
+	text-transform: uppercase;
+    text-decoration: none;
+    width: 200px;
+	border-radius:20px;
+    color: rgb(255, 255, 255);
+	transition: .5s;
+}
+.about-area a.banner-btn:focus,
+.about-area a.banner-btn:hover,
+.about-area a.banner-btn:active,
+.about-area a.banner-btn:focus{
+  background: #e29446;
+  color:#fff;
+  width: 250px;
+  transition: .5s;
+}
+.about-content li {
+	padding: 20px;
+	height: 100px;
+	background-clip: content-box;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+    list-style-type: none;
+}
+.about-left {
+	flex-basis: 20%;
+	background-image: url(../images/declined.png); 
+    min-height: 80vh;
+    min-width: 80vh;
+    border-radius: 30px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.46);
+    margin-top: 10px;
+    margin-right: 10px;
+    border: none;
+}
+.about-right {
+	flex-basis: 40%;
+    margin-top: 160px;
+}
+.about-right h2 {
+	font-size: 35px;
+}
+.about-area p {
+	max-width: 800px;
+	margin-bottom: 35px;
+	line-height: 1.5;
+	text-align: left;
+	padding-left: 0;
+    text-decoration: none;
+}
+.section-title {
+	text-transform: uppercase;
+	font-size: 50px;
+	margin-bottom: 3%;
+}
+.section-title span {
+	color: #723dbe;
+}
+.about-right h2 {
+	margin-bottom: 3%;
+}
+@media (max-width:1000px) {
+	.about-area {
+		min-height: 50vh;
+	}
+	.about-area h1 {
+		font-size: 27px;
+	}
+	.about-area h3 {
+		font-size: 27px;
+	}
+    .about-right h2 {
+        font-size: 20px;
+    }
+    .about-right p {
+        font-size: 10px;
+    }
+	.about-left{
+		flex-basis:50%;
+        background-size: 50px;
+        min-width: 50vh;
+        min-height: 50vh;
+        
+	}
+    .about-right{
+        margin-top: 40px;
+    }
+}
+
+/* smallest */
+@media (max-width:700px) {
+	.about-area {
+		min-height: 90vh;
+	}
+	.about-area h1 {
+		font-size: 27px;
+	}
+	.about-area h3 {
+		font-size: 27px;
+	}
+    .about-right h2 {
+        font-size: 20px;
+    }
+    .about-right p {
+        font-size: 10px;
+    }
+	.about-left{
+		flex-basis:50%;
+        background-size: 50px;
+        min-width: 50vh;
+        min-height: 50vh;
+        
+	}
+    .about-right{
+        margin-top: 10px;
+        flex-basis: 100vh;
+    }
+}
