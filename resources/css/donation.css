@@ -1,0 +1,206 @@
+/*banner area*/
+
+section {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 110px 100px;
+	color: #000;
+    text-decoration: none;
+}
+@media (max-width:1000px) {
+	section {
+		padding: 100px 50px;
+	}
+}
+@media (max-width:600px) {
+	section {
+		padding: 125px 30px;
+	}
+}
+section p {
+	max-width: 800px;
+	text-align: center;
+	margin-bottom: 35px;
+	padding: 0 20px;
+	line-height: 2;
+}
+.banner-area {
+	position: relative;
+	justify-content: center;
+	min-height: 92vh;
+	color: #fff;
+	text-align: center;
+}
+.banner-area .banner-img {
+	background-image: url(../images/hands-of-elders.jpg);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-background-size: cover;
+	background-size: cover;
+	z-index: -1;
+	background-position: center center;
+}
+.banner-area .banner-img::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.385);
+	opacity: .7;
+}
+.banner-area h1 {
+	margin-bottom: 15px;
+	font-size: 65px;
+	text-transform: uppercase;
+}
+.banner-area h1 span {
+	color: #e29446ef;
+}
+.banner-area h3 {
+	font-size: 25px;
+	font-weight: 100;
+	text-transform: uppercase;
+}
+.banner-area a.banner-btn {
+	padding: 15px 35px;
+	background: #e2944631;
+	text-transform: uppercase;
+    text-decoration: none;
+    width: 200px;
+	border-radius:20px;
+    color: rgb(255, 255, 255);
+	transition: .5s;
+}
+.banner-area a.banner-btn:focus,
+.banner-area a.banner-btn:hover,
+.banner-area a.banner-btn:active,
+.banner-area a.banner-btn:focus{
+  background: #e29446;
+  color:#fff;
+  width: 250px;
+  transition: .5s;
+}
+@media (max-width:800px) {
+	.banner-area {
+		min-height: 600px;
+	}
+	.banner-area h1 {
+		font-size: 27px;
+	}
+	.banner-area h3 {
+		font-size: 20px;
+	}
+	.banner-area a.banner-btn {
+		padding: 8px 20px;
+	}
+}
+/*about area*/
+
+ul.about-content {
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+    min-height: 50vh;
+	text-align: center;
+}
+.about-content li {
+	padding: 20px;
+	height: 100px;
+	background-clip: content-box;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+    list-style-type: none;
+}
+.about-left {
+	flex-basis: 60%;
+	background-image: url(../images/smile-elders.jpg);
+    min-height: 40vh;
+    border-radius: 30px;
+    margin-top: 30px;
+}
+.about-right {
+	flex-basis: 40%;
+}
+.about-right h2 {
+	font-size: 35px;
+}
+.about-area p {
+	max-width: 800px;
+	margin-bottom: 35px;
+	line-height: 1.5;
+	text-align: left;
+	padding-left: 0;
+    text-decoration: none;
+}
+.section-title {
+	text-transform: uppercase;
+	font-size: 50px;
+	margin-bottom: 3%;
+}
+.section-title span {
+	color: rgb(68, 68, 246);
+}
+.about-right h2 {
+	margin-bottom: 3%;
+}
+
+@media (max-width:1200px) {
+	.about-area {
+		min-height: 600px;
+	}
+	.about-area h1 {
+		font-size: 27px;
+	}
+	.about-area h3 {
+		font-size: 27px;
+	}
+    .about-right h2 {
+        font-size: 20px;
+    }
+    .about-right p {
+        font-size: 10px;
+    }
+	.about-left{
+		flex-basis: 50%;
+	}
+}
+
+@media (max-width:800px) {
+	.about-area {
+		min-height: 800px;
+	}
+	.about-area h1 {
+		font-size: 27px;
+	}
+	.about-area h3 {
+		font-size: 27px;
+	}
+    .about-right h2 {
+        font-size: 20px;
+    }
+    .about-right p {
+        font-size: 10px;
+    }
+	.about-left{
+		flex-basis: 100%;
+	}
+	.about-right{
+		flex-basis: 100%;
+	}
+}

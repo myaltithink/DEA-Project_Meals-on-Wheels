@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4533bdddc53a8f71692bf2b4475e97bb7f45e9ed',
+        'reference' => 'a8a34e6621fbf99695fb7671f306bf1fd31c6f76',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -394,7 +394,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4533bdddc53a8f71692bf2b4475e97bb7f45e9ed',
+            'reference' => 'a8a34e6621fbf99695fb7671f306bf1fd31c6f76',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -490,6 +490,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'league/omnipay' => array(
+            'pretty_version' => 'v3.2.1',
+            'version' => '3.2.1.0',
+            'reference' => '38f66a0cc043ed51d6edf7956d6439a2f263501f',
+            'type' => 'metapackage',
+            'install_path' => NULL,
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'mockery/mockery' => array(
             'pretty_version' => '1.5.1',
             'version' => '1.5.1.0',
@@ -498,6 +507,15 @@
             'install_path' => __DIR__ . '/../mockery/mockery',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'moneyphp/money' => array(
+            'pretty_version' => 'v4.0.5',
+            'version' => '4.0.5.0',
+            'reference' => 'cee58435ff82a5de252c516e6a31beb674898985',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../moneyphp/money',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'monolog/monolog' => array(
             'pretty_version' => '2.8.0',
@@ -586,6 +604,24 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'omnipay/common' => array(
+            'pretty_version' => 'v3.2.0',
+            'version' => '3.2.0.0',
+            'reference' => 'e278ff00676c05cd0f4aaaf6189a226f26ae056e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../omnipay/common',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'omnipay/paypal' => array(
+            'pretty_version' => 'v3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => '519db61b32ff0c1e56cbec94762b970ee9674f65',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../omnipay/paypal',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.3',
             'version' => '2.0.3.0',
@@ -607,7 +643,8 @@
         'php-http/async-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '*',
+                0 => '1.0',
+                1 => '*',
             ),
         ),
         'php-http/client-common' => array(
@@ -622,7 +659,8 @@
         'php-http/client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '*',
+                0 => '1.0',
+                1 => '*',
             ),
         ),
         'php-http/discovery' => array(
@@ -631,6 +669,15 @@
             'reference' => '31d8ee46d0215108df16a8527c7438e96a4d7735',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/guzzle7-adapter' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => 'fb075a71dbfa4847cf0c2938c4e5a9c478ef8b01',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/guzzle7-adapter',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

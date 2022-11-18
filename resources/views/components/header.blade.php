@@ -17,7 +17,7 @@
             <li>
                 <a href="{{ route('about_us') }}" class="nav-item-link">About Us</a>
             </li>
-            <li><a href="" class="nav-item-link">Donation</a></li>
+            <li><a href="{{ url('/donation') }}" class="nav-item-link">Donation</a></li>
             <li><a href="/login" class="nav-item-link">Login</a></li>
             <li><a href="/register-member" class="nav-item-link">Register</a></li>
         @endguest
@@ -41,7 +41,7 @@
                                             <a href="/contact-us" class="d-block nav-item-link">Contact Us</a>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
-                                            <a href="" class="d-block nav-item-link">Donation</a>
+                                            <a href="{{ url('/donation') }}" class="d-block nav-item-link">Donation</a>
                                         </li>
                                     </ul>
                                 </div>
