@@ -61,17 +61,56 @@
                     This page is aunthorized only for MaryMeals Admin!
                 </div>
 
-                <div class="row mt-2" >
-                    <div class="col-md-6" ><label class="labels">First Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" value="" placeholder="last name"></div>
-                    <div class="col-md-6"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter your email address" value=""></div>
-                    <div class="col-md-6"><label class="labels">Gender</label><input type="text" class="form-control" placeholder="enter your gender" value=""></div>
-                    <div class="col-md-6"><label class="labels">Birthday</label><input type="text" class="form-control" placeholder="enter your birthday" value=""></div>
-                    <div class="col-md-6"><label class="labels">Contact</label><input type="text" class="form-control" placeholder="enter your contact" value=""></div>
-                    <div class="col-md-6"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter your address" value=""></div>
+                <form class="row mt-2" method="POST", action="{{route('update-profile', $fields['user_id'])}}">
+                    @csrf
+                    @method('PATCH')
+                    <div class="col-md-6" >
+                        <label class="labels">First Name</label>
+                        <input type="text" class="form-control" name="first_name" value="{{
+                            old('first_name', $fields['first_name'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Last Name</label>
+                        <input type="text" class="form-control" value="{{
+                            old('last_name', $fields['last_name'])
+                        }}" name="last_name">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Email</label>
+                        <input type="text" class="form-control" name="email" value="{{
+                            old('email', $fields['email'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Gender</label>
+                        <input type="text" class="form-control" name="gender" value="{{
+                            old('email', $fields['gender'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Birthday</label>
+                        <input type="date" class="form-control" name="birthday" value="{{
+                            old('birthday', $fields['birthday'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Contact</label>
+                        <input type="text" class="form-control" name="contact" value="{{
+                            old('contact', $fields['contact'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Address</label>
+                        <input type="text" class="form-control" name="address" value="{{
+                            old('address', $fields['address'])
+                        }}">
+                    </div>
 
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Update Profile</button></div>
-            </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button">Update Profile</button>
+                    </div>
+                </form>
         </div>
 
     </div>

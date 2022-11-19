@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class UserManagement extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','anyrole:ROLE_ADMIN']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,17 +73,6 @@ class UserManagement extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  User $user
@@ -87,28 +80,50 @@ class UserManagement extends Controller
      */
     public function show(User $user)
     {
+
+        $fields = [
+            'user_id' => $user->user_id, //this is required, an initial value inside the field to determine the user
+        ]; //this is a dynamic field, we manually set the fields for uniform values
+
         if($user->hasPermission('ROLE_MEMBER')){
+            $fields['first_name'] = $user->member_details->profile->first_name;
+            $fields['last_name'] = $user->member_details->profile->last_name;
+            $fields['email'] = $user->email;
+            $fields['birthday'] = $user->member_details->profile->birthday;
+            $fields['address'] = $user->member_details->profile->address;
+            $fields['gender'] = $user->member_details->profile->gender;
+            $fields['contact'] = $user->member_details->profile->contact_number;
 
         }else if($user->hasPermission('ROLE_CAREGIVER')){
+            $fields['first_name'] = $user->caregiver_details->profile->first_name;
+            $fields['last_name'] = $user->caregiver_details->profile->last_name;
+            $fields['email'] = $user->email;
+            $fields['birthday'] = $user->caregiver_details->profile->birthday;
+            $fields['address'] = $user->caregiver_details->profile->address;
+            $fields['gender'] = $user->caregiver_details->profile->gender;
+            $fields['contact'] = $user->caregiver_details->profile->contact_number;
 
         }else if ($user->hasPermission('ROLE_VOLUNTEER')){
+            $fields['first_name'] = $user->volunteer_details->profile->first_name;
+            $fields['last_name'] = $user->volunteer_details->profile->last_name;
+            $fields['email'] = $user->email;
+            $fields['birthday'] = $user->volunteer_details->profile->birthday;
+            $fields['address'] = $user->volunteer_details->profile->address;
+            $fields['gender'] = $user->volunteer_details->profile->gender;
+            $fields['contact'] = $user->volunteer_details->profile->contact_number;
 
+        }else if ($user->hasPermission('ROLE_PARTNER')){
+            $fields['partner_name'] = $user->partner_details->partner_name;
+            $fields['partner_address'] = $user->partner_details->partner_address;
+            $fields['registered_by'] = $user->partner_details->partner_registered_by;
+            return view('UserManagement.update_partner_profile')->with('fields', $fields);
         }else{
-
+            return abort(403);
         }
-        return view('UserManagement.update_user_profile');
+
+        return view('UserManagement.update_user_profile')->with('fields', $fields);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -117,9 +132,79 @@ class UserManagement extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $target = null;
+
+        if ($user->hasPermission('ROLE_PARTNER')){
+            Validator::make($request->all(), [
+                'partner_name' => ['required','string'],
+                'registered_by' => ['required','string'],
+                'partner_address' => ['required','string'],
+            ])->validate();
+            $user->partner_details->update([
+                'partner_name' => $request->partner_name,
+                'partner_registered_by' => $request->registered_by,
+                'partner_address' => $request->partner_address,
+            ]);
+
+            $user->save();
+            $target = 'Partner';
+        }else{
+            Validator::make($request->all(), [
+                'first_name' => ['required','string'],
+                'last_name' => ['required','string'],
+                'email' => ['required','string','email'],
+                'birthday' => ['required'],
+                'address' => ['required','string'],
+                'gender' => ['required','string'],
+                'contact' => ['required','string'],
+            ])->validate();
+
+            //update proccess
+            $user->update([
+                'email' => $request["email"],
+            ]);
+
+            $user->save();
+
+            //retrieve the profile part
+            if($user->hasPermission('ROLE_MEMBER')){
+                $profile = $user->member_details->profile;
+                $profile->update([
+                    'first_name' => $request["first_name"],
+                    'last_name' => $request["last_name"],
+                    'email' => $request["email"],
+                    'birthday' => $request["birthday"],
+                    'contact_number' => $request["contact"],
+                ]);
+                $profile->save();
+                $target = 'Members';
+            }else if($user->hasPermission('ROLE_CAREGIVER')){
+                $profile = $user->caregiver_details->profile;
+                $profile->update([
+                    'first_name' => $request["first_name"],
+                    'last_name' => $request["last_name"],
+                    'email' => $request["email"],
+                    'birthday' => $request["birthday"],
+                    'contact_number' => $request["contact"],
+                ]);
+                $profile->save();
+                $target = 'Caregivers';
+            }else if($user->hasPermission('ROLE_VOLUNTEER')){
+                $profile = $user->volunteer_details->profile;
+                $profile->update([
+                    'first_name' => $request["first_name"],
+                    'last_name' => $request["last_name"],
+                    'email' => $request["email"],
+                    'birthday' => $request["birthday"],
+                    'contact_number' => $request["contact"],
+                ]);
+                $profile->save();
+                $target = 'Volunteers';
+            }
+        }
+        return redirect('/user-management?view='.$target);
     }
 
     /**
@@ -128,8 +213,20 @@ class UserManagement extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->hasPermission('ROLE_MEMBER')){
+            $user->delete();
+            return redirect("/user-management?view=Members");
+        }else if($user->hasPermission('ROLE_CAREGIVER')){
+            $user->delete();
+            return redirect("/user-management?view=Caregivers");
+        }else if ($user->hasPermission('ROLE_VOLUNTEER')){
+            $user->delete();
+            return redirect("/user-management?view=Volunteers");
+        }else{
+            $user->delete();
+            return redirect("/user-management?view=Partner");
+        }
     }
 }

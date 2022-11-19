@@ -1,16 +1,17 @@
 <?php
-   
+
 namespace App\Http\Controllers;
-   
+
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Models\Donation;
-   
+use Exception;
+
 class DonationController extends Controller
 {
-   
+
     private $gateway;
-   
+
     public function __construct()
     {
         $this->gateway = Omnipay::create('PayPal_Rest');
@@ -18,7 +19,7 @@ class DonationController extends Controller
         $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
         $this->gateway->setTestMode(true); //set it to 'false' when go live
     }
-   
+
     /**
      * Call a view.
      */
@@ -26,7 +27,7 @@ class DonationController extends Controller
     {
         return view('DonationDrive.Donation');
     }
-   
+
     /**
      * Initiate a payment on PayPal.
      *
@@ -43,7 +44,7 @@ class DonationController extends Controller
                     'returnUrl' => url('success'),
                     'cancelUrl' => url('error'),
                 ))->send();
-            
+
                 if ($response->isRedirect()) {
                     $response->redirect(); // this will automatically forward the customer
                 } else {
@@ -55,7 +56,7 @@ class DonationController extends Controller
             }
         }
     }
-   
+
     /**
      * Charge a payment and store the transaction.
      *
@@ -71,12 +72,12 @@ class DonationController extends Controller
                 'transactionReference' => $request->input('paymentId'),
             ));
             $response = $transaction->send();
-           
+
             if ($response->isSuccessful())
             {
                 // The customer has successfully paid.
                 $arr_body = $response->getData();
-           
+
                 // Insert transaction data into the database
                 $payment = new Donation;
                 $payment->donation_id = $arr_body['id'];
@@ -86,7 +87,7 @@ class DonationController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->donation_status = $arr_body['state'];
                 $payment->save();
-           
+
                 return view('DonationDrive.Success');
                 return "Donation is successful. Your transaction id is: ". $arr_body['id'];
             } else {
@@ -96,7 +97,7 @@ class DonationController extends Controller
             return view('DonationDrive.Declined');
         }
     }
-   
+
     /**
      * Error Handling.
      */

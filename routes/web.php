@@ -448,20 +448,9 @@ Route::group(
     function(){
         Route::get('/user-management', [UserManagement::class, 'index']);
         Route::get('/users', [UserManagement::class, 'retrieveUserInformation']);
-        Route::get('/update_user_profile/{User}', [UserManagement::class, 'show']);
-    }
-);
-
-
-//for update partner information
-Route::group(
-    [
-        ["middleware" => "auth"]
-    ],
-
-    function(){
-        Route::get('/update_partner_profile', [UpdatePartner::class, 'index']);
-
+        Route::get('/update_user_profile/{user}', [UserManagement::class, 'show']);
+        Route::patch('/update_user_profile/{user}', [UserManagement::class, 'update'])->name('update-profile');
+        Route::get('/delete-user/{user}', [UserManagement::class, 'destroy']);
     }
 );
 

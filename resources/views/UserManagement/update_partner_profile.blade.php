@@ -61,13 +61,32 @@
                     This page is aunthorized only for MaryMeals Admin!
                 </div>
 
-                <div class="row mt-2" >
-                    <div class="col-md-6" ><label class="labels">Partner Name</label><input type="text" class="form-control" placeholder="enter partners name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Registered by</label><input type="text" class="form-control" value="" placeholder="registered by "></div>
-                    <div class="col-md-6"><label class="labels">Partner Address</label><input type="text" class="form-control" placeholder="enter partner address" value=""></div>
+                <form class="row mt-2"method="POST", action="{{route('update-profile', $fields['user_id'])}}">
+                    @csrf
+                    @method('PATCH')
+                    <div class="col-md-6" >
+                        <label class="labels">Partner Name</label>
+                        <input type="text" class="form-control" name="partner_name" value="{{
+                            old('partner_name',$fields['partner_name'])
+                        }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Registered by</label>
+                        <input type="text" class="form-control" value="{{
+                            old('registered_by',$fields['registered_by'])
+                        }}" name="registered_by">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Partner Address</label>
+                        <input type="text" class="form-control" name="partner_address" value="{{
+                            old('partner_address',$fields['partner_address'])
+                        }}">
+                    </div>
 
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Update Profile</button></div>
-            </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button">Update Profile</button>
+                    </div>
+                </form>
         </div>
 
     </div>
