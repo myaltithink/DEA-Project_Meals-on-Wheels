@@ -448,7 +448,8 @@ Route::group(
     function(){
         Route::get('/user-management', [UserManagement::class, 'index']);
         Route::get('/users', [UserManagement::class, 'retrieveUserInformation']);
-        Route::get('/update_user_profile/{User}', [UserManagement::class, 'show']);
+        Route::get('/update_user_profile/{user}', [UserManagement::class, 'show']);
+        Route::get('/delete-user/{user}', [UserManagement::class, 'destroy']);
     }
 );
 

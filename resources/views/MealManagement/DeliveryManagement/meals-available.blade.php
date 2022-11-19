@@ -14,6 +14,7 @@
                         <span class="text-center text-uppercase h3 d-block">{{ $plan->meal_name }}</span>
                     </div>
                     <div class="card-footer bg-transparent border border-0 p-2">
+
                         @HasAnyRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
                             @IsAvailable(strtotime(date('h:i A', time())))
                                 <button class="btn btn-primary w-100 meal-select-prompt" data-bs-toggle="modal"
@@ -37,6 +38,18 @@
                                     Service unavailable
                                 </button>
                             @EndIsAvailable
+                            {{--
+                                <button class="btn btn-primary w-100 meal-select-prompt" data-bs-toggle="modal"
+                            data-bs-target="#meal-select-confirmation" data-meal-value="{{ $plan->meal_plan_id }}"
+                                @if ($hasOrdered == true) disabled @endif>
+                                @if ($hasOrdered != null)
+                                    @if ($hasOrdered == true)
+                                        Ordered
+                                    @endif
+                                @else
+                                    Order
+                                @endif
+                            </button> --}}
                             @EndHasAnyRoles
                             @ExcludeRole(['ROLE_MEMBER', 'ROLE_CAREGIVER'])
                                 <button class="btn btn-outline-success w-100" @disabled(true)>

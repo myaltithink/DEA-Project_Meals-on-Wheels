@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (url.search.includes('view')){
         const selectedUser = url.search.split('=')
         localStorage.setItem('view', selectedUser[1]);
-        return window.location.href = '/user-management';
+        //return window.location.href = '/user-management';
     }
 
     const view = localStorage.getItem('view');
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
  * @returns collection of entities from the database thru fetch
  */
 async function selectEntity(entity){
-    const attempt = await fetch('http://localhost:8000/users?selected='+ entity);
+    const attempt = await fetch('http://localhost:8000/users?selected=' + entity);
     return await attempt.json();
 }
 
@@ -93,7 +93,12 @@ function setTable(entity, data){
                 //function
                 const actions = generateElement('td', null);
                 const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
-                const deleteButton = generateElement('button', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete');
+                const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
+                    {
+                        'data-user-delete' : e.user_id,
+                        'href' : '/delete-user/' + e.user_id,
+                    }
+                );
                 actions.append(updateButton);
                 actions.append(deleteButton);
                 tablerow.append(actions);
@@ -104,7 +109,7 @@ function setTable(entity, data){
             //generate headers
             const headers = ['User Id', 'Full Name', 'Email', 'Gender', 'Birthday', 'Contact', 'Address', 'Functions'];
             for (const head of headers){
-                const tableheaders =generateElement('th', null, head);
+                const tableheaders = generateElement('th', null, head);
                 tableheadrow.append(tableheaders);
             }
 
@@ -119,7 +124,7 @@ function setTable(entity, data){
                         tablerow.append(userId);
 
                         //fullname record
-                        const fullName = generateElement('td', null, (e.member_details.profile.first_name + e.member_details.profile.last_name ));
+                        const fullName = generateElement('td', null, (e.member_details.profile.first_name + " " + e.member_details.profile.last_name ));
                         tablerow.append(fullName);
 
                         //email record
@@ -145,7 +150,12 @@ function setTable(entity, data){
                         //functions
                         const actions = generateElement('td', null);
                         const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
-                        const deleteButton = generateElement('button', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete');
+                        const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
+                            {
+                                'data-user-delete' : e.user_id,
+                                'href' : '/delete-user/' + e.user_id,
+                            }
+                        );
                         actions.append(updateButton);
                         actions.append(deleteButton);
                         tablerow.append(actions);
@@ -161,7 +171,7 @@ function setTable(entity, data){
                         tablerow.append(userId);
 
                         //fullname record
-                        const fullName = generateElement('td', null, (e.caregiver_details.profile.first_name + e.caregiver_details.profile.last_name ));
+                        const fullName = generateElement('td', null, (e.caregiver_details.profile.first_name + " " + e.caregiver_details.profile.last_name ));
                         tablerow.append(fullName);
 
                         //email record
@@ -187,7 +197,12 @@ function setTable(entity, data){
                         //functions
                         const actions = generateElement('td', null);
                         const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
-                        const deleteButton = generateElement('button', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete');
+                        const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
+                            {
+                                'data-user-delete' : e.user_id,
+                                'href' : '/delete-user/' + e.user_id,
+                            }
+                        );
                         actions.append(updateButton);
                         actions.append(deleteButton);
                         tablerow.append(actions);
@@ -203,7 +218,7 @@ function setTable(entity, data){
                         tablerow.append(userId);
 
                         //fullname record
-                        const fullName = generateElement('td', null, (e.volunteer_details.profile.first_name + e.volunteer_details.profile.last_name ));
+                        const fullName = generateElement('td', null, (e.volunteer_details.profile.first_name + " " + e.volunteer_details.profile.last_name ));
                         tablerow.append(fullName);
 
                         //email record
@@ -229,7 +244,12 @@ function setTable(entity, data){
                         //functions
                         const actions = generateElement('td', null);
                         const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
-                        const deleteButton = generateElement('button', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete');
+                        const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
+                            {
+                                'data-user-delete' : e.user_id,
+                                'href' : '/delete-user/' + e.user_id,
+                            }
+                        );
                         actions.append(updateButton);
                         actions.append(deleteButton);
                         tablerow.append(actions);

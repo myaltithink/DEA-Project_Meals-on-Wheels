@@ -87,6 +87,7 @@ class UserManagement extends Controller
      */
     public function show(User $user)
     {
+
         if($user->hasPermission('ROLE_MEMBER')){
 
         }else if($user->hasPermission('ROLE_CAREGIVER')){
@@ -128,8 +129,20 @@ class UserManagement extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->hasPermission('ROLE_MEMBER')){
+            $user->delete();
+            return redirect("/user-management?view=Members");
+        }else if($user->hasPermission('ROLE_CAREGIVER')){
+            $user->delete();
+            return redirect("/user-management?view=Caregivers");
+        }else if ($user->hasPermission('ROLE_VOLUNTEER')){
+            $user->delete();
+            return redirect("/user-management?view=Volunteers");
+        }else{
+            $user->delete();
+            return redirect("/user-management?view=Partner");
+        }
     }
 }

@@ -24,6 +24,7 @@ class DeliveryManagementController extends Controller
         $plans = MealPlan::where('status','Approved')->get();
         $hasOrdered = $request->user()->hasAnyRole(['ROLE_CAREGIVER', 'ROLE_MEMBER']) ? MealOrder::where('ordered_by_id', $request->user()->user_id)
             ->whereDate('meal_order_ordered_at', date('Y-m-d'))->first() != null : null;
+            //some comment
         return view('MealManagement.DeliveryManagement.meals-available')->with('plans', $plans)->with('hasOrdered', $hasOrdered);
     }
 
