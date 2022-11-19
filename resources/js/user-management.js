@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (url.search.includes('view')){
         const selectedUser = url.search.split('=')
         localStorage.setItem('view', selectedUser[1]);
-        //return window.location.href = '/user-management';
+        return window.location.href = '/user-management';
     }
 
     const view = localStorage.getItem('view');
@@ -92,7 +92,9 @@ function setTable(entity, data){
 
                 //function
                 const actions = generateElement('td', null);
-                const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
+                const updateButton = generateElement('a', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update', {
+                    'href' : '/update_user_profile/' + e.user_id,
+                });
                 const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
                     {
                         'data-user-delete' : e.user_id,
@@ -149,7 +151,9 @@ function setTable(entity, data){
 
                         //functions
                         const actions = generateElement('td', null);
-                        const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
+                        const updateButton = generateElement('a', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update', {
+                            'href' : '/update_user_profile/' + e.user_id,
+                        });
                         const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
                             {
                                 'data-user-delete' : e.user_id,
@@ -196,7 +200,9 @@ function setTable(entity, data){
 
                         //functions
                         const actions = generateElement('td', null);
-                        const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
+                        const updateButton = generateElement('a', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update', {
+                            'href' : '/update_user_profile/' + e.user_id,
+                        });
                         const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
                             {
                                 'data-user-delete' : e.user_id,
@@ -243,7 +249,9 @@ function setTable(entity, data){
 
                         //functions
                         const actions = generateElement('td', null);
-                        const updateButton = generateElement('button', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update');
+                        const updateButton = generateElement('a', ['btn','btn-primary' ,'border','rounded-pill','px-4', 'mx-1'], 'Update', {
+                            'href' : '/update_user_profile/' + e.user_id,
+                        });
                         const deleteButton = generateElement('a', ['btn','btn-secondary' ,'border','rounded-pill','px-4', 'mx-1'], 'Delete',
                             {
                                 'data-user-delete' : e.user_id,
