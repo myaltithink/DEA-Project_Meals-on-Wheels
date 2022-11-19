@@ -11,7 +11,7 @@
                         <div class="mt-2">
                             <span>Role: {{ $user->volunteer_details->volunteer_role }}</span><br>
                         </div>
-                        <a href="{{ route('view-volunteer', $user->email) }}"><button class="btn btn-primary my-4" id="button">VIEW</button></a>
+                        <a href="{{ route('view-volunteer', $user->email) }}"><button class="btn btn-primary w-100 mb-2 mt-3" id="button">VIEW</button></a>
                     </div>
                 </div>
 

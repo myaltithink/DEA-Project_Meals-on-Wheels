@@ -105,7 +105,7 @@
           <form method="POST" action ="{{ route('approve-member') }}">
             @csrf
               <input type="hidden" name="user-id" value="{{ $user_id }}"/>
-              <button type="submit" class="btn btn-primary mx-2">YES</button>
+              <button type="submit" class="btn btn-primary mx-2 w-100">YES</button>
           </form>
         </div>
       </div>
@@ -129,9 +129,9 @@
           </div>
 
           <div class="d-flex justify-content-center mb-4">
-            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">CLOSE</button>
+            <button type="button" class="btn btn-secondary mx-2 w-25" data-bs-dismiss="modal">CLOSE</button>
             <input type="hidden" name="user-id" value="{{ $user_id }}"/>
-            <button type="submit" class="btn btn-primary mx-2">YES</button>
+            <button type="submit" class="btn btn-primary mx-2 w-25">YES</button>
           </div>
 
         </form>

@@ -8,7 +8,7 @@
                     <div class="bg-white rounded shadow-sm pt-4 px-2 border border-dark">
                         <h3 class=""> {{ ucwords($user->caregiver_details->profile->first_name) }} {{ ucwords($user->caregiver_details->profile->last_name) }} </h3>
                         <span> {{ $user->email }} </span><br>
-                        <a href="{{ route('view-caregiver', $user->email) }}"><button class="btn btn-primary my-4" id="button">VIEW</button></a>
+                        <a href="{{ route('view-caregiver', $user->email) }}"><button class="btn btn-primary w-100 mb-2 mt-3" id="button">VIEW</button></a><br>
                     </div>
                 </div>
 
