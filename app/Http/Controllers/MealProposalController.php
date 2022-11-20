@@ -185,6 +185,7 @@ class MealProposalController extends Controller
     }
 
     //viewing of a specific meal proposal to approve or reject
+    //sample comment
     public function showProposal($mealPlan){
         Log::info(print_r($mealPlan, true));
         $meal = MealPlan::find($mealPlan);

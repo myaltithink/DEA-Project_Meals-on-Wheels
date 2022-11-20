@@ -23,7 +23,7 @@
                         <span>{{ ucwords($proposal->proposed_by) }}</span><br/>
                     @endif
 
-                    <a href="{{ route('meal-proposal-approval', $proposal) }}"><button class="btn btn-primary my-4" id="button">VIEW</button></a>
+                    <a href="{{ route('meal-proposal-approval', $proposal) }}"><button class="btn btn-primary w-100 my-4" id="button">VIEW</button></a>
                 </div>
                 </div>
                 <!-- End-->
